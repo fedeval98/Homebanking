@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Homebanking | Clients</title>
+</head>
+<body>
+  <div id="app" class="flex flex-col items-center justify-center w-full">
+    <header class="grow w-full pt-2">
+      <nav>
+        <ul class="flex gap-10 justify-around items-center pt-2">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a class="border-b-black border-b bg-blue-200 p-2 font-bold rounded-xl" href="#">Clients</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="lg:flex w-full">
+      <main class="grow mt-10 mb-10 lg:w-2/3">
+        <div class="flex flex-col">
+          <h1 class="text-3xl font-bold mb-2 self-center">Client Manager</h1>
+          <form @submit="addClient" class="flex flex-col gap-4 mx-2">
+            <label class="flex flex-col font-bold" for="name">Client name
+              <input v-model="firstName" id="name" type="text" placeholder="Federico" class="border border-black p-1" required>
+            </label>
+            <label class="flex flex-col font-bold" for="last_name"> Client last name
+              <input v-model="lastName" id="last_name" type="text" placeholder="Val" class="border border-black p-1" required>
+            </label>
+            <label class="flex flex-col font-bold" for="email"> Client email
+              <input v-model="email" id="email" type="email" placeholder="federicoval@gmail.com" class="border border-black p-1" required>
+            </label>
+            <button class="border border-black bg-blue-600 text-white rounded-full w-[50%] md:w-[100px] font-bold self-center md:place-self-start"
+              type="submit">Add client</button>
+          </form>
+        </div>
+        <div id="client_list" class="mt-4 flex flex-col w-[99%]">
+          <h2 class="text-3xl font-bold mb-2 self-center">Client list</h2>
+          <div id="table-container" class="w-[99%] m-auto md:w-full lg:w-full">
+            <table class="border border-black p-2 text-left">
+              <thead>
+                <tr class="border-b border-b-black">
+                  <td class="px-2 font-bold">First Name</td>
+                  <td class="px-2 font-bold">Last Name</td>
+                  <td class="px-2 font-bold">Email</td>
+                </tr>
+              </thead>
+              <tbody>
+                <template v-if="clients.length > 0" v-for="(client, index) in clients">
+                  <tr :class="index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-300'">
+                    <td class="px-2">{{client.firstName}}</td>
+                    <td class="px-2">{{client.lastName}}</td>
+                    <td class="px-2">{{client.email}}</td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+      <aside v-if="clients.length != 0" class="w-[300px] max-h-full md:w-full lg:w-1/3 md:flex md:flex-col lg:mt-10 lg:ml-1 lg:border-l">
+        <h2 class="text-3xl font-bold mb-2 self-center"> Client REST response</h2>
+        <pre class="block overflow-x-auto overflow-y-full">{{rawData}}</pre>
+      </aside>
+    </div>
+    <footer class="grow">
+      <div id="layout" class="flex justify-around items-center w-full gap-10">
+        <h2>Cohort 52</h2>
+        <h2>Val Federico</h2>
+      </div>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../js/tailwind.config.js"></script>
+  <script src="../js/manager.js"></script>
+</body>
+
+</html>
+
