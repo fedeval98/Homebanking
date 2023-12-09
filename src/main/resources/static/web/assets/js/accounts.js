@@ -36,7 +36,7 @@ const options = {
       }
     },
     checkScreenSize(){
-    this.isWideScreen = window.innerWidth >=768
+    this.isWideScreen = window.innerWidth >=1024
     }
   }, //fin methods
   mounted(){
