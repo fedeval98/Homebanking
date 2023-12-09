@@ -11,7 +11,7 @@
 
 <body>
   <div id="app" class="h-[100vh] flex flex-col">
-    <header class="h-36 bg-darkblue lg:flex lg:justify-center lg:items-center lg:flex-col">
+    <header class="h-36 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
       <div class="h-full w-full p-2 flex justify-evenly items-center gap-2">
         <picture class="w-16 h-full object-cover flex items-center justify-center">
           <img class="w-full object-cover rounded-full" src="./assets/img/melba.jpg" alt="profile,foto">
@@ -21,7 +21,7 @@
           <img class="w-full object-cover rounded-full bg-black" src="./assets/img/check-out.png" alt="check_out">
         </picture>
       </div>
-      <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white">
+      <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
         <ul class="flex justify-around items-center w-full py-1">
           <li class="w-1/5"><a class="w-full flex flex-col justify-center items-center font-bold text-darkblue" href="#"><img class="w-10" src="./assets/img/user_active.png" alt="active_account">CUENTAS</a></li>
           <li class="w-1/5"><a class="w-full flex flex-col justify-center items-center" href="#"><img class="w-10" src="./assets/img/cards.png" alt="cards">TARJETAS</a></li>
@@ -34,7 +34,7 @@
     <main class="grow lg:mt-4">
       <div class="flex flex-wrap justify-center items-center gap-4 my-4">
         <template v-if="client.length != 0" v-for="account of accounts">
-          <div class="flex flex-col justify-center items-center bg-bluebell rounded-lg text-white font-bold px-4 gap-4 lg:gap-8 py-4">
+          <div class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-4 gap-4 lg:gap-8 py-4">
             <h3> Numero de cuenta: {{account.number}}</h3>
             <div class="flex flex-col w-full px-4">
               <h3>Monto:</h3>
@@ -56,7 +56,7 @@
         </ul>
       </nav>
     </footer>
-    <footer v-if="isWideScreen" class="flex bg-darkblue font-bold text-white justify-evenly items-center">
+    <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-evenly items-center">
       <small>Cohort52</small>
       <small>&copy; 2023 Federico Val. Todos los derechos reservados.</small>
     </footer>
@@ -64,6 +64,6 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="./assets/js/tailwind.config.js"></script>
-  <script src="./assets/js/accounts.js"></script>
+  <script src="./assets/js/account.js"></script>
 </body>
 </html>
