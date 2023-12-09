@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/clients"
+const API = "http://localhost:8080/rest/clients"
 
 const {createApp} = Vue
 
@@ -21,9 +21,9 @@ const options = {
     loadData(){
       axios.get(API)
       .then (data => {
-        this.rawData = data.data
+      this.rawData = data.data
         this.clients = data.data._embedded.clients
-        console.log(this.clients)
+        console.log(data)
       }) // finaliza then data
       .catch (error => console.log ("Error: ",error))
     },

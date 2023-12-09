@@ -1,9 +1,11 @@
 package com.mindhub.homebanking.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Entity // crea una tabla en nuestra BD para la clase Client
 public class Client {
@@ -23,6 +25,8 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
     }
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Account> accounts = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -34,6 +38,10 @@ public class Client {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
     }
 
     public void setLastName(String lastName) {
@@ -51,6 +59,12 @@ public class Client {
     public long getId() {
         return id;
     } // solamente genero 1 getter porque no quiero que nadie lo pueda modificar.
+
+
+    public void addAccount (Account account){
+        account.setOwner(this);
+        this.accounts.add(account);
+    }
 
     @Override
     public String toString() {
