@@ -8,6 +8,7 @@ const options = {
       client: [],
       accounts:[],
       isWideScreen:false,
+      modalVisibleAlert:false,
     } // finaliza return
   }, // finaliza data
 
@@ -37,7 +38,19 @@ const options = {
     },
     checkScreenSize(){
     this.isWideScreen = window.innerWidth >=1024
-    }
+    },
+    abrirAlert() {
+      this.modalVisibleAlert = true
+      if (this.modalVisibleAlert) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    }, // finaliza showModal
+    cerrarAlert() {
+      this.modalVisibleAlert = false
+      if (this.modalVisibleAlert == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },// finaliza cerrarModal
   }, //fin methods
   mounted(){
   this.checkScreenSize()
