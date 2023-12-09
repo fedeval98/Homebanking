@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/rest/clients"
+const API = "/rest/clients"
 
 const {createApp} = Vue
 

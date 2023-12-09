@@ -2,7 +2,7 @@ package com.mindhub.homebanking.dto;
 
 import com.mindhub.homebanking.models.Client;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClientDTO {
@@ -13,7 +13,7 @@ public class ClientDTO {
     private Long id;
     private String firstName, lastName, email;
 
-    private Set<AccountDTO> accounts;
+    private List<AccountDTO> accounts;
 
     public ClientDTO(Client client){
         id = client.getId();
@@ -24,7 +24,7 @@ public class ClientDTO {
                 .stream()// convierto la lista en un Stream para poder usar operaciones intermedias (map, filter, sort, etc)
                 // o terminales (count, collect, forEach, etc)
                 .map(account -> new AccountDTO(account)) // transformo cada account en un objeto DTO
-                .collect(Collectors.toSet()); //recopilo todos los objetos DTO y los transforma a una lista.
+                .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
     }
 
     public Long getId() {
@@ -43,7 +43,7 @@ public class ClientDTO {
         return email;
     }
 
-    public Set<AccountDTO> getAccounts() {
+    public List<AccountDTO> getAccounts() {
         return accounts;
     }
 }

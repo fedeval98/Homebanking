@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController // Controlador del tipo REST (recibe metodos HTTP (GET, POST, PUT, PATCH, DELETE) y devuelve JSON)
-@RequestMapping("/api/clients") // realiza un mapeo de nuestra solicitud (asocia nuestra peticion a un endPoint)
+@RequestMapping("/api") // realiza un mapeo de nuestra solicitud (asocia nuestra peticion a un endPoint)
 public class ClientController {
 
     // Inyeccion de dependencia
@@ -22,7 +22,7 @@ public class ClientController {
                // hace algo SIMILAR a instanciar la clase del objeto que ejecuta
     private ClientRepository clientRepository;
 
-    @RequestMapping ("/all")
+    @RequestMapping ("/clients")
     public List<ClientDTO> getAllClient(){
         return clientRepository.findAll() //busco todos los clientes en mi repositorio
                 .stream()// convierto la lista en un Stream para poder usar operaciones intermedias (map, filter, sort, etc)
@@ -31,7 +31,7 @@ public class ClientController {
                 .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
         return clientRepository.findById(id).map(ClientDTO::new).orElse(null); // aca vamos a buscar por ID pero nos devuelve o un cliente o NULL
     }
