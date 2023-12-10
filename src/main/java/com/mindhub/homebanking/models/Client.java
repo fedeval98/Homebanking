@@ -3,8 +3,6 @@ package com.mindhub.homebanking.models;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 
 @Entity // crea una tabla en nuestra BD para la clase Client

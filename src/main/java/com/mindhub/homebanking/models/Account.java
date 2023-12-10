@@ -1,9 +1,10 @@
 package com.mindhub.homebanking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -19,6 +20,9 @@ public class Account {
     @JoinColumn(name = "client_id")
     private Client owner;
 
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Transaction> transactions = new HashSet<>();
+
     public Account() {
     }
 
@@ -26,6 +30,11 @@ public class Account {
         this.number = number;
         this.balance = balance;
         this.creationDate = creationDate;
+    }
+
+    public void addTransaction (Transaction transaction){
+        transaction.setAccount(this);
+        this.transactions.add(transaction);
     }
 
     public long getId() {
@@ -62,6 +71,10 @@ public class Account {
 
     public void setOwner(Client owner) {
         this.owner = owner;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 } // Account class ends
 
