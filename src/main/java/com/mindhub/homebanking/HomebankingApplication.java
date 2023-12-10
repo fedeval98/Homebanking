@@ -33,10 +33,10 @@ public class HomebankingApplication {
 				Account VIN001 = new Account("VIN001", 5000, LocalDate.now());
 				Account VIN002 = new Account("VIN002", 7500, LocalDate.now().plusDays(1));
 
-				Transaction TIN001 = new Transaction(VIN001, LocalDateTime.now(),-10000, TransactionType.DEBIT);
-				Transaction TIN002 = new Transaction(VIN002, LocalDateTime.now(),2000, TransactionType.CREDIT);
-				Transaction TIN003 = new Transaction(VIN001, LocalDateTime.now(),500, TransactionType.CREDIT);
-				Transaction TIN004 = new Transaction(VIN002, LocalDateTime.now(),-1000, TransactionType.DEBIT);
+				Transaction TIN001 = new Transaction(VIN001, LocalDateTime.now(),-10000, TransactionType.DEBIT,"Envio a Jorge");
+				Transaction TIN002 = new Transaction(VIN002, LocalDateTime.now(),2000, TransactionType.CREDIT, "Deposito de Mabel");
+				Transaction TIN003 = new Transaction(VIN001, LocalDateTime.now(),500, TransactionType.CREDIT, "Deposito de Lorena");
+				Transaction TIN004 = new Transaction(VIN002, LocalDateTime.now(),-1000, TransactionType.DEBIT,"Pago a Steam");
 
 
 				melba.addAccount(VIN001);
@@ -63,10 +63,10 @@ public class HomebankingApplication {
 				Account VIN003 = new Account("VIN003", 2000, LocalDate.now());
 				Account VIN004 = new Account("VIN004", 9000, LocalDate.now().plusDays(2));
 
-				Transaction TIN005 = new Transaction(VIN003, LocalDateTime.now(),-100000, TransactionType.CREDIT);
-				Transaction TIN006 = new Transaction(VIN003, LocalDateTime.now(),10000, TransactionType.DEBIT);
-				Transaction TIN007 = new Transaction(VIN004, LocalDateTime.now(),5000, TransactionType.CREDIT);
-				Transaction TIN008 = new Transaction(VIN004, LocalDateTime.now(),-10000, TransactionType.DEBIT);
+				Transaction TIN005 = new Transaction(VIN003, LocalDateTime.now(),100000, TransactionType.CREDIT,"Deposito de Lucas");
+				Transaction TIN006 = new Transaction(VIN003, LocalDateTime.now(),-10000, TransactionType.DEBIT,"Pago a Edenor");
+				Transaction TIN007 = new Transaction(VIN004, LocalDateTime.now(),5000, TransactionType.CREDIT,"Deposito de Pedro");
+				Transaction TIN008 = new Transaction(VIN004, LocalDateTime.now(),-10000, TransactionType.DEBIT,"Pago a Epic Games");
 
 				fede.addAccount(VIN003);
 				fede.addAccount(VIN004);

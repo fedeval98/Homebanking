@@ -20,6 +20,8 @@ public class Transaction {
 
     private TransactionType type;
 
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -27,11 +29,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Account account, LocalDateTime dateTime, double amount, TransactionType type) {
+    public Transaction(Account account, LocalDateTime dateTime, double amount, TransactionType type, String description) {
         this.account = account;
         this.dateTime = dateTime;
         this.amount = amount;
         this.type = type;
+        this.description = description;
     }
 
     public Long getId() {
@@ -70,4 +73,11 @@ public class Transaction {
         this.type = type;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 } // finaliza Transaction

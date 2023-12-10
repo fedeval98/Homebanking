@@ -13,6 +13,8 @@ public class TransactionDTO {
 
     private double amount;
 
+    private String description;
+
     private final TransactionType type;
 
     public TransactionDTO(Transaction transaction){
@@ -20,6 +22,7 @@ public class TransactionDTO {
         dateTime = transaction.getDateTime();
         amount = transaction.getAmount();
         type = transaction.getType();
+        description = transaction.getDescription();
     }
 
     public Long getId() {
@@ -36,5 +39,9 @@ public class TransactionDTO {
 
     public TransactionType getType() {
         return type;
+    }
+
+    public String getDescription() {
+        return description;
     }
 } // finaliza TransactionDTO
