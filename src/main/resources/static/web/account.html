@@ -53,22 +53,53 @@
     </header>
     <main class="flex flex-col grow lg:mt-4 justify-center items-center">
       <div class="flex flex-wrap justify-center items-center gap-4 my-4">
-        <template v-if="client.length != 0" v-for="account in accounts">
+        <!-- <template v-if="client.length != 0" v-for="acc in account"> -->
           <div
-          class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105">
-          <h3>Numero de cuenta: {{account.number}}</h3>
-          <div class="flex flex-col w-full px-2">
-            <h3>Monto:</h3>
-            <h3 class="self-center text-xl">
-              {{formatBudget(account.balance)}}
-            </h3>
+            class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105 lg:cursor-pointer">
+            <h3>Numero de cuenta: {{account.number}}</h3>
+            <div class="flex flex-col w-full px-2">
+              <h3>Monto:</h3>
+              <h3 class="self-center text-xl">
+                {{formatBudget(account.balance)}}
+              </h3>
+            </div>
+            <div class="flex flex-wrap gap-1 px-2">
+              <h3>Fecha de creacion:</h3>
+              <h3>{{formatDate(account)}}</h3>
+            </div>
           </div>
-          <div class="flex flex-wrap gap-1 px-2">
-            <h3>Fecha de creacion:</h3>
-            <h3>{{formatDate(account)}}</h3>
-          </div>
-          <a :href='"../web/account.html?id="+ account.id' class="px-1 border-b cursor-pointer">CLICK PARA VER DETALLES</a>
+<!--         </template> -->
+      </div>
+      <div class="w-full flex justify-center items-center">
+        <div v-if="transaction.length != 0" class="w-full">
+          <table class="bg-black px-2 w-full text-center m-auto md:w-2/3 rounded-lg">
+            <caption>TRANSACCIONES</caption>
+            <thead>
+              <tr class="text-white">
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-if="transaction.length != 0" v-for="(data,index) in transaction">
+                <tr :class="index % 2 === 0 ? 'bg-gray-600 text-center items-middle border-t border-b text-white' 
+                                            : 'bg-gray-800 text-center items-middle border-t border-b text-white'">
+                  <td :class="data.type ==='CREDIT' ? 'text-green-600 font-bold' : 'text-red-800 font-bold'">
+                    {{data.type}}</td>
+                  <td>{{formatBudget(data.amount)}}</td>
+                  <td>{{formatDateTime(data)}}</td>
+                  <td>{{data.description}}</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
         </div>
+        <template v-else>
+          <div>
+            <h3>NO HAY TRANSACCIONES</h3>
+          </div>
         </template>
       </div>
     </main>
@@ -122,7 +153,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./assets/js/tailwind.config.js"></script>
-  <script src="./assets/js/accounts.js"></script>
+  <script src="./assets/js/account.js"></script>
 </body>
 
 </html>
