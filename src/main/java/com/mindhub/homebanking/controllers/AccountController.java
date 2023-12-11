@@ -47,3 +47,5 @@ public class AccountController {
     // PathVariable es una notacion que nos permite variar la ruta para asi matchearla con el ID del cliente que llegue.
 }
 
+//NOTA: forEach se puede utilizar en LIST sin necesidad de hacer un .stream primero.
+
