@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -24,7 +19,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean // notacion para ejecutarlo apenas inicia la app
-		public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+		public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository){
 			return args -> {
 				Client melba = new Client("Melba","Morel","melba@mindhub.com");
 				clientRepository.save(melba);
@@ -83,6 +78,25 @@ public class HomebankingApplication {
 				transactionRepository.save(TIN006);
 				transactionRepository.save(TIN007);
 				transactionRepository.save(TIN008);
+
+				Loan hipotecario = new Loan("Hipotecario",500000, Arrays.asList(12, 24, 36, 48, 60));
+				Loan personal = new Loan("Personal",100000,Arrays.asList(6,12,24));
+				Loan automotriz = new Loan("Automotriz", 300000,Arrays.asList(6,12,24,36));
+
+				loanRepository.save(hipotecario);
+				loanRepository.save(personal);
+				loanRepository.save(automotriz);
+
+				ClientLoan melbahipotecario = new ClientLoan(400000,60,melba,hipotecario);
+				ClientLoan melbapersonal = new ClientLoan(50000,12,melba,personal);
+				ClientLoan fedepersonal = new ClientLoan(100000,24,fede,personal);
+				ClientLoan fedeautomotriz = new ClientLoan(200000,36,fede,automotriz);
+
+				clientLoanRepository.save(melbahipotecario);
+				clientLoanRepository.save(melbapersonal);
+				clientLoanRepository.save(fedepersonal);
+				clientLoanRepository.save(fedeautomotriz);
+
 
 			}; //cierre args
 		} // cierre initData

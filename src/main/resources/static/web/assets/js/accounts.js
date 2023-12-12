@@ -10,6 +10,7 @@ const options = {
       accounts:[],
       isWideScreen:false,
       modalVisibleAlert: false,
+      loans:[],
     } // finaliza return
   }, // finaliza data
   created(){
@@ -23,19 +24,23 @@ const options = {
         this.client = data.data
         this.accounts = data.data.accounts
         this.accounts.sort((a,b)=> a.id - b.id)
+        this.loans = data.data.loans
+        console.log("cliente",this.client)
+        console.log("cuentas",this.accounts)
+        console.log("prestamos",this.loans)
       }) // finaliza then data
       .catch (error => console.log ("Error: ",error))      
     },
     formatBudget(balance){
       if(balance !== undefined && balance !== null){
         const sign = balance < 0 ? "-":""
-        const formattedBalance = Math.abs(balance).toLocaleString("es-MX",{
+        const formattedBalance = Math.abs(balance).toLocaleString("en-US",{
           style: "currency",
-          currency: "ARS",
+          currency: "USD",
           currencyDisplay:"narrowSymbol",
-          minimumFractingDigits: 0,
+          minimumFractingDigits: 2,
         })
-        return `ARS ${sign}${formattedBalance}`
+        return `USD ${sign}${formattedBalance}`
       }
     },
     checkScreenSize(){
@@ -62,7 +67,7 @@ const options = {
       // ejemplo (11 julio de 1998)
       const options = {day:'numeric', month:'long', year:'numeric'}
       const release = new Date(array.creationDate)
-      return release.toLocaleDateString("es-ES",options)
+      return release.toLocaleDateString("en-US",options)
     },
   }, //fin methods
 

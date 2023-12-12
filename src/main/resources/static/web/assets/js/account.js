@@ -53,13 +53,13 @@ const options = {
     formatBudget(balance){
       if(balance !== undefined && balance !== null){
         const sign = balance < 0 ? "-":""
-        const formattedBalance = Math.abs(balance).toLocaleString("es-MX",{
+        const formattedBalance = Math.abs(balance).toLocaleString("en-US",{
           style: "currency",
-          currency: "ARS",
+          currency: "USD",
           currencyDisplay:"narrowSymbol",
           minimumFractingDigits: 0,
         })
-        return `ARS ${sign}${formattedBalance}`
+        return `USD ${sign}${formattedBalance}`
       }
     },
     checkScreenSize(){
@@ -86,7 +86,7 @@ const options = {
       // ejemplo (11 julio de 1998)
       const options = {day:'numeric', month:'long', year:'numeric'}
       const release = new Date(array.creationDate)
-      return release.toLocaleDateString("es-ES",options)
+      return release.toLocaleDateString("en-US",options)
     },
     formatDateTime(array){
       // se formatea la fecha de las peliculas usando un formato
@@ -97,7 +97,7 @@ const options = {
       // ejemplo (11 julio de 1998)
       const options = {day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric',}
       const release = new Date(array.dateTime)
-      return release.toLocaleString("es-ES",options)
+      return release.toLocaleString("en-US",options)
     },
   }, //fin methods
 
