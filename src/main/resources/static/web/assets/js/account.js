@@ -1,6 +1,6 @@
 const CLIENTS = "/api/clients/"
 const ACCOUNTS = "/api/accounts/"
-const TRANSACTION = "/transactions/"
+const TRANSACTION = "/transactions"
 const {createApp} = Vue
 
 const options = {
