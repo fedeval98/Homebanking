@@ -32,8 +32,7 @@ public class HomebankingApplication {
 				Transaction TIN002 = new Transaction(VIN002, LocalDateTime.now(),2000, TransactionType.CREDIT, "Deposito de Mabel");
 				Transaction TIN003 = new Transaction(VIN001, LocalDateTime.now(),500, TransactionType.CREDIT, "Deposito de Lorena");
 				Transaction TIN004 = new Transaction(VIN002, LocalDateTime.now(),-1000, TransactionType.DEBIT,"Pago a Steam");
-
-
+				
 				melba.addAccount(VIN001);
 				melba.addAccount(VIN002);
 
@@ -45,12 +44,10 @@ public class HomebankingApplication {
 				accountRepository.save(VIN001);
 				accountRepository.save(VIN002);
 
-
 				transactionRepository.save(TIN001);
 				transactionRepository.save(TIN002);
 				transactionRepository.save(TIN003);
 				transactionRepository.save(TIN004);
-
 
 				Client fede = new Client("Fede", "Val", "fedeval@gmail.com");
 				clientRepository.save(fede);
@@ -96,7 +93,6 @@ public class HomebankingApplication {
 				clientLoanRepository.save(melbapersonal);
 				clientLoanRepository.save(fedepersonal);
 				clientLoanRepository.save(fedeautomotriz);
-
 
 			}; //cierre args
 		} // cierre initData

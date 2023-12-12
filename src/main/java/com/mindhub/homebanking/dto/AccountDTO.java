@@ -12,11 +12,12 @@ public class AccountDTO {
     private long id;
 
     private double balance;
+
     private String number;
+
     private LocalDate creationDate;
 
     private Set<TransactionDTO> transactions = new HashSet<>();
-
 
     public AccountDTO(Account account){
         id = account.getId();
@@ -47,5 +48,4 @@ public class AccountDTO {
     public Set<TransactionDTO> getTransactions() {
         return transactions;
     }
-
 }

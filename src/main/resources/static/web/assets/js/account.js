@@ -57,7 +57,7 @@ const options = {
           style: "currency",
           currency: "USD",
           currencyDisplay:"narrowSymbol",
-          minimumFractingDigits: 0,
+          minimumFractionDigits: 2,
         })
         return `USD ${sign}${formattedBalance}`
       }

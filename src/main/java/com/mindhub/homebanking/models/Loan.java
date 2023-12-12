@@ -22,7 +22,6 @@ public class Loan {
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
-
     public Loan() {
     }
 
@@ -68,6 +67,5 @@ public class Loan {
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
     }
-
 
 }
