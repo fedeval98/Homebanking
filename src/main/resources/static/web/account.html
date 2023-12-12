@@ -29,7 +29,7 @@
       <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
         <ul class="flex justify-around items-center w-11/12 py-1">
           <li class="w-1/5 ">
-            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue scale-105" href="#"><img
+            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue scale-105" href="./accounts.html"><img
                 class="w-10" src="./assets/img/user_active.png" alt="active_account" />CUENTAS</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
@@ -53,7 +53,6 @@
     </header>
     <main class="flex flex-col grow lg:mt-4 justify-center items-center">
       <div class="flex flex-wrap justify-center items-center gap-4 my-4">
-        <!-- <template v-if="client.length != 0" v-for="acc in account"> -->
           <div
             class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105 lg:cursor-pointer">
             <h3>Numero de cuenta: {{account.number}}</h3>
@@ -68,7 +67,6 @@
               <h3>{{formatDate(account)}}</h3>
             </div>
           </div>
-<!--         </template> -->
       </div>
       <div class="w-full flex justify-center items-center">
         <div v-if="transaction.length != 0" class="w-full">
@@ -108,7 +106,7 @@
       <nav class="flex justify-center items-center w-full">
         <ul class="flex justify-around items-center w-full py-1">
           <li class="w-1/5">
-            <a class="w-full flex justify-center items-center" href="#"><img class="w-10"
+            <a class="w-full flex justify-center items-center" href="./accounts.html"><img class="w-10"
                 src="./assets/img/user_active.png" alt="active_account" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">

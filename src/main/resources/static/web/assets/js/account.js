@@ -1,5 +1,6 @@
 const CLIENTS = "/api/clients/"
 const ACCOUNTS = "/api/accounts/"
+const TRANSACTION = "/transactions/"
 const {createApp} = Vue
 
 const options = {
@@ -38,7 +39,7 @@ const options = {
       .catch (error => console.log ("Error: ",error))      
     },
     loadTransaction(){
-      axios.get(ACCOUNTS + this.idAccount + "/transactions")
+      axios.get(ACCOUNTS + this.idAccount + TRANSACTION)
         .then (data => {
           this.transaction = []
           this.transaction = data.data
