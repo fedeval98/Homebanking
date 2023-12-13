@@ -19,7 +19,11 @@ public class HomebankingApplication {
 	}
 
 	@Bean // notacion para ejecutarlo apenas inicia la app
-		public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository){
+		public CommandLineRunner initData(ClientRepository clientRepository,
+										  AccountRepository accountRepository,
+										  TransactionRepository transactionRepository,
+										  LoanRepository loanRepository,
+										  ClientLoanRepository clientLoanRepository){
 			return args -> {
 				Client melba = new Client("Melba","Morel","melba@mindhub.com");
 				clientRepository.save(melba);
@@ -32,7 +36,7 @@ public class HomebankingApplication {
 				Transaction TIN002 = new Transaction(VIN002, LocalDateTime.now(),2000, TransactionType.CREDIT, "Deposito de Mabel");
 				Transaction TIN003 = new Transaction(VIN001, LocalDateTime.now(),500, TransactionType.CREDIT, "Deposito de Lorena");
 				Transaction TIN004 = new Transaction(VIN002, LocalDateTime.now(),-1000, TransactionType.DEBIT,"Pago a Steam");
-				
+
 				melba.addAccount(VIN001);
 				melba.addAccount(VIN002);
 
@@ -84,10 +88,22 @@ public class HomebankingApplication {
 				loanRepository.save(personal);
 				loanRepository.save(automotriz);
 
-				ClientLoan melbahipotecario = new ClientLoan(400000,60,melba,hipotecario);
-				ClientLoan melbapersonal = new ClientLoan(50000,12,melba,personal);
-				ClientLoan fedepersonal = new ClientLoan(100000,24,fede,personal);
-				ClientLoan fedeautomotriz = new ClientLoan(200000,36,fede,automotriz);
+				ClientLoan melbahipotecario = new ClientLoan(400000,60);
+				ClientLoan melbapersonal = new ClientLoan(50000,12);
+				ClientLoan fedepersonal = new ClientLoan(100000,24);
+				ClientLoan fedeautomotriz = new ClientLoan(200000,36);
+
+				melba.addClientLoan(melbahipotecario);
+				hipotecario.ClientLoan(melbahipotecario);
+
+				melba.addClientLoan(melbapersonal);
+				personal.ClientLoan(melbapersonal);
+
+				fede.addClientLoan(fedepersonal);
+				personal.ClientLoan(fedepersonal);
+
+				fede.addClientLoan(fedeautomotriz);
+				automotriz.ClientLoan(fedeautomotriz);
 
 				clientLoanRepository.save(melbahipotecario);
 				clientLoanRepository.save(melbapersonal);

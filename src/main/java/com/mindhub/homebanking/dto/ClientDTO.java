@@ -17,7 +17,7 @@ public class ClientDTO {
 
     private List<ClientLoanDTO> loans;
 
-    public ClientDTO(Client client){
+    public ClientDTO(Client client) {
         id = client.getId();
         firstName = client.getFirstName();
         lastName = client.getLastName();
