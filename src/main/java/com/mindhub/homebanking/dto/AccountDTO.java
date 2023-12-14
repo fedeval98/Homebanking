@@ -17,7 +17,7 @@ public class AccountDTO {
 
     private LocalDate creationDate;
 
-    private Set<TransactionDTO> transactions = new HashSet<>();
+    private Set<TransactionDTO> transactions;
 
     public AccountDTO(Account account){
         id = account.getId();
