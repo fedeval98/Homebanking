@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-@RestController
-@RequestMapping("/api")
+@RestController // notacion para escuchar y responde peticiones bajo los lineamietos REST.
+// Que es escuchar peticiones HTTP usando metodos HTTP (GET, PUT, PATCH, POST, ETC)
+// y responder en formato JSON/XML
+@RequestMapping("/api") // ruta a escuchar / responder
 public class AccountController {
 
     // Inyeccion de dependencia

@@ -11,7 +11,7 @@ public class Account {
 
     @Id // clave principal para la BD
     @GeneratedValue(strategy = GenerationType.IDENTITY) // designacion del tipo generacion a usar en este caso identity
-    private long id;
+    private Long id;
 
     private double balance;
     private String number;
@@ -37,7 +37,7 @@ public class Account {
         this.transactions.add(transaction);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

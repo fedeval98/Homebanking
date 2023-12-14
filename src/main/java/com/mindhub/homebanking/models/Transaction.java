@@ -12,12 +12,13 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private LocalDateTime dateTime;
 
     private double amount;
 
+    @Enumerated (EnumType.STRING)
     private TransactionType type;
 
     private String description;

@@ -17,6 +17,8 @@ public class ClientDTO {
 
     private List<ClientLoanDTO> loans;
 
+    private List<CardDTO> cards;
+
     public ClientDTO(Client client) {
         id = client.getId();
         firstName = client.getFirstName();
@@ -28,6 +30,7 @@ public class ClientDTO {
                 .map(account -> new AccountDTO(account)) // transformo cada account en un objeto DTO
                 .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
         loans = client.getClientLoans().stream().map(clientLoanDTO -> new ClientLoanDTO(clientLoanDTO)).collect(Collectors.toList());
+        cards = client.getCards().stream().map(CardDTO::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -52,5 +55,9 @@ public class ClientDTO {
 
     public List<ClientLoanDTO> getLoans() {
         return loans;
+    }
+
+    public List<CardDTO> getCards() {
+        return cards;
     }
 }

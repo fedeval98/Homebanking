@@ -17,7 +17,7 @@ public class Loan {
     private double maxAmount;
 
     @ElementCollection
-    private List<Integer> payments;
+    private List<Integer> payments; // aca quiero que mis prestamos tengan multiples valores en formato int.
 
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();

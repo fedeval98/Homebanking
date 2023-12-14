@@ -11,7 +11,7 @@ public class ClientLoan {
 
     private double amount;
 
-    private int payments;
+    private int payments; // aca, llamo al Set de Loan pero quiero que me devuelva solo 1 valor de ese Set.
 
     @ManyToOne
     @JoinColumn(name = "client_id")

@@ -10,12 +10,18 @@ public class Client {
 
     @Id // clave principal para la BD
     @GeneratedValue(strategy = GenerationType.IDENTITY) // designacion del tipo generacion a usar en este caso identity
-    private long id;
+    private long id; //aca uso long en vez de Long(wrapper) porque necesito que el cliente SIEMPRE tenga un id, no puede ser NULL.
 
     private String firstName, lastName, email;
 
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Account> accounts = new HashSet<>();
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set <ClientLoan> clientLoans = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     public Client() {
 
@@ -26,8 +32,21 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
     }
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-    private Set<Account> accounts = new HashSet<>();
+
+    public void addAccount (Account account){
+        account.setOwner(this);
+        this.accounts.add(account);
+    }
+
+    public void addClientLoan (ClientLoan clientLoan){
+        clientLoan.setClient(this);
+        this.clientLoans.add(clientLoan);
+    }
+
+    public void addCard (Card card){
+        card.setOwner(this);
+        this.cards.add(card);
+    }
 
     public String getFirstName() {
         return firstName;
@@ -61,19 +80,12 @@ public class Client {
         return id;
     } // solamente genero 1 getter porque no quiero que nadie lo pueda modificar.
 
-
-    public void addAccount (Account account){
-        account.setOwner(this);
-        this.accounts.add(account);
-    }
-
-    public void addClientLoan (ClientLoan clientLoan){
-        clientLoan.setClient(this);
-        this.clientLoans.add(clientLoan);
-    }
-
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
     }
 
     @Override
