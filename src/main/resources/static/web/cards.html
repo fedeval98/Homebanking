@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./assets/img/profile.png" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Opybank | Cards </title>
+</head>
+
+<body>
+  <div id="app" class="h-[100vh] flex flex-col">
+    <header class="h-26 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
+      <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
+        <div class="h-full w-full flex items-center justify-around gap-2">
+          <picture class="h-full grow object-cover flex items-center justify-end cursor-pointer" @click="abrirAlert()">
+            <img class="w-16 object-cover rounded-full" src="./assets/img/melba.jpg" alt="profile,foto" />
+          </picture>
+          <h1 class="grow text-white font-bold">
+            Welcome, {{client.lastName}} {{client.firstName}}
+          </h1>
+        </div>
+        <picture class="grow h-full object-cover flex items-center justify-center md:self-right cursor-pointer"
+          @click="abrirAlert()">
+          <img class="w-10 object-cover rounded-full bg-black" src="./assets/img/check-out.png" alt="check_out" />
+        </picture>
+      </div>
+      <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
+        <ul class="flex justify-around items-center w-11/12 py-1">
+          <li class="w-1/5 ">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./accounts.html"><img class="w-10"
+                src="./assets/img/user.png" alt="account" />ACCOUNTS</a>
+          </li>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue scale-105" href="#"><img
+                class="w-10" src="./assets/img/cards_active.png" alt="cards_active" />CARDS</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img
+                class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" /></a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
+                src="./assets/img/loan.png" alt="loan" />LOANS</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
+                src="./assets/img/transfer.png" alt="transfer" />TRANSACTIONS</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="flex flex-col grow lg:mt-2 justify-center items-center">
+      <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
+      <div class="flex flex-wrap justify-center items-center gap-6 my-2 w-10/12">
+        <template v-if="cards.length != 0" v-for="card in cards">
+          <div v-if="card.type =='CREDIT'" class="flex flex-col justify-center items-center w-full mx-2">
+            <h3 class="font-semibold border-b text-lg mb-4 w-full text-left">Credit Cards:</h3>
+            <div v-if="card.color == 'GOLD'"
+              class="w-[320px] h-[204px] flex flex-col flex-wrap justify-center items-center card-shadow gap-2 bg-gold rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+            <div v-if="card.color == 'SILVER'"
+              class="w-[320px] h-[204px] flex flex-col justify-center items-center card-shadow gap-2 bg-gradient-to-r from-silver-100 to-silver-200 p-2 rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+            <div v-if="card.color == 'TITANIUM'"
+              class="w-[320px] h-[204px] flex flex-col justify-center items-center card-shadow gap-2 bg-gradient-to-r from-titanium-200 to-titanium-100 p-2 rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+          </div>
+          <div v-else class="flex flex-col justify-center items-center w-full">
+            <h3 class="font-semibold border-b text-lg mb-4 w-full text-left">Debit Cards:</h3>
+            <div v-if="card.color == 'GOLD'"
+              class="w-[320px] h-[204px] flex flex-col flex-wrap justify-center items-center card-shadow gap-2 bg-gold p-2 rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+            <div v-if="card.color == 'SILVER'"
+              class="w-[320px] h-[204px] flex flex-col justify-center items-center card-shadow gap-2 bg-gradient-to-r from-silver-100 to-silver-200 p-2 rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+            <div v-if="card.color == 'TITANIUM'"
+              class="w-[320px] h-[204px] flex flex-col justify-center items-center card-shadow gap-2 bg-gradient-to-r from-titanium-200 to-titanium-100 p-2 rounded-xl">
+              <div class="w-full flex gap-2 justify-start items-center">
+                <img class="w-5 object-contain rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                <h2 class="font-bold text-gloomypurple">Opybank</h2>
+              </div>
+              <h3 class="text-center font-bold text-xl">{{card.cardholder}}</h3>
+              <picture class="flex justify-around items-center w-full gap-4">
+                <img class="w-8" src="./assets/img/chip.png" alt="card_chip">
+                <h3 class="w-full font-bold text-lg">{{card.number}}</h3>
+              </picture>
+              <div class="flex gap-2">
+                <h2 class="font-semibold text-sm">Since: <span class="font-bold text-md">{{card.fromDate}}</span></h2>
+                <h2 class="font-semibold text-sm">Thru: <span class="font-bold text-md">{{card.truDate}}</span></h2>
+              </div>
+              <div class="flex justify-evenly items-center w-full">
+                <h3 class="font-semibold text-sm">cvv: <span class="font-bold text-md">{{card.cvv}}</span></h3>
+                <h3 class="font-bold">{{card.type}}</h3>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <h3>NO CARDS REGISTERED</h3>
+        </template>
+      </div>
+    </main>
+    <footer v-if="!isWideScreen"
+      class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
+      <nav class="flex justify-center items-center w-full">
+        <ul class="flex flex justify-around items-center w-full py-1">
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold"
+              href="./accounts.html"><img class="w-10" src="./assets/img/user.png" alt="account" /></a>
+          </li>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center scale-105" href="#"><img class="w-10"
+                src="./assets/img/cards_active.png" alt="cards" /></a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex justify-center items-center" href="#"><img class="w-16 rounded-full"
+                src="./assets/img/profile.png" alt="bank_logo" /></a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center" href="#"><img class="w-10"
+                src="./assets/img/loan.png" alt="loan" /></a>
+          </li>
+          <li class="w-1/5 flex" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center" href="#"><img class="w-10"
+                src="./assets/img/transfer.png" alt="transfer" /></a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+    <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-evenly items-center">
+      <small>Cohort52</small>
+      <small>&copy; 2023 Federico Val. All rights reserved.</small>
+    </footer>
+    <div v-if="modalVisibleAlert"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button class="" @click="cerrarAlert">
+            <img
+              src="https://png.pngtree.com/png-vector/20190603/ourmid/pngtree-icon-close-button-png-image_1357822.jpg"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.png"
+                alt="work_in_progress">
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div> <!-- finaliza el vue  -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/tailwind.config.js"></script>
+  <script src="./assets/js/cards.js"></script>
+</body>
+
+</html>

@@ -117,6 +117,7 @@ public class HomebankingApplication {
 
 				melba.addCard(MelbaGold);
 				melba.addCard(MelbaTitanium);
+				melba.addCard(FedeSilver);
 				fede.addCard(FedeSilver);
 
 				cardRepository.save(MelbaGold);
