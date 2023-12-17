@@ -42,16 +42,18 @@ const options = {
         document.body.classList.remove('overflow-y-hidden')
       }
     },// finaliza cerrarModal
-    formatDate(array){
-      // se formatea la fecha de las peliculas usando un formato
-      // en este caso utiliza el formato de fecha/hora local
-      // dado que se usa .toLocaleDateString y se establece
-      // la configuracion regional "es-ES" y se le da el formato
-      // options (dia:numerico, mes:texto, año:numerico)
-      // ejemplo (11 julio de 1998)
-      const options = {day:'numeric', month:'long', year:'numeric'}
-      const release = new Date(array.creationDate)
-      return release.toLocaleDateString("en-US",options)
+    formatDate(fecha){
+      // Obtenengo el año y el mes de la fecha
+      const año = fecha.getFullYear()
+      const mes = fecha.getMonth()
+    
+      // Obtengo los últimos dos dígitos del año
+      const ultimosDigitosAño = año.toString().slice(-2);
+      
+      // Formateo la fecha como "MM/YY"
+      const fechaFormateada = `${mes}/${ultimosDigitosAño}`
+      
+    return fechaFormateada
     },
   }, //fin methods
 

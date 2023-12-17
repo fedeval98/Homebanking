@@ -8,13 +8,13 @@ import java.util.Set;
 @Entity // crea una tabla en nuestra BD para la clase Client
 public class Client {
 
-    @Id // clave principal para la BD
+    @Id // clave principal para la BD =/= a clave foranea (cuando esta en otra tabla, para relaciones)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // designacion del tipo generacion a usar en este caso identity
     private long id; //aca uso long en vez de Long(wrapper) porque necesito que el cliente SIEMPRE tenga un id, no puede ser NULL.
 
     private String firstName, lastName, email;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER) // mapped by indica el dueño
     private Set<Account> accounts = new HashSet<>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)

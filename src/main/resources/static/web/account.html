@@ -13,9 +13,15 @@
   <div id="app" class="h-[100vh] flex flex-col">
     <header class="h-26 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
       <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
+        <div>
+        <picture>
+          <img src="./assets/img/profile.png" alt="bank_logo">
+          <h3 class="text-gloomypurple font-bold">OPYTHA BANK</h3>
+        </picture>
+        </div>
         <div class="h-full w-full flex items-center justify-around gap-2">
-          <picture class="h-full grow object-cover flex items-center justify-end cursor-pointer" @click="abrirAlert()">
-            <img class="w-16 object-cover rounded-full" src="./assets/img/melba.jpg" alt="profile,foto" />
+          <picture class="h-full grow object-cover flex items-center justify-end" >
+            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()" src="./assets/img/10015419.png" alt="profile_foto" />
           </picture>
           <h1 class="grow text-white font-bold">
             Welcome, {{client.lastName}} {{client.firstName}}
@@ -104,33 +110,33 @@
     <footer v-if="!isWideScreen"
       class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
       <nav class="flex justify-center items-center w-full">
-        <ul class="flex flex justify-around items-center w-full py-1">
+        <ul class="flex flex justify-around items-center w-full py-1 px-2">
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center" href="./accounts.html"><img class="w-10"
-                src="./assets/img/user.png" alt="account" /></a>
+            <a class="w-full flex flex-col justify-center items-center text-xs"
+              href="./accounts.html"><img class="w-10" src="./assets/img/user.png" alt="account" />Account</a>
           </li>
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center scale-105" href="./cards.html"><img class="w-10"
-                src="./assets/img/cards.png" alt="cards" /></a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+                src="./assets/img/cards.png" alt="cards" />Cards</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex justify-center items-center" href="#"><img class="w-16 rounded-full"
                 src="./assets/img/profile.png" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center" href="#"><img class="w-10" src="./assets/img/loan.png"
-                alt="loan" /></a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+                src="./assets/img/loan.png" alt="loan" />Loans</a>
           </li>
           <li class="w-1/5 flex" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center" href="#"><img class="w-10"
-                src="./assets/img/transfer.png" alt="transfer" /></a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+                src="./assets/img/transfer.png" alt="transfer" />Transactions</a>
           </li>
         </ul>
       </nav>
     </footer>
     <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-evenly items-center">
       <small>Cohort52</small>
-      <small>&copy; 2023 Federico Val. All rights reserved</small>
+      <small>&copy; 2023 Federico Val. All rights reserved.</small>
     </footer>
     <div v-if="modalVisibleAlert"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
