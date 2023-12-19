@@ -14,6 +14,8 @@ public class Card {
     @ManyToOne
     private Client owner;
 
+    private String cardholder;
+
     @Enumerated(EnumType.STRING)
     private CardType type;
 
@@ -31,7 +33,8 @@ public class Card {
     public Card() {
     }
 
-    public Card(CardType type, CardColor color, String number, int cvv, LocalDate fromDate, LocalDate thruDate) {
+    public Card(String cardholder, CardType type, CardColor color, String number, int cvv, LocalDate fromDate, LocalDate thruDate) {
+        this.cardholder = cardholder;
         this.type = type;
         this.color = color;
         this.number = number;
@@ -40,7 +43,13 @@ public class Card {
         this.truDate = thruDate;
     }
 
+    public String getCardholder() {
+        return cardholder;
+    }
 
+    public void setCardholder(String cardholder) {
+        this.cardholder = cardholder;
+    }
 
     public Card(CardColor color){
         this.color = color;

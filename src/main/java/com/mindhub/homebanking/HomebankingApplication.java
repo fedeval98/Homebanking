@@ -111,13 +111,13 @@ public class HomebankingApplication {
 				clientLoanRepository.save(fedePersonal);
 				clientLoanRepository.save(fedeAutomotive);
 
-				Card MelbaGold = new Card(CardType.DEBIT,CardColor.GOLD,"4323-2342-1232-6958",345,LocalDate.now(),LocalDate.now().plusYears(5));
-				Card MelbaTitanium = new Card(CardType.CREDIT,CardColor.TITANIUM,"4323-2342-1232-2587",157,LocalDate.now(),LocalDate.now().plusYears(5));
-				Card FedeSilver = new Card(CardType.CREDIT,CardColor.SILVER,"2587-4572-3541-5575",321,LocalDate.now(),LocalDate.now().plusYears(5));
+				Card MelbaGold = new Card("Melba Morel",CardType.DEBIT,CardColor.GOLD,"4323-2342-1232-6958",345,LocalDate.now(),LocalDate.now().plusYears(5));
+				Card MelbaTitanium = new Card("Melba Morel",CardType.CREDIT,CardColor.TITANIUM,"4323-2342-1232-2587",157,LocalDate.now(),LocalDate.now().plusYears(5));
+				Card FedeSilver = new Card("Fede Val",CardType.CREDIT,CardColor.SILVER,"2587-4572-3541-5575",321,LocalDate.now(),LocalDate.now().plusYears(5));
 
 				melba.addCard(MelbaGold);
 				melba.addCard(MelbaTitanium);
-				melba.addCard(FedeSilver);
+				fede.addCard(FedeSilver);
 
 				cardRepository.save(MelbaGold);
 				cardRepository.save(MelbaTitanium);

@@ -21,15 +21,15 @@
             Welcome, {{client.lastName}} {{client.firstName}}
           </h1>
         </div>
-        <picture class="grow h-full object-cover flex items-center justify-center md:self-right cursor-pointer"
+        <article class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
           @click="abrirAlert()">
-          <img class="w-10 object-cover rounded-full bg-black" src="./assets/img/check-out.png" alt="check_out" />
-        </picture>
+          <h3 class="w-full text-center text-white text-sm font-bold">Log out</h3>
+        </article>
       </div>
       <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
         <ul class="flex justify-around items-center w-11/12 py-1">
           <li class="w-1/5 ">
-            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue scale-105" href="#"><img
+            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105" href="./accounts.html"><img
                 class="w-10" src="./assets/img/user_active.png" alt="active_account" />ACCOUNTS</a>
           </li>
           <li class="w-1/5">
@@ -37,8 +37,8 @@
                 src="./assets/img/cards.png" alt="cards" />CARDS</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img
-                class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" /></a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold" href="#"><img
+                class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
@@ -106,7 +106,8 @@
     </main>
     <footer v-if="!isWideScreen"
       class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
-      <nav class="flex justify-center items-center w-full">
+      <nav class="flex flex-col justify-center items-center w-full">
+        <div class="flex  text-logopurple font-bold justify-center items-center"><h3>OPYTHA BANK</h3></div>
         <ul class="flex flex justify-around items-center w-full py-1 px-2">
           <li class="w-1/5">
             <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue text-xs"
@@ -117,7 +118,7 @@
                 src="./assets/img/cards.png" alt="cards" />Cards</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex justify-center items-center" href="#"><img class="w-16 rounded-full"
+            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple" href="#"><img class="w-16 rounded-full"
                 src="./assets/img/profile.png" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
@@ -141,8 +142,8 @@
         <div class="h-full">
           <button class="" @click="cerrarAlert">
             <img
-              src="https://png.pngtree.com/png-vector/20190603/ourmid/pngtree-icon-close-button-png-image_1357822.jpg"
-              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20" alt="">
+              src="./assets/img/hambClose.png"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
             <picture class="h-full w-full flex justify-center items-center object-contain">

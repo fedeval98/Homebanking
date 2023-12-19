@@ -3,6 +3,7 @@ tailwind.config = {
     extend: {
       colors: {
         gloomypurple: '#8e44ad',
+        logopurple: '#B46AFF',
         bluebell: '#341f97',
         darkblue: '#022A9B',
         gold: {
