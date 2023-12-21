@@ -1,11 +1,9 @@
-const CLIENTS = "/api/clients/"
-const ACCOUNTS = "/api/accounts/"
+const CLIENT = "/api/clients/current"
 const {createApp} = Vue
 
 const options = {
   data(){
     return {
-      idclient:1,
       client: [],
       accounts:[],
       isWideScreen:false,
@@ -19,7 +17,7 @@ const options = {
 
   methods:{
     loadData(){
-      axios.get(CLIENTS + this.idclient)
+      axios.get(CLIENT)
       .then (data => {
         this.client = data.data
         this.accounts = data.data.accounts
@@ -69,6 +67,10 @@ const options = {
       const release = new Date(array.creationDate)
       return release.toLocaleDateString("en-US",options)
     },
+    logout(){
+    window.location.href="/api/logout"
+    window.location.href="/index.html"
+    }
   }, //fin methods
 
   mounted(){

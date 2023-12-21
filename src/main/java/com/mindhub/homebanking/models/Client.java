@@ -12,7 +12,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // designacion del tipo generacion a usar en este caso identity
     private long id; //aca uso long en vez de Long(wrapper) porque necesito que el cliente SIEMPRE tenga un id, no puede ser NULL.
 
-    private String firstName, lastName, email;
+    private String firstName, lastName, email,password;
+
+    private RoleType role = RoleType.CLIENT;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER) // mapped by indica el dueño
     private Set<Account> accounts = new HashSet<>();
@@ -27,10 +29,11 @@ public class Client {
 
     }
 
-    public Client(String firstName, String lastName, String email) {
+    public Client(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
     }
 
     public void addAccount (Account account){
@@ -86,6 +89,22 @@ public class Client {
 
     public Set<Card> getCards() {
         return cards;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
     }
 
     @Override

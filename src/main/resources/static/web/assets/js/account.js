@@ -1,12 +1,9 @@
-const CLIENTS = "/api/clients/"
-const ACCOUNTS = "/api/accounts/"
-const TRANSACTION = "/transactions"
+const CLIENTS = "/api/clients/current"
 const {createApp} = Vue
 
 const options = {
   data(){
     return {
-      idclient:1,
       idAccount:null,
       client: [],
       accounts:[],
@@ -26,7 +23,7 @@ const options = {
 
   methods:{
     loadData(){
-      axios.get(CLIENTS + this.idclient)
+      axios.get(CLIENTS)
       .then (data => {
         this.client = data.data
         this.accounts = data.data.accounts
@@ -39,10 +36,10 @@ const options = {
       .catch (error => console.log ("Error: ",error))      
     },
     loadTransaction(){
-      axios.get(ACCOUNTS + this.idAccount + TRANSACTION)
+      axios.get(CLIENTS)
         .then (data => {
           this.transaction = []
-          this.transaction = data.data
+          this.transaction = this.account.transactions
           this.transaction.sort((a,b) =>{
             return b.id - a.id
           })

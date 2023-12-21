@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +20,9 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
+	@Autowired
+	public PasswordEncoder passwordEncoder;
+
 	@Bean // notacion para ejecutarlo apenas inicia la app
 		public CommandLineRunner initData(ClientRepository clientRepository,
 										  AccountRepository accountRepository,
@@ -26,7 +31,7 @@ public class HomebankingApplication {
 										  ClientLoanRepository clientLoanRepository,
 										  CardRepository cardRepository){
 			return args -> {
-				Client melba = new Client("Melba","Morel","melba@mindhub.com");
+				Client melba = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("melba123456"));
 				clientRepository.save(melba);
 				System.out.println(melba);
 
@@ -54,7 +59,7 @@ public class HomebankingApplication {
 				transactionRepository.save(TIN003);
 				transactionRepository.save(TIN004);
 
-				Client fede = new Client("Fede", "Val", "fedeval@gmail.com");
+				Client fede = new Client("Fede", "Val", "fedeval@gmail.com", passwordEncoder.encode("Fede123456!"));
 				clientRepository.save(fede);
 
 				Account VIN003 = new Account("VIN003", 2000, LocalDate.now());
@@ -123,7 +128,10 @@ public class HomebankingApplication {
 				cardRepository.save(MelbaTitanium);
 				cardRepository.save(FedeSilver);
 
+				Client admin = new Client("Federico", "Val", "fede_val@hotmail.es","fedeval1!");
+				admin.setRole(RoleType.ADMIN);
 
+				clientRepository.save(admin);
 
 			}; //cierre args
 		} // cierre initData
