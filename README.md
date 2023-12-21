@@ -1,2 +1,10 @@
 >[!NOTE]
->Si se ingresa en /accounts.html y se hace click sobre el card de la cuenta, te lleva a la cuenta correspondiente
+>Los usuarios autenticados son:
+>
+>Melba
+>usuario: melba@mindhub.com
+>contraseña: melba123456
+>
+>Fede
+>usuario: melba@mindhub.com
+>constraseña: Fede123456!
