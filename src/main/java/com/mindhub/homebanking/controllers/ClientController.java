@@ -42,7 +42,7 @@ public class ClientController {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    @PostMapping("")
+    @PostMapping("/clients")
     public ResponseEntity<String> createClient(
            @RequestParam String firstName,
            @RequestParam String lastName,

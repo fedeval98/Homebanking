@@ -9,6 +9,7 @@ const options = {
       name:"",
       lastName:"",
       modalVisibleAlert: false,
+      signupactive:false,
     } // finaliza return
   }, // finaliza data
   created() {
@@ -21,15 +22,35 @@ const options = {
     login(){
       axios.post("api/login?email=" +this.email +"&password="+this.password)
         .then(response => {
-          console.log(response)
-          if(response.status == 200){
+            console.log(response)
+          if(response.status.toString().startsWith('2')){
           window.location.href="/web/accounts.html"
           }else{
             alert("No pudimos iniciar sesion")
           }
           this.clearData()
+          
         })
         .catch(error => console.log("Error", error))
+    },
+    register(){
+      axios.post("api/clients?firstname" + this.name 
+                          + "&lastName=" + this.lastName
+                          + "&email=" + this.email 
+                          + "&password" + this.password)
+        .then(response => {
+          console.log(response)
+          if(response.status.toString().startsWith('2')){
+            window.location.href="/web/accounts.html"
+          }else{
+            alert("No pudimos crear su cuenta")
+          }
+          this.clearData()
+        })
+        .catch(error => console.log("Error", error))
+    },
+    swapregister(){
+      this.signupactive = !this.signupactive
     },
     clearData(){
       this.email = ""
@@ -51,8 +72,8 @@ const options = {
     },// finaliza cerrarModal
     togglePasswordVisibility() {
       // Obtén referencias a los elementos del DOM
-      const passwordInput = document.querySelector("#id_password");
-      const eye = document.querySelector("#togglePassword");
+      const passwordInput = document.querySelector(".id_password");
+      const eye = document.querySelector(".togglePassword");
 
       // Cambia el icono del ojo
       eye.classList.toggle("fa-eye-slash");
@@ -75,6 +96,14 @@ const options = {
       this.password = event.target.value;
       console.log(this.password)
     },
+    updateName(event){
+      this.name = event.target.value;
+      console.log(this.name)
+    },
+    updateLastName(event){
+      this.lastName = event.target.value;
+      console.log(this.lastName)
+    }
   }, //fin methods
 } //finaliza createApp
 

@@ -20,11 +20,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/web/assets/**","index.html").permitAll()
-                .requestMatchers("/web/*","/api/clients/current").hasAuthority(String.valueOf(RoleType.CLIENT))
+                .requestMatchers("/web/**","/index.html").permitAll()
+                .requestMatchers("/api/clients/current").hasAuthority("CLIENT")
+                .requestMatchers("/api/clients/current","/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "api/login").hasAuthority(String.valueOf(RoleType.CLIENT))
-                .requestMatchers("web/**").hasAuthority(String.valueOf(RoleType.ADMIN))
+                .requestMatchers(HttpMethod.GET, "/api/login").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.GET, "/api/login").hasAuthority("ADMIN")
                 .anyRequest().denyAll());
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
@@ -39,7 +40,8 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .successHandler((request, response, authentication) -> clearAuthenticationAttributes(request))
                 .failureHandler((request, response, exception) -> response.sendError(401))
-                .permitAll());
+                .permitAll()
+        );
 
         http.exceptionHandling( exceptionHandlingConfigurer ->
                 exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));

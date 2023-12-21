@@ -32,6 +32,7 @@ public class HomebankingApplication {
 										  CardRepository cardRepository){
 			return args -> {
 				Client melba = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("melba123456"));
+				melba.setRole(RoleType.ADMIN);
 				clientRepository.save(melba);
 				System.out.println(melba);
 
@@ -60,6 +61,7 @@ public class HomebankingApplication {
 				transactionRepository.save(TIN004);
 
 				Client fede = new Client("Fede", "Val", "fedeval@gmail.com", passwordEncoder.encode("Fede123456!"));
+				fede.setRole(RoleType.ADMIN);
 				clientRepository.save(fede);
 
 				Account VIN003 = new Account("VIN003", 2000, LocalDate.now());
@@ -128,10 +130,6 @@ public class HomebankingApplication {
 				cardRepository.save(MelbaTitanium);
 				cardRepository.save(FedeSilver);
 
-				Client admin = new Client("Federico", "Val", "fede_val@hotmail.es","fedeval1!");
-				admin.setRole(RoleType.ADMIN);
-
-				clientRepository.save(admin);
 
 			}; //cierre args
 		} // cierre initData

@@ -6,6 +6,7 @@ tailwind.config = {
         logopurple: '#B46AFF',
         bluebell: '#341f97',
         darkblue: '#022A9B',
+        exodusFruit:'#6c5ce7',
         gold: {
           DEFAULT: '#FEDB37',
           '50': '#FFFFF2',

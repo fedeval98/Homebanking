@@ -1,10 +1,9 @@
-const CLIENTS = "/api/clients/"
+const CLIENTS = "/api/clients/current"
 const {createApp} = Vue
 
 const options = {
   data(){
     return {
-      idclient:1,
       client: [],
       cards:[],
       isWideScreen:false,
@@ -17,7 +16,7 @@ const options = {
 
   methods:{
     loadData(){
-      axios.get(CLIENTS + this.idclient)
+      axios.get(CLIENTS)
       .then (data => {
         this.client = data.data
         this.cards = data.data.cards.sort((a,b)=> a.id -b.id)

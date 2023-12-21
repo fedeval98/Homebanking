@@ -7,89 +7,141 @@
   <link rel="shortcut icon" href="./web/assets/img/profile.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./web/assets/css/style.css">
   <title>OPYTHA BANK | Login</title>
 </head>
 
-<body >
-  <div id="app">
-  <main class="flex flex-col gap-8 md:flex-row justify-center items-center snap-y snap-mandatory overflow-scroll">
-    <!-- LOGO -->
-    <article class="snap-start w-full flex gap-6 flex-col h-[100vh]">
-      <picture class="flex gap-2 justify-center items-center my-2">
-        <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
-        <h1 class="text-logopurple font-bold text-xl">OPYTHA BANK</h1>
-      </picture>
-      <!-- LOG IN SCREEN -->
-      <article class="text-center">
-        <h2 class="font-bold text-3xl mb-4">Login to your account</h2>
-        <form class="flex flex-col gap-8">
-          <label class="flex">
-            <input type="email" name="user" @input="updateEmail" :value="email" required placeholder="EMAIL" class="mx-2 p-4 border rounded-full w-full">
-          </label>
-          <div class="flex items-center gap-2 relative">
-            <i class="far fa-eye cursor-pointer mx-2 absolute right-5 top-1/2 transform -translate-y-1/2" id="togglePassword" @click="togglePasswordVisibility()"></i>
-            <input @input="updatePassword" type="password" id="id_password" :value="password" name="password" required placeholder="PASSWORD"
-              class="mx-2 p-4 border rounded-full w-full">
+<body class="w-full">
+  <div id="app" class="w-full">
+    <main class="flex flex-col md:flex-row justify-center items-center snap-y snap-mandatory w-full">
+      <!-- LOGO -->
+      <article class="scale-up-horizontal-right snap-start w-full flex gap-6 flex-col h-[100vh] w-full"
+        v-if="!signupactive">
+        <picture class="flex gap-2 justify-center items-center my-2">
+          <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
+          <h1 class="text-logopurple font-bold text-xl">OPYTHA BANK</h1>
+        </picture>
+        <!-- LOG IN SCREEN -->
+        <article class="text-center">
+          <h2 class="font-bold text-3xl mb-4">Login to your account</h2>
+          <form class="flex flex-col gap-8">
+            <label class="flex">
+              <input type="email" name="user" @input="updateEmail" :value="email" required placeholder="EMAIL"
+                class="mx-2 p-4 border rounded-full w-full">
+            </label>
+            <div class="flex items-center gap-2 relative">
+              <i class="far fa-eye cursor-pointer mx-2 absolute right-5 top-1/2 transform -translate-y-1/2 togglePassword"
+                @click="togglePasswordVisibility()"></i>
+              <input @input="updatePassword" type="password" :value="password" name="password" required
+                placeholder="PASSWORD" class="mx-2 p-4 border rounded-full w-full id_password">
+            </div>
+            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg"
+              @click.prevent="login()">LOG IN</button>
+          </form>
+          <div class="flex justify-center items-center my-6">
+            <hr class="w-[50%] border-t">
+            <span>
+              <p> </p>
+            </span>
+            <hr class="w-[50%] border-t">
           </div>
-          <button type="submit" class="bg-blue-400 p-4 rounded-full m-2 font-bold text-lg" @click.prevent="login()">LOG IN</button>
-        </form>
-        <div class="flex justify-center items-center my-6">
-          <hr class="w-[50%] border-t">
-          <span><p> </p></span>
-          <hr class="w-[50%] border-t">
-        </div>
-        <div class="text-center flex flex-col gap-10">
-          <small class="text-lg">Follow our social media:</small>
-          <div class="flex gap-10 justify-center items-center">
-            <picture>
-              <img class="w-10" src="./web/assets/img/facebook.png" alt="facebook_logo" @click="abrirAlert">
-            </picture>
-            <picture>
-              <img class="w-10" src="./web/assets/img/github-sign.png" alt="github_logo" @click="abrirAlert">
-            </picture>
-            <picture>
-              <img class="w-10" src="./web/assets/img/linkedin.png" alt="linkedin_logo"@click="abrirAlert">
-            </picture>
-            <picture>
-              <img class="w-10" src="./web/assets/img/twitter.png" alt="twitter_logo" @click="abrirAlert">
-            </picture>
+          <div class="text-center flex flex-col gap-10">
+            <small class="text-lg">Follow our social media:</small>
+            <div class="flex gap-10 justify-center items-center">
+              <picture>
+                <img class="w-10" src="./web/assets/img/facebook.png" alt="facebook_logo" @click="abrirAlert">
+              </picture>
+              <picture>
+                <img class="w-10" src="./web/assets/img/github-sign.png" alt="github_logo" @click="abrirAlert">
+              </picture>
+              <picture>
+                <img class="w-10" src="./web/assets/img/linkedin.png" alt="linkedin_logo" @click="abrirAlert">
+              </picture>
+              <picture>
+                <img class="w-10" src="./web/assets/img/twitter.png" alt="twitter_logo" @click="abrirAlert">
+              </picture>
+            </div>
           </div>
+        </article>
+      </article>
+      <!-- SIGN UP BUTTON -->
+      <article v-if="!signupactive"
+        class="scale-up-horizontal-left snap-start w-full bg-[url('./web/assets/img/trianglify-lowres.png')] bg-cover bg-norepeat w-full h-[100vh] snap-start flex flex-col justify-center items-center">
+        <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
+          <h2 class="font-bold text-3xl">New Here?</h2>
+          <p class="text-center text-lg">Sign Up for Our Bank!</p>
+          <p class="text-center text-lg">Discover the benefits of being part of our financial community.</p>
+          <button class="bg-white w-2/3 rounded-full text-black font-bold text-xl px-10 p-4" @click="swapregister"> Sign
+            Up</button>
         </div>
       </article>
-    </article>
-    <!-- SIGN UP SCREEN -->
-    <article class="snap-start bg-[url('./web/assets/img/trianglify-lowres.png')] bg-cover bg-norepeat w-full h-[100vh] snap-start flex flex-col justify-center items-center">
-      <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
-        <h2 class="font-bold text-3xl">New Here?</h2>
-        <p class="text-center text-lg">Sign Up for Our Bank!</p>
-        <p class="text-center text-lg">Discover the benefits of being part of our financial community.</p>
-
-        <button class="bg-white w-2/3 rounded-full text-black font-bold text-xl px-10 p-4"> Sign Up</button>
-      </div>
-    </article>
+      <article v-else
+        class="scale-up-horizontal-right snap-start w-full bg-[url('./web/assets/img/trianglify-lowres.png')] bg-cover bg-norepeat w-full h-[100vh] snap-start flex flex-col justify-center items-center">
+        <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
+          <h2 class="font-bold text-3xl">Already have account?</h2>
+          <p class="text-center text-lg">Login with to your account</p>
+          <button class="bg-white w-2/3 rounded-full text-black font-bold text-xl px-10 p-4" @click="swapregister"> Log
+            in</button>
+        </div>
+      </article>
+      <!-- LOGO -->
+      <article v-if="signupactive"
+        class="scale-up-horizontal-left  snap-start w-full flex gap-6 flex-col h-[100vh] w-full">
+        <picture class="flex gap-2 justify-center items-center my-2">
+          <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
+          <h1 class="text-logopurple font-bold text-xl">OPYTHA BANK</h1>
+        </picture>
+        <!-- SIGN UP SCREEN -->
+        <article class="text-center">
+          <h2 class="font-bold text-3xl mb-4">Sign up with your credentials</h2>
+          <form class="flex flex-col gap-8">
+            <div class="w-full flex gap-2 justify-center items-center">
+              <label class="grow">
+                <input class="p-4 border rounded-full w-full" type="text" :value="name" @input="updateName" aria-required name="firstName" placeholder="FEDERICO">
+              </label>
+              <label class="grow">
+                <input class="p-4 border rounded-full w-full" type="text" :value="lastName" @input="updateLastName" aria-required name="lastName" placeholder="MARTINEZ">
+              </label>
+            </div>
+            <label class="flex">
+              <input type="email" name="user" @input="updateEmail" :value="email" required placeholder="EMAIL"
+                class="mx-2 p-4 border rounded-full w-full">
+            </label>
+            <div class="flex items-center gap-2 relative">
+              <i class="far fa-eye cursor-pointer mx-2 absolute right-5 top-1/2 transform -translate-y-1/2 togglePassword"
+                @click="togglePasswordVisibility()"></i>
+              <input @input="updatePassword" type="password" :value="password" name="password" required
+                placeholder="PASSWORD" class="mx-2 p-4 border rounded-full w-full id_password">
+            </div>
+            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg"
+              @click.prevent="register()">SIGN UP</button>
+          </form>
+        </article>
+      </article>
       <!-- MODAL WIP -->
       <div v-if="modalVisibleAlert"
-      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
-      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
-        <div class="h-full">
-          <button class="" @click="cerrarAlert()">
-            <img
-              src="../web/assets/img/hambClose.png"
-              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
-          </button>
-          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
-            <picture class="h-full w-full flex justify-center items-center object-contain">
-              <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.png" alt="work_in_progress">
-            </picture>
+        class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+        <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+          <div class="h-full">
+            <button class="" @click="cerrarAlert()">
+              <img src="../web/assets/img/hambClose.png"
+                class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+            </button>
+            <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+              <picture class="h-full w-full flex justify-center items-center object-contain">
+                <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.png"
+                  alt="work_in_progress">
+              </picture>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
-  </main>
-</div>
+        </section>
+      </div>
+    </main>
+  </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./web/assets/js/tailwind.config.js"></script>
   <script src="./web/assets/js/index.js"></script>
 </body>
+
 </html>
