@@ -49,16 +49,16 @@
             <small class="text-lg">Follow our social media:</small>
             <div class="flex gap-10 justify-center items-center">
               <picture>
-                <img class="w-10" src="./web/assets/img/facebook.png" alt="facebook_logo" @click="abrirAlert">
+                <img class="w-10 facebook" src="./web/assets/img/facebook.png" alt="facebook_logo" @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10" src="./web/assets/img/github-sign.png" alt="github_logo" @click="abrirAlert">
+                <img class="w-10 github" src="./web/assets/img/github-sign.png" alt="github_logo" @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10" src="./web/assets/img/linkedin.png" alt="linkedin_logo" @click="abrirAlert">
+                <img class="w-10 linkedin" src="./web/assets/img/linkedin.png" alt="linkedin_logo" @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10" src="./web/assets/img/twitter.png" alt="twitter_logo" @click="abrirAlert">
+                <img class="w-10 instagram" src="./web/assets/img/instagram.png" alt="instagram_logo" @click="socialmedia">
               </picture>
             </div>
           </div>
@@ -124,6 +124,24 @@
         <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
           <div class="h-full">
             <button class="" @click="cerrarAlert()">
+              <img src="../web/assets/img/hambClose.png"
+                class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+            </button>
+            <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+              <picture class="h-full w-full flex justify-center items-center object-contain">
+                <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.png"
+                  alt="work_in_progress">
+              </picture>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- MODAL NOT REGISTERED -->
+      <div v-if="modalRegistered"
+        class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+        <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+          <div class="h-full">
+            <button class="" @click="cerrarModalRegistered()">
               <img src="../web/assets/img/hambClose.png"
                 class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
             </button>

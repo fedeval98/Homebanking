@@ -10,7 +10,7 @@ public class Client {
 
     @Id // clave principal para la BD =/= a clave foranea (cuando esta en otra tabla, para relaciones)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // designacion del tipo generacion a usar en este caso identity
-    private long id; //aca uso long en vez de Long(wrapper) porque necesito que el cliente SIEMPRE tenga un id, no puede ser NULL.
+    private Long id; //aca uso long en vez de Long(wrapper) porque necesito que el cliente SIEMPRE tenga un id, no puede ser NULL.
 
     private String firstName, lastName, email,password;
 
@@ -79,7 +79,7 @@ public class Client {
         this.email = email;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     } // solamente genero 1 getter porque no quiero que nadie lo pueda modificar.
 

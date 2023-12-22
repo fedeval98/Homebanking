@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.configurations;
 
-import com.mindhub.homebanking.models.RoleType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +19,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/web/**","/index.html").permitAll()
-                .requestMatchers("/api/clients/current").hasAuthority("CLIENT")
-                .requestMatchers("/api/clients/current","/h2-console/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/login").hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.GET, "/api/login").hasAuthority("ADMIN")
+                .requestMatchers("/web/assets/**","index.html").permitAll()
+                .requestMatchers("/web/*","/api/clients/current").hasAnyAuthority("CLIENT","ADMIN")
+                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .anyRequest().denyAll());
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());

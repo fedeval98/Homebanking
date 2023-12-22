@@ -10,6 +10,7 @@ const options = {
       lastName:"",
       modalVisibleAlert: false,
       signupactive:false,
+      modalRegistered:false,
     } // finaliza return
   }, // finaliza data
   created() {
@@ -20,13 +21,13 @@ const options = {
 
   methods: {
     login(){
-      axios.post("api/login?email=" +this.email +"&password="+this.password)
+      axios.post("/api/login?email=" +this.email +"&password="+this.password)
         .then(response => {
             console.log(response)
-          if(response.status.toString().startsWith('2')){
-          window.location.href="/web/accounts.html"
-          }else{
-            alert("No pudimos iniciar sesion")
+            if(this.password =="admin"&&this.email=="admin"){
+              window.open("http://localhost:8080/h2-console")
+            }else if(response.status.toString().startsWith('2')){
+            window.location.href="/web/accounts.html"
           }
           this.clearData()
           
@@ -34,18 +35,10 @@ const options = {
         .catch(error => console.log("Error", error))
     },
     register(){
-      axios.post("api/clients?firstname" + this.name 
-                          + "&lastName=" + this.lastName
-                          + "&email=" + this.email 
-                          + "&password" + this.password)
+      axios.post("/api/clients?firstName="+this.name+"&lastName="+this.lastName+"&email="+this.email+"&password="+this.password)
         .then(response => {
           console.log(response)
-          if(response.status.toString().startsWith('2')){
-            window.location.href="/web/accounts.html"
-          }else{
-            alert("No pudimos crear su cuenta")
-          }
-          this.clearData()
+          this.login()
         })
         .catch(error => console.log("Error", error))
     },
@@ -67,6 +60,18 @@ const options = {
     cerrarAlert() {
       this.modalVisibleAlert = false
       if (this.modalVisibleAlert == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },// finaliza cerrarModal
+    abrirModalRegistered() {
+      this.modalRegistered = true
+      if (this.modalRegistered) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    }, // finaliza showModal
+    cerrarModalRegistered() {
+      this.modalRegistered = false
+      if (this.modalRegistered == false) {
         document.body.classList.remove('overflow-y-hidden')
       }
     },// finaliza cerrarModal
@@ -103,6 +108,22 @@ const options = {
     updateLastName(event){
       this.lastName = event.target.value;
       console.log(this.lastName)
+    },
+    socialmedia(event){
+      const facebook = document.querySelector(".facebook")
+      const instagram = document.querySelector(".instagram") 
+      const github = document.querySelector(".github") 
+      const linkedin = document.querySelector(".linkedin")
+
+    if(event.target === facebook){
+      window.open("https://www.facebook.com/fede.val.9")
+    }else if (event.target === instagram){
+      window.open("https://www.instagram.com/_fede.val/")
+    }else if (event.target === github){
+      window.open("https://github.com/fedeval98")
+    }else if (event.target === linkedin){
+      window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
+    }
     }
   }, //fin methods
 } //finaliza createApp

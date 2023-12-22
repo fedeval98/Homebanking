@@ -54,6 +54,10 @@ const options = {
       
     return fechaFormateada
     },
+    logout(){
+      window.location.href="/api/logout"
+      window.location.href="/index.html"
+      },
   }, //fin methods
 
   mounted(){

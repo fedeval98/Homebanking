@@ -96,6 +96,10 @@ const options = {
       const release = new Date(array.dateTime)
       return release.toLocaleString("en-US",options)
     },
+    logout(){
+      window.location.href="/api/logout"
+      window.location.href="/index.html"
+      },
   }, //fin methods
 
   mounted(){
