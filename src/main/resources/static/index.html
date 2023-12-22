@@ -24,7 +24,7 @@
         <!-- LOG IN SCREEN -->
         <article class="text-center">
           <h2 class="font-bold text-3xl mb-4">Login to your account</h2>
-          <form class="flex flex-col gap-8">
+          <form class="flex flex-col gap-8" @submit.prevent="login">
             <label class="flex">
               <input type="email" name="user" @input="updateEmail" :value="email" required placeholder="EMAIL"
                 class="mx-2 p-4 border rounded-full w-full">
@@ -35,8 +35,7 @@
               <input @input="updatePassword" type="password" :value="password" name="password" required
                 placeholder="PASSWORD" class="mx-2 p-4 border rounded-full w-full id_password">
             </div>
-            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg"
-              @click.prevent="login()">LOG IN</button>
+            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg text-white">LOG IN</button>
           </form>
           <div class="flex justify-center items-center my-6">
             <hr class="w-[50%] border-t">
@@ -94,13 +93,13 @@
         <!-- SIGN UP SCREEN -->
         <article class="text-center">
           <h2 class="font-bold text-3xl mb-4">Sign up with your credentials</h2>
-          <form class="flex flex-col gap-8">
+          <form class="flex flex-col gap-8"@submit.prevent="register">
             <div class="w-full flex gap-2 justify-center items-center">
               <label class="grow">
-                <input class="p-4 border rounded-full w-full" type="text" :value="name" @input="updateName" aria-required name="firstName" placeholder="FEDERICO">
+                <input class="p-4 border rounded-full w-full" type="text" :value="name" @input="updateName" required name="firstName" placeholder="FEDERICO">
               </label>
               <label class="grow">
-                <input class="p-4 border rounded-full w-full" type="text" :value="lastName" @input="updateLastName" aria-required name="lastName" placeholder="MARTINEZ">
+                <input class="p-4 border rounded-full w-full" type="text" :value="lastName" @input="updateLastName" required name="lastName" placeholder="MARTINEZ">
               </label>
             </div>
             <label class="flex">
@@ -113,8 +112,7 @@
               <input @input="updatePassword" type="password" :value="password" name="password" required
                 placeholder="PASSWORD" class="mx-2 p-4 border rounded-full w-full id_password">
             </div>
-            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg"
-              @click.prevent="register()">SIGN UP</button>
+            <button type="submit" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg">SIGN UP</button>
           </form>
         </article>
       </article>
@@ -145,11 +143,10 @@
               <img src="../web/assets/img/hambClose.png"
                 class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
             </button>
-            <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
-              <picture class="h-full w-full flex justify-center items-center object-contain">
-                <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.png"
-                  alt="work_in_progress">
-              </picture>
+            <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0 gap-8">
+              <h3 class="text-2xl font-bold">Your are not signed up in the platform.</h3>
+              <h3>Please, sugn up to access your account.</h3>
+              <button @click="closeModalandSignUp" class="bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg text-white">Close and sign up</button>
             </div>
           </div>
         </section>

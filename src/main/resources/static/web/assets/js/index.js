@@ -26,13 +26,20 @@ const options = {
             console.log(response)
             if(this.password =="admin"&&this.email=="admin"){
               window.open("http://localhost:8080/h2-console")
-            }else if(response.status.toString().startsWith('2')){
+            }
+            if(response.status.toString().startsWith('2')){
             window.location.href="/web/accounts.html"
           }
           this.clearData()
           
         })
-        .catch(error => console.log("Error", error))
+        .catch(error => {
+        console.log("Error", error)
+        if(error.response.status.toString().startsWith('4')){
+          this.modalRegistered = true
+        }
+
+        })
     },
     register(){
       axios.post("/api/clients?firstName="+this.name+"&lastName="+this.lastName+"&email="+this.email+"&password="+this.password)
@@ -124,6 +131,10 @@ const options = {
     }else if (event.target === linkedin){
       window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
     }
+    },
+    closeModalandSignUp(){
+      this.cerrarModalRegistered()
+      this.signupactive = true
     }
   }, //fin methods
 } //finaliza createApp
