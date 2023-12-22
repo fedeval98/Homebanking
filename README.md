@@ -8,3 +8,7 @@
 >Fede
 >usuario: fedeval@gmail.com
 >constraseña: Fede123456!
+>
+>Admin
+>usuario: admin
+>contraseña: admin
