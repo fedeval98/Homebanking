@@ -55,12 +55,12 @@
         </ul>
       </nav>
     </header>
-    <main class="flex flex-col max-w-full w-full grow lg:mt-2 justify-center items-center">
+    <main class="flex flex-col max-w-full w-full grow lg:mt-2 justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
       <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
       <div class="flex flex-wrap justify-center items-center w-11/12 gap-2">
         <!-- DEBIT CARDS -->
-        <div v-if="cards.some(card => card.type == 'DEBIT')" class="w-full my-2">
-          <h3 class="border-b my-2">DEBIT CARDS</h3>
+        <div v-if="cards.some(card => card.type == 'DEBIT')" class="w-full my-2 flex flex-col justify-center items-center">
+          <h3 class="border-b my-2 w-1/3 font-bold text-center">DEBIT CARDS</h3>
           <div class="flex flex-wrap justify-center items-center gap-4">
           <template v-if="cards.length != 0" v-for="card in cards">
             <!-- GOLD DEBIT -->
@@ -235,22 +235,22 @@
                         </path>
                       </svg>
                       <div class="card-number">
-                        <div class="section">{{card.number.substring(0,4)}}</div>
-                        <div class="section">{{card.number.substring(5,9)}}</div>
-                        <div class="section">{{card.number.substring(10,14)}}</div>
-                        <div class="section">{{card.number.substring(15,19)}}</div>
+                        <div class="section text-black">{{card.number.substring(0,4)}}</div>
+                        <div class="section text-black">{{card.number.substring(5,9)}}</div>
+                        <div class="section text-black">{{card.number.substring(10,14)}}</div>
+                        <div class="section text-black">{{card.number.substring(15,19)}}</div>
                       </div>
                       <div class="end flex gap-4">
                         <div>
-                          <span class="end-text">since:</span>
-                          <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+                          <span class="end-text text-black">since:</span>
+                          <span class="end-date text-black">{{formatDate(new Date(card.fromDate))}}</span>
                         </div>
                         <div>
-                          <span class="end-text">thru:</span>
-                          <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                          <span class="end-text text-black">thru:</span>
+                          <span class="end-date text-black">{{formatDate(new Date(card.truDate))}}</span>
                         </div>
                       </div>
-                      <div class="card-holder">{{card.cardholder}}</div>
+                      <div class="card-holder text-black">{{card.cardholder}}</div>
                       <div class="master flex flex-col items-end">
                         <div class="flex">
                           <div class="circle master-red"></div>
@@ -281,8 +281,8 @@
         </div>
         </div>
         <!-- CREDIT CARDS -->
-        <div v-if="cards.some(card => card.type == 'CREDIT')" class="w-full my-2">
-          <h3 class="border-b my-2">CREDIT CARDS</h3>
+        <div v-if="cards.some(card => card.type == 'CREDIT')" class="w-full my-2 flex flex-col justify-center items-center">
+          <h3 class="border-b my-2 font-bold w-1/3 text-center">CREDIT CARDS</h3>
           <div class="flex flex-wrap justify-center items-center gap-4">
             <template v-if="cards.length != 0" v-for="card in cards">
               <!-- GOLD CREDIT -->
@@ -505,7 +505,7 @@
           </div>
         </div>
         <template v-if="cards.length === 0">
-          <h3>NO CARDS REGISTERED</h3>
+          <h3 class="text-white">NO CARDS REGISTERED</h3>
         </template>
       </div>
     </main>

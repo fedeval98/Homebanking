@@ -128,7 +128,7 @@ public class HomebankingApplication {
 				cardRepository.save(MelbaTitanium);
 				cardRepository.save(FedeSilver);
 
-				Client admin = new Client("Gabriel", "Val", "admin", passwordEncoder.encode("admin"));
+				Client admin = new Client("Gabriel", "Val", "admin@admin.com", passwordEncoder.encode("admin"));
 				admin.setRole(RoleType.ADMIN);
 				clientRepository.save((admin));
 

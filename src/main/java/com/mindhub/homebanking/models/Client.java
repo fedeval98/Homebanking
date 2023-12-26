@@ -14,6 +14,7 @@ public class Client {
 
     private String firstName, lastName, email,password;
 
+     @Enumerated(EnumType.STRING)
     private RoleType role = RoleType.CLIENT;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER) // mapped by indica el dueño

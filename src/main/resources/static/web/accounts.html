@@ -51,7 +51,7 @@
         </ul>
       </nav>
     </header>
-    <main class="flex flex-col grow lg:mt-4 justify-center items-center">
+    <main class="flex flex-col grow lg:mt-4 justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
       <div class="flex flex-wrap justify-center items-center gap-4 my-4">
         <template v-if="client.length != 0" v-for="account in accounts">
           <a :href='"../web/account.html?id="+ account.id' class="flex flex-col justify-center items-center">
@@ -74,7 +74,7 @@
           </a>
         </template>
         <div class="w-full flex justify-center items-center">
-          <div v-if="client.length != 0" class="w-full">
+          <div v-if="loans.length != 0" class="w-full">
             <table class="bg-black px-2 w-full text-center m-auto md:w-2/3 rounded-lg">
               <caption class="w-full text-center mb-2 font-bold text-xl border-b">LOANS</caption>
               <thead>
@@ -98,7 +98,7 @@
           </div>
           <template v-else>
             <div>
-              <h3>NO LOANS REGISTERED</h3>
+              <h3 class="text-xl font-bold">NO LOANS REGISTERED YET</h3>
             </div>
           </template>
         </div>

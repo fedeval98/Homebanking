@@ -1,4 +1,5 @@
 const CLIENTS = "/api/clients/current"
+const LOGOUT = "/api/logout"
 const {createApp} = Vue
 
 const options = {
@@ -97,8 +98,10 @@ const options = {
       return release.toLocaleString("en-US",options)
     },
     logout(){
-      window.location.href="/api/logout"
-      window.location.href="/index.html"
+      axios.post(LOGOUT)
+      .then (data => {
+        window.location.href="/index.html"})
+      .catch (error => console.log("Error: ",error))
       },
   }, //fin methods
 
