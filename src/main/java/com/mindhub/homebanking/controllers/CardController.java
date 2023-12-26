@@ -47,14 +47,14 @@ public class CardController {
             return new ResponseEntity<>("You already have 3 cards of type " + type, HttpStatus.FORBIDDEN);
         }
 
-        if (colorCount >= 2) {
-            return new ResponseEntity<>("You already have a card of color " + color, HttpStatus.FORBIDDEN);
-        }
-
         if (colorTypeCount >= 1) {
             return new ResponseEntity<>("You already have a card of color " + color + " and type " + type, HttpStatus.FORBIDDEN);
         }
 
+        if (colorCount >= 2) {
+            return new ResponseEntity<>("You already have a card of color " + color, HttpStatus.FORBIDDEN);
+        }
+        
 
         if (client.getCards().size() >= 6) {
             return new ResponseEntity<>("You have reached the maximum limit of 6 cards", HttpStatus.FORBIDDEN);
