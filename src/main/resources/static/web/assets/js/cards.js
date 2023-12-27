@@ -1,5 +1,6 @@
 const CLIENTS = "/api/clients/current"
 const LOGOUT = "/api/logout"
+const CREATECARD = "/api/clients/current/cards"
 const {createApp} = Vue
 
 const options = {
@@ -9,7 +10,12 @@ const options = {
       cards:[],
       isWideScreen:false,
       modalVisibleAlert: false,
-      modalCard:false
+      modalCard:false,
+      selectedColor: "GOLD",
+      selectedType: "DEBIT",
+      successCard:false,
+      failureCard:false,
+      errormsg:"",
     } // finaliza return
   }, // finaliza data
   created(){
@@ -71,6 +77,45 @@ const options = {
       cerrarCreateCard(){
         this.modalCard = false
         if (this.modalCard == false) {
+          document.body.classList.remove('overflow-y-hidden')
+        }
+      },
+      createCard(){
+      axios.post(CREATECARD+"?color="+this.selectedColor+"&type="+this.selectedType)
+      .then(response=>{
+        this.abrirSuccess()
+        setTimeout(()=>{
+          window.location.reload()}, 3000)
+      })
+      .catch(error => {
+        console.log(error.response.data)
+        this.errormsg = error.response.data
+        this.abrirFailure()
+        setTimeout(()=>{
+          window.location.reload()}, 3000)
+      })
+      },
+      abrirSuccess(){
+        this.successCard = true
+        if (this.successCard) {
+          document.body.classList.add('overflow-y-hidden')
+        }
+      },
+      cerrarSuccess(){
+        this.successCard = false
+        if (this.successCard == false) {
+          document.body.classList.remove('overflow-y-hidden')
+        }
+      },
+      abrirFailure(){
+        this.failureCard = true
+        if (this.failureCard) {
+          document.body.classList.add('overflow-y-hidden')
+        }
+      },
+      cerrarFailure(){
+        this.failureCard = false
+        if (this.failureCard == false) {
           document.body.classList.remove('overflow-y-hidden')
         }
       },

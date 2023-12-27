@@ -61,7 +61,8 @@
       class="flex flex-col max-w-full w-full grow justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
       <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
       <div v-if="cards.length < 6" class="mt-2">
-        <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="abrirCreateCard"> ADD NEW CARD</button>
+        <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="abrirCreateCard()"> ADD NEW
+          CARD</button>
       </div>
       <div class="flex flex-wrap justify-center items-center w-11/12 gap-2">
         <!-- DEBIT CARDS -->
@@ -568,18 +569,250 @@
       </section>
     </div>
     <!-- MODAL CREATE CARD -->
-    <div v-if="modalCard"
+    <div v-if="modalCard" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section
+        class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col justify-around gap-8 items-center relative">
+        <div class="h-full">
+          <button class="z-50" @click="cerrarCreateCard">
+            <img src="./assets/img/hambClose.png"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center gap-4 absolute top-0 inset-0">
+            <!-- GOLD CARD -->
+            <div v-if="selectedColor === 'GOLD'" class="flex justify-center items-center">
+              <div class="center">
+                <div class="card">
+                  <div class="flipStatic">
+                    <div class="front bg-gold">
+                      <div class="strip-bottom"></div>
+                      <div class="strip-top"></div>
+                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                      <div class="investor">Opytha bank</div>
+                      <div class="chip">
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-main"></div>
+                      </div>
+                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
+                        <path
+                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                        </path>
+                        <path
+                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                        </path>
+                        <path
+                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                        </path>
+                      </svg>
+                      <div class="card-number">
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                      </div>
+                      <div class="end flex gap-4">
+                        <div>
+                          <span class="end-text">since:</span>
+                          <span class="end-date">MM/YY</span>
+                        </div>
+                        <div>
+                          <span class="end-text">thru:</span>
+                          <span class="end-date">MM/YY</span>
+                        </div>
+                      </div>
+                      <div class="card-holder">{{client.lastName +" "+ client.firstName }}</div>
+                      <div class="master flex flex-col items-end">
+                        <div class="flex">
+                          <div class="circle master-red"></div>
+                          <div class="circle master-yellow"></div>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-center">{{selectedType}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- TITANIUM CARD -->
+            <div v-if="selectedColor === 'TITANIUM'" class="flex justify-center items-center">
+              <div class="center">
+                <div class="card">
+                  <div class="flipStatic">
+                    <div class="front bg-titanium">
+                      <div class="strip-bottom"></div>
+                      <div class="strip-top"></div>
+                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                      <div class="investor">Opytha bank</div>
+                      <div class="chip">
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-main"></div>
+                      </div>
+                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
+                        <path
+                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                        </path>
+                        <path
+                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                        </path>
+                        <path
+                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                        </path>
+                      </svg>
+                      <div class="card-number">
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                        <div class="section">XXXX</div>
+                      </div>
+                      <div class="end flex gap-4">
+                        <div>
+                          <span class="end-text">since:</span>
+                          <span class="end-date">MM/YY</span>
+                        </div>
+                        <div>
+                          <span class="end-text">thru:</span>
+                          <span class="end-date">MM/YY</span>
+                        </div>
+                      </div>
+                      <div class="card-holder">{{client.lastName +" "+ client.firstName }}</div>
+                      <div class="master flex flex-col items-end">
+                        <div class="flex">
+                          <div class="circle master-red"></div>
+                          <div class="circle master-yellow"></div>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-center">{{selectedType}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- SILVER CARD -->
+            <div v-if="selectedColor === 'SILVER'" class="flex justify-center items-center">
+              <div class="center">
+                <div class="card">
+                  <div class="flipStatic">
+                    <div class="front bg-silver">
+                      <div class="strip-bottom"></div>
+                      <div class="strip-top"></div>
+                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                      <div class="investor">Opytha bank</div>
+                      <div class="chip">
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-line"></div>
+                        <div class="chip-main"></div>
+                      </div>
+                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="black">
+                        <path
+                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                        </path>
+                        <path
+                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                        </path>
+                        <path
+                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                        </path>
+                      </svg>
+                      <div class="card-number">
+                        <div class="section text-black">XXXX</div>
+                        <div class="section text-black">XXXX</div>
+                        <div class="section text-black">XXXX</div>
+                        <div class="section text-black">XXXX</div>
+                      </div>
+                      <div class="end flex gap-4">
+                        <div>
+                          <span class="end-text text-black">since:</span>
+                          <span class="end-date text-black">MM/YY</span>
+                        </div>
+                        <div>
+                          <span class="end-text text-black">thru:</span>
+                          <span class="end-date text-black">MM/YY</span>
+                        </div>
+                      </div>
+                      <div class="card-holder text-black">{{client.lastName +" "+ client.firstName }}</div>
+                      <div class="master flex flex-col items-end">
+                        <div class="flex">
+                          <div class="circle master-red"></div>
+                          <div class="circle master-yellow"></div>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-center">{{selectedType}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form class="flex flex-col gap-4 z-50">
+              <div class="z-50">
+                <label class="z-50 font-bold"> Choose color: </label>
+                <select class="z-50 text-center" v-model="selectedColor">
+                  <option class="z-50">GOLD</option>
+                  <option class="z-50">TITANIUM</option>
+                  <option class="z-50">SILVER</option>
+                </select>
+              </div>
+              <div class="z-50">
+                <label class="z-50 font-bold">Choose type: </label>
+                <select class="z-50 text-center" v-model="selectedType">
+                  <option class="z-50">DEBIT</option>
+                  <option class="z-50">CREDIT</option>
+                </select>
+              </div>
+            </form>
+            <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="createCard()"> CREATE CARD
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL CARD CREATED -->
+    <div v-if="successCard"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
-          <button class="" @click="cerrarCreateCard">
+          <button class="z-50" @click="cerrarSuccess">
             <img src="./assets/img/hambClose.png"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
-            <picture class="h-full w-full flex justify-center items-center object-contain">
-              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.png"
+            <picture class="h-full w-full flex-col flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/success.png"
                 alt="work_in_progress">
+                <h3 class="text-2xl text-green-600">CARD CREATED SUCCESFULLY</h3>
+                <h3>Please, wait while we reload the page</h3>
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL ERROR -->
+    <div v-if="failureCard"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full flex flex-col">
+          <button class="z-50" @click="cerrarFailure">
+            <img src="./assets/img/hambClose.png"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex flex-col justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/reject.png"
+                alt="work_in_progress">
+                <h3 class="text-2xl text-red-600">FAILED TO CREATE CARD</h3>
+                <h3>{{errormsg}}</h3>
             </picture>
           </div>
         </div>

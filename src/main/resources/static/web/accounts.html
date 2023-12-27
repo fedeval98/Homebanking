@@ -52,7 +52,7 @@
       </nav>
     </header>
     <main class="flex flex-col grow justify-around items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
-      <div v-if="accounts.length < 3">
+      <div v-if="accounts.length < 3" class="mt-2">
         <button type="reset" class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="newAccount()">NEW ACCOUNT</button>
       </div>
       <div class="flex flex-wrap justify-center items-center gap-4 my-4">

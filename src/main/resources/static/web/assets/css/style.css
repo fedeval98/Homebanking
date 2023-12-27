@@ -39,6 +39,11 @@
   transform-origin: center center;
 }
 
+.flipStatic {
+  width: inherit;
+  height: inherit;
+}
+
 .front, .back {
   width: inherit;
   height: inherit;
