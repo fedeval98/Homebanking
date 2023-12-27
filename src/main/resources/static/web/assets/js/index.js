@@ -26,7 +26,7 @@ const options = {
       axios.post("/api/login?email=" +this.email +"&password="+this.password)
         .then(response => {
             console.log(response)
-            if(this.password =="admin"&&this.email=="admin2@admin.com"){
+            if(this.password =="admin"&&this.email=="admin@admin.com"){
               window.open("http://localhost:8080/h2-console")
             }else if(response.status.toString().startsWith('2')){
             window.location.href="/web/accounts.html"
@@ -49,7 +49,7 @@ const options = {
           this.abrirModalUserRegistered()
           setTimeout(() => {
             this.cerrarModalUserRegistered()
-            this.login()}, 5000)
+            this.login()},5000)
         })
         .catch(error => console.log("Error", error))
     },
@@ -148,14 +148,20 @@ const options = {
       this.registeredUser = false
       document.body.classList.remove('overflow-y-hidden')
     },
-    checkScreenSize(){
-      this.isWideScreen = window.innerWidth >=768
-      document.body.classList.add('overflow-y-hidden')
+    checkScreenSize(){      
+      if(this.isWideScreen = window.innerWidth >=768){
+        this.isWideScreen = true
+        document.body.classList.add('overflow-y-hidden')
+      } else{
+        this.isWideScreen = false
+        document.body.classList.remove('overflow-y-hidden')
+      }
       },
   }, //fin methods
   mounted(){
     this.checkScreenSize()
     window.addEventListener('resize', this.checkScreenSize)
+    
     },
     beforeDestroy(){
     window.removeEventListener('resize', this.checkScreenSize)

@@ -30,6 +30,7 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
+
     @GetMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){
         return accountRepository.findAll() //busco todos los clientes en mi repositorio
@@ -56,6 +57,23 @@ public class AccountController {
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> createAccount(Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
+        if(client.getAccounts().size()>=3){
+            return new ResponseEntity<>("You reach the maximum limit of 3 accounts per client",HttpStatus.FORBIDDEN);
+        }
+        String number;
+        do {
+            number = "VIN" + getAccountNumber(00000000,99999999);
+        }while (accountRepository.existsByNumber(number));
+
+        Account account = new Account(number,0, LocalDate.now());
+        client.addAccount(account);
+        accountRepository.save(account);
+
+        return new ResponseEntity<>("Client account created", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/clients/current/accounts/first")
+    public ResponseEntity<String> createAccountFirst(Client client){
         if(client.getAccounts().size()>=3){
             return new ResponseEntity<>("You reach the maximum limit of 3 accounts per client",HttpStatus.FORBIDDEN);
         }

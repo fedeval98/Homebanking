@@ -15,22 +15,23 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 @Configuration // notacion para decir que el metodo tiene mas de 1 o mas @bean
 @EnableWebSecurity // activamos la seguridad para poder crear filtros personalizados
 public class SecurityConfig {
-    @Bean
+    @Bean // genera una instancia del contexto de spring y la mantiene ahi para utiliza mas tarde en el programa
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 // filtro por autoridad, todos, cliente o admin. Con cada requestMatchers lo que hacemos es habilitar
 // rutas o peticiones a los usuarios de nuestro programa, salvo el anyrequest que al ser denyall
 // las bloquea a todas las peticiones que no es habilitadas arriba de eso.
+// basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/assets/**","index.html").permitAll()
                 .requestMatchers("/web/*","/api/clients/current").hasAnyAuthority("CLIENT","ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","api/clients/current/accounts/first").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
 
-// proteccion CROSS SITE REQUEST FORGERY, la deshabilitamos para poder acceder al h2-console, porque es una api de terceros
+// proteccion CROSS SITE REQUEST FORGERY, la deshabilitamos para poder acceder al h2-console, es un token de seguridad
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
-// se desactiva los frameoptions porque el h2 puede intentar cargarse como un iframe
+// se desactiva los frameoptions porque el h2 puede intentar cargarse como un iframe porque es una api de terceros
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(
                 frameOptionsConfig -> frameOptionsConfig.disable()));
 // modificacion del formulario de login
@@ -67,7 +68,9 @@ public class SecurityConfig {
 
         return http.build();
     }
-
+// metodo que maneja la sesion del usuario, si existe una, obtiene una referencia de esa sesion
+// sino nos va a devolver un null x defecto. Si existe la sesion, entonces borra el log de los
+// authentication exception
     private void clearAuthenticationAttributes(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);

@@ -16,16 +16,18 @@
       <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
         <div class="h-full w-full flex items-center justify-around gap-2">
           <!-- PROFILE PICTURE -->
-          <picture class="h-full grow object-cover flex items-center justify-end" >
-            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()" src="./assets/img/10015419.png" alt="profile_foto" />
+          <picture class="h-full grow object-cover flex items-center justify-end">
+            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()"
+              src="./assets/img/10015419.png" alt="profile_foto" />
           </picture>
           <h1 class="grow text-white font-bold">
             Welcome, {{client.lastName}} {{client.firstName}}
           </h1>
         </div>
         <!-- LOG OUT BUTTON -->
-        <article class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
-        @click="logout()">
+        <article
+          class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
+          @click="logout()">
           <h3 class="w-full text-center text-white text-sm font-bold">Log out</h3>
         </article>
       </div>
@@ -37,12 +39,12 @@
                 class="w-10" src="./assets/img/user.png" alt="active_account" />ACCOUNTS</a>
           </li>
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105" href="./cards.html"><img class="w-10"
-                src="./assets/img/cards_active.png" alt="cards" />CARDS</a>
+            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105"
+              href="./cards.html"><img class="w-10" src="./assets/img/cards_active.png" alt="cards" />CARDS</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold" href="#"><img
-                class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" />OPYTHA BANK</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold"
+              href="#"><img class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
@@ -55,239 +57,243 @@
         </ul>
       </nav>
     </header>
-    <main class="flex flex-col max-w-full w-full grow lg:mt-2 justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
+    <main
+      class="flex flex-col max-w-full w-full grow justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
       <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
+      <div v-if="cards.length < 6" class="mt-2">
+        <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="abrirCreateCard"> ADD NEW CARD</button>
+      </div>
       <div class="flex flex-wrap justify-center items-center w-11/12 gap-2">
         <!-- DEBIT CARDS -->
-        <div v-if="cards.some(card => card.type == 'DEBIT')" class="w-full my-2 flex flex-col justify-center items-center">
+        <div v-if="cards.some(card => card.type == 'DEBIT')"
+          class="w-full my-2 flex flex-col justify-center items-center">
           <h3 class="border-b my-2 w-1/3 font-bold text-center">DEBIT CARDS</h3>
           <div class="flex flex-wrap justify-center items-center gap-4">
-          <template v-if="cards.length != 0" v-for="card in cards">
-            <!-- GOLD DEBIT -->
-            <div v-if="card.color === 'GOLD' && card.type ==='DEBIT'" class="flex justify-center items-center">
-              <div class="center">
-                <div class="card">
-                  <div class="flip">
-                    <div class="front bg-gold">
-                      <div class="strip-bottom"></div>
-                      <div class="strip-top"></div>
-                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
-                      <div class="investor">Opytha bank</div>
-                      <div class="chip">
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-main"></div>
-                      </div>
-                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
-                        <path
-                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
-                        </path>
-                        <path
-                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
-                        </path>
-                        <path
-                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
-                        </path>
-                      </svg>
-                      <div class="card-number">
-                        <div class="section">{{card.number.substring(0,4)}}</div>
-                        <div class="section">{{card.number.substring(5,9)}}</div>
-                        <div class="section">{{card.number.substring(10,14)}}</div>
-                        <div class="section">{{card.number.substring(15,19)}}</div>
-                      </div>
-                      <div class="end flex gap-4">
-                        <div>
-                          <span class="end-text">since:</span>
-                          <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+            <template v-if="cards.length != 0" v-for="card in cards">
+              <!-- GOLD DEBIT -->
+              <div v-if="card.color === 'GOLD' && card.type ==='DEBIT'" class="flex justify-center items-center">
+                <div class="center">
+                  <div class="card">
+                    <div class="flip">
+                      <div class="front bg-gold">
+                        <div class="strip-bottom"></div>
+                        <div class="strip-top"></div>
+                        <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                        <div class="investor">Opytha bank</div>
+                        <div class="chip">
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-main"></div>
                         </div>
-                        <div>
-                          <span class="end-text">thru:</span>
-                          <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                        <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
+                          <path
+                            d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                          </path>
+                          <path
+                            d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                          </path>
+                          <path
+                            d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                          </path>
+                        </svg>
+                        <div class="card-number">
+                          <div class="section">{{card.number.substring(0,4)}}</div>
+                          <div class="section">{{card.number.substring(5,9)}}</div>
+                          <div class="section">{{card.number.substring(10,14)}}</div>
+                          <div class="section">{{card.number.substring(15,19)}}</div>
+                        </div>
+                        <div class="end flex gap-4">
+                          <div>
+                            <span class="end-text">since:</span>
+                            <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+                          </div>
+                          <div>
+                            <span class="end-text">thru:</span>
+                            <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                          </div>
+                        </div>
+                        <div class="card-holder">{{card.cardholder}}</div>
+                        <div class="master flex flex-col items-end">
+                          <div class="flex">
+                            <div class="circle master-red"></div>
+                            <div class="circle master-yellow"></div>
+                          </div>
+                          <div>
+                            <h3 class="font-bold text-center">{{card.type}}</h3>
+                          </div>
                         </div>
                       </div>
-                      <div class="card-holder">{{card.cardholder}}</div>
-                      <div class="master flex flex-col items-end">
-                        <div class="flex">
-                          <div class="circle master-red"></div>
-                          <div class="circle master-yellow"></div>
+                      <div class="back">
+                        <div class="strip-black"></div>
+                        <div class="ccv">
+                          <label>ccv</label>
+                          <div>{{card.cvv}}</div>
                         </div>
-                        <div>
-                          <h3 class="font-bold text-center">{{card.type}}</h3>
+                        <div class="terms">
+                          <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
+                            return to Opytha bank or to the nearest bank with MasterCard logo.</p>
+                          <p>Use of this card is subject to the credit card agreement.</p>
                         </div>
-                      </div>
-                    </div>
-                    <div class="back">
-                      <div class="strip-black"></div>
-                      <div class="ccv">
-                        <label>ccv</label>
-                        <div>{{card.cvv}}</div>
-                      </div>
-                      <div class="terms">
-                        <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
-                          return to Opytha bank or to the nearest bank with MasterCard logo.</p>
-                        <p>Use of this card is subject to the credit card agreement.</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- TITANIUM DEBIT -->
-            <div v-if="card.color === 'TITANIUM' && card.type ==='DEBIT'"
-              class="flex justify-center items-center">
-              <div class="center">
-                <div class="card">
-                  <div class="flip">
-                    <div class="front bg-titanium">
-                      <div class="strip-bottom"></div>
-                      <div class="strip-top"></div>
-                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
-                      <div class="investor">Opytha bank</div>
-                      <div class="chip">
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-main"></div>
-                      </div>
-                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
-                        <path
-                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
-                        </path>
-                        <path
-                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
-                        </path>
-                        <path
-                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
-                        </path>
-                      </svg>
-                      <div class="card-number">
-                        <div class="section">{{card.number.substring(0,4)}}</div>
-                        <div class="section">{{card.number.substring(5,9)}}</div>
-                        <div class="section">{{card.number.substring(10,14)}}</div>
-                        <div class="section">{{card.number.substring(15,19)}}</div>
-                      </div>
-                      <div class="end flex gap-4">
-                        <div>
-                          <span class="end-text">since:</span>
-                          <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+              <!-- TITANIUM DEBIT -->
+              <div v-if="card.color === 'TITANIUM' && card.type ==='DEBIT'" class="flex justify-center items-center">
+                <div class="center">
+                  <div class="card">
+                    <div class="flip">
+                      <div class="front bg-titanium">
+                        <div class="strip-bottom"></div>
+                        <div class="strip-top"></div>
+                        <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                        <div class="investor">Opytha bank</div>
+                        <div class="chip">
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-main"></div>
                         </div>
-                        <div>
-                          <span class="end-text">thru:</span>
-                          <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                        <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="white">
+                          <path
+                            d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                          </path>
+                          <path
+                            d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                          </path>
+                          <path
+                            d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                          </path>
+                        </svg>
+                        <div class="card-number">
+                          <div class="section">{{card.number.substring(0,4)}}</div>
+                          <div class="section">{{card.number.substring(5,9)}}</div>
+                          <div class="section">{{card.number.substring(10,14)}}</div>
+                          <div class="section">{{card.number.substring(15,19)}}</div>
+                        </div>
+                        <div class="end flex gap-4">
+                          <div>
+                            <span class="end-text">since:</span>
+                            <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+                          </div>
+                          <div>
+                            <span class="end-text">thru:</span>
+                            <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                          </div>
+                        </div>
+                        <div class="card-holder">{{card.cardholder}}</div>
+                        <div class="master flex flex-col items-end">
+                          <div class="flex">
+                            <div class="circle master-red"></div>
+                            <div class="circle master-yellow"></div>
+                          </div>
+                          <div>
+                            <h3 class="font-bold text-center">{{card.type}}</h3>
+                          </div>
                         </div>
                       </div>
-                      <div class="card-holder">{{card.cardholder}}</div>
-                      <div class="master flex flex-col items-end">
-                        <div class="flex">
-                          <div class="circle master-red"></div>
-                          <div class="circle master-yellow"></div>
+                      <div class="back">
+                        <div class="strip-black"></div>
+                        <div class="ccv">
+                          <label>ccv</label>
+                          <div>{{card.cvv}}</div>
                         </div>
-                        <div>
-                          <h3 class="font-bold text-center">{{card.type}}</h3>
+                        <div class="terms">
+                          <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
+                            return to Opytha bank or to the nearest bank with MasterCard logo.</p>
+                          <p>Use of this card is subject to the credit card agreement.</p>
                         </div>
-                      </div>
-                    </div>
-                    <div class="back">
-                      <div class="strip-black"></div>
-                      <div class="ccv">
-                        <label>ccv</label>
-                        <div>{{card.cvv}}</div>
-                      </div>
-                      <div class="terms">
-                        <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
-                          return to Opytha bank or to the nearest bank with MasterCard logo.</p>
-                        <p>Use of this card is subject to the credit card agreement.</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- SILVER DEBIT -->
-            <div v-if="card.color === 'SILVER' && card.type ==='DEBIT'" class="flex justify-center items-center">
-              <div class="center">
-                <div class="card">
-                  <div class="flip">
-                    <div class="front bg-silver">
-                      <div class="strip-bottom"></div>
-                      <div class="strip-top"></div>
-                      <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
-                      <div class="investor">Opytha bank</div>
-                      <div class="chip">
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-line"></div>
-                        <div class="chip-main"></div>
-                      </div>
-                      <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="black">
-                        <path
-                          d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
-                        </path>
-                        <path
-                          d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
-                        </path>
-                        <path
-                          d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
-                        </path>
-                      </svg>
-                      <div class="card-number">
-                        <div class="section text-black">{{card.number.substring(0,4)}}</div>
-                        <div class="section text-black">{{card.number.substring(5,9)}}</div>
-                        <div class="section text-black">{{card.number.substring(10,14)}}</div>
-                        <div class="section text-black">{{card.number.substring(15,19)}}</div>
-                      </div>
-                      <div class="end flex gap-4">
-                        <div>
-                          <span class="end-text text-black">since:</span>
-                          <span class="end-date text-black">{{formatDate(new Date(card.fromDate))}}</span>
+              <!-- SILVER DEBIT -->
+              <div v-if="card.color === 'SILVER' && card.type ==='DEBIT'" class="flex justify-center items-center">
+                <div class="center">
+                  <div class="card">
+                    <div class="flip">
+                      <div class="front bg-silver">
+                        <div class="strip-bottom"></div>
+                        <div class="strip-top"></div>
+                        <img class="logo w-10 rounded-full" src="./assets/img/profile.png" alt="bank_logo">
+                        <div class="investor">Opytha bank</div>
+                        <div class="chip">
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-line"></div>
+                          <div class="chip-main"></div>
                         </div>
-                        <div>
-                          <span class="end-text text-black">thru:</span>
-                          <span class="end-date text-black">{{formatDate(new Date(card.truDate))}}</span>
+                        <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787" fill="black">
+                          <path
+                            d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                          </path>
+                          <path
+                            d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                          </path>
+                          <path
+                            d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                          </path>
+                        </svg>
+                        <div class="card-number">
+                          <div class="section text-black">{{card.number.substring(0,4)}}</div>
+                          <div class="section text-black">{{card.number.substring(5,9)}}</div>
+                          <div class="section text-black">{{card.number.substring(10,14)}}</div>
+                          <div class="section text-black">{{card.number.substring(15,19)}}</div>
+                        </div>
+                        <div class="end flex gap-4">
+                          <div>
+                            <span class="end-text text-black">since:</span>
+                            <span class="end-date text-black">{{formatDate(new Date(card.fromDate))}}</span>
+                          </div>
+                          <div>
+                            <span class="end-text text-black">thru:</span>
+                            <span class="end-date text-black">{{formatDate(new Date(card.truDate))}}</span>
+                          </div>
+                        </div>
+                        <div class="card-holder text-black">{{card.cardholder}}</div>
+                        <div class="master flex flex-col items-end">
+                          <div class="flex">
+                            <div class="circle master-red"></div>
+                            <div class="circle master-yellow"></div>
+                          </div>
+                          <div>
+                            <h3 class="font-bold text-center">{{card.type}}</h3>
+                          </div>
                         </div>
                       </div>
-                      <div class="card-holder text-black">{{card.cardholder}}</div>
-                      <div class="master flex flex-col items-end">
-                        <div class="flex">
-                          <div class="circle master-red"></div>
-                          <div class="circle master-yellow"></div>
+                      <div class="back">
+                        <div class="strip-black"></div>
+                        <div class="ccv">
+                          <label>ccv</label>
+                          <div>{{card.cvv}}</div>
                         </div>
-                        <div>
-                          <h3 class="font-bold text-center">{{card.type}}</h3>
+                        <div class="terms">
+                          <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
+                            return to Opytha bank or to the nearest bank with MasterCard logo.</p>
+                          <p>Use of this card is subject to the credit card agreement.</p>
                         </div>
-                      </div>
-                    </div>
-                    <div class="back">
-                      <div class="strip-black"></div>
-                      <div class="ccv">
-                        <label>ccv</label>
-                        <div>{{card.cvv}}</div>
-                      </div>
-                      <div class="terms">
-                        <p>This card is property of Opytha bank. Misuse is criminal offence. If found, please
-                          return to Opytha bank or to the nearest bank with MasterCard logo.</p>
-                        <p>Use of this card is subject to the credit card agreement.</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </template>
-        </div>
+            </template>
+          </div>
         </div>
         <!-- CREDIT CARDS -->
-        <div v-if="cards.some(card => card.type == 'CREDIT')" class="w-full my-2 flex flex-col justify-center items-center">
+        <div v-if="cards.some(card => card.type == 'CREDIT')"
+          class="w-full my-2 flex flex-col justify-center items-center">
           <h3 class="border-b my-2 font-bold w-1/3 text-center">CREDIT CARDS</h3>
           <div class="flex flex-wrap justify-center items-center gap-4">
             <template v-if="cards.length != 0" v-for="card in cards">
               <!-- GOLD CREDIT -->
-              <div v-if="card.color === 'GOLD' && card.type ==='CREDIT'"
-                class="flex justify-center items-center">
+              <div v-if="card.color === 'GOLD' && card.type ==='CREDIT'" class="flex justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -358,8 +364,7 @@
                 </div>
               </div>
               <!-- TITANIUM CREDIT -->
-              <div v-if="card.color === 'TITANIUM' && card.type ==='CREDIT'"
-                class="flex justify-center items-center">
+              <div v-if="card.color === 'TITANIUM' && card.type ==='CREDIT'" class="flex justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -430,8 +435,7 @@
                 </div>
               </div>
               <!-- SILVER CREDIT -->
-              <div v-if="card.color === 'SILVER' && card.type ==='CREDIT'"
-                class="flex justify-center items-center">
+              <div v-if="card.color === 'SILVER' && card.type ==='CREDIT'" class="flex justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -513,7 +517,9 @@
     <footer v-if="!isWideScreen"
       class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
       <nav class="flex flex-col justify-center items-center w-full">
-        <div class="flex text-logopurple font-bold justify-center items-center"><h3>OPYTHA BANK</h3></div>
+        <div class="flex text-logopurple font-bold justify-center items-center">
+          <h3>OPYTHA BANK</h3>
+        </div>
         <ul class="flex flex justify-around items-center w-full py-1 px-2">
           <li class="w-1/5">
             <a class="w-full flex flex-col justify-center items-center text-xs" href="./accounts.html"><img class="w-10"
@@ -524,8 +530,8 @@
               href="#"><img class="w-10" src="./assets/img/cards_active.png" alt="cards" />Cards</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple" href="#"><img class="w-16 rounded-full"
-                src="./assets/img/profile.png" alt="bank_logo" /></a>
+            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple"
+              href="#"><img class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
@@ -549,8 +555,25 @@
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="" @click="cerrarAlert">
-            <img
-              src="./assets/img/hambClose.png"
+            <img src="./assets/img/hambClose.png"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.png"
+                alt="work_in_progress">
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL CREATE CARD -->
+    <div v-if="modalCard"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button class="" @click="cerrarCreateCard">
+            <img src="./assets/img/hambClose.png"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">

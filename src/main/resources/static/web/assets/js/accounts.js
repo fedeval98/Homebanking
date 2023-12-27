@@ -1,5 +1,6 @@
 const CLIENT = "/api/clients/current"
 const LOGOUT = "/api/logout"
+const CREATEACCOUNT = "/api/clients/current/accounts"
 const {createApp} = Vue
 
 const options = {
@@ -74,6 +75,12 @@ const options = {
         window.location.href="/index.html"})
       .catch (error => console.log("Error: ",error))
       },
+    newAccount(){
+    axios.post(CREATEACCOUNT)
+    .then(response => console.log(response))
+    .catch(response => console.log(error))
+    window.location.reload()
+    }
   }, //fin methods
 
   mounted(){

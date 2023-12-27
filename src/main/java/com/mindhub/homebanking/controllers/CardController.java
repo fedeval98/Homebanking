@@ -54,13 +54,13 @@ public class CardController {
         if (colorCount >= 2) {
             return new ResponseEntity<>("You already have a card of color " + color, HttpStatus.FORBIDDEN);
         }
-        
+
 
         if (client.getCards().size() >= 6) {
             return new ResponseEntity<>("You have reached the maximum limit of 6 cards", HttpStatus.FORBIDDEN);
         }
 
-        int cvv = (int) (Math.random() * 900 + 100);
+        int cvv = (int) (Math.random() * 999 + 100);
 
         String cardNumber = generateRandomCardNumber();
 
@@ -79,9 +79,9 @@ public class CardController {
     }
 
     private String generateRandomCardNumber() {
-        StringBuilder cardNumber = new StringBuilder("3333-");
-        for (int i = 0; i < 3; i++) {
-            int section = (int) (Math.random() * 9000 + 1000);
+        StringBuilder cardNumber = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            int section = (int) (Math.random() * 9999 + 1000);
             cardNumber.append(section).append("-");
         }
         return cardNumber.substring(0, cardNumber.length() - 1);

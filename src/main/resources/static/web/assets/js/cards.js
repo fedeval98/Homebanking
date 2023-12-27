@@ -9,6 +9,7 @@ const options = {
       cards:[],
       isWideScreen:false,
       modalVisibleAlert: false,
+      modalCard:false
     } // finaliza return
   }, // finaliza data
   created(){
@@ -60,6 +61,18 @@ const options = {
       .then (data => {
         window.location.href="/index.html"})
       .catch (error => console.log("Error: ",error))
+      },
+      abrirCreateCard(){
+        this.modalCard = true
+        if (this.modalCard) {
+          document.body.classList.add('overflow-y-hidden')
+        }
+      },
+      cerrarCreateCard(){
+        this.modalCard = false
+        if (this.modalCard == false) {
+          document.body.classList.remove('overflow-y-hidden')
+        }
       },
   }, //fin methods
 
