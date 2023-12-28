@@ -42,7 +42,6 @@ public class CardController {
         long typeCount = client.getCards().stream()
                 .filter(card -> card.getType() == type)
                 .count();
-
         if (typeCount >= 3) {
             return new ResponseEntity<>("You already have 3 cards of type " + type, HttpStatus.FORBIDDEN);
         }
@@ -87,3 +86,6 @@ public class CardController {
         return cardNumber.substring(0, cardNumber.length() - 1);
     }
 }
+
+
+

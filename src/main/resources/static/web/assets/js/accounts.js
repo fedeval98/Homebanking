@@ -78,8 +78,8 @@ const options = {
     newAccount(){
     axios.post(CREATEACCOUNT)
     .then(response => console.log(response))
-    .catch(response => console.log(error))
-    window.location.reload()
+      .catch(response => console.log(error))
+    // window.location.reload()
     }
   }, //fin methods
 
