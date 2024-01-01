@@ -4,7 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="./web/assets/img/profile.png" type="image/x-icon" />
+  <link rel="preload" as="image" href="./web/assets/img/backgrounds/BACKGROUND-3.webp">
+  <link rel="preload" as="image" href="./web/assets/img/Facebook_icon.webp">
+  <link rel="preload" as="image" href="./web/assets/img/Github_icon.webp">
+  <link rel="preload" as="image" href="./web/assets/img/Linkedin_icon.webp">
+  <link rel="preload" as="image" href="./web/assets/img/Instragram_icon.webp">
+  <link rel="preload" as="image" href="./web/assets/img/profile.webp">
+  <link rel="shortcut icon" href="./web/assets/img/profile.webp" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="./web/assets/css/style.css">
@@ -14,23 +20,23 @@
 <body class="w-full h-screen">
   <div id="app" class="w-full">
     <!-- HEADER ONLY WIDESCREEN (LAPTOP/DESKTOP) -->
-    <header v-if="isWideScreen" class="bg-lightBlack py-5 flex justify-around items-center">
+    <header v-if="isWideScreen" class="bg-lightBlack py-5 flex justify-around items-center h-[15vh]">
       <picture class="flex gap-2 justify-center items-center my-2">
-        <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
+        <img class="rounded-full w-16" src="./web/assets/img/profile.webp" alt="bank_logo">
         <h1 class="text-logopurple font-bold text-4xl lg:text-6xl">OPYTHA BANK</h1>
       </picture>
       <div class="flex gap-10 justify-center items-center">
         <picture class="flex items-center justify-center">
-          <img class="w-10 facebook" src="./web/assets/img/Facebook_icon.png" alt="facebook_logo" @click="socialmedia">
+          <img class="w-10 facebook" src="./web/assets/img/Facebook_icon.webp" alt="facebook_logo" @click="socialmedia">
         </picture>
         <picture class="flex items-center justify-center">
-          <img class="w-10 github" src="./web/assets/img/Github_icon.png" alt="github_logo" @click="socialmedia">
+          <img class="w-10 github" src="./web/assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
         </picture >
         <picture class="flex items-center justify-center">
-          <img class="w-10 linkedin" src="./web/assets/img/Linkedin_icon.png" alt="linkedin_logo" @click="socialmedia">
+          <img class="w-10 linkedin" src="./web/assets/img/Linkedin_icon.webp" alt="linkedin_logo" @click="socialmedia">
         </picture>
         <picture class="flex items-center justify-center">
-          <img class="w-10 instagram" src="./web/assets/img/Instragram_icon.png" alt="instagram_logo"
+          <img class="w-10 instagram" src="./web/assets/img/Instragram_icon.webp" alt="instagram_logo"
             @click="socialmedia">
         </picture>
       </div>
@@ -40,7 +46,7 @@
       <!-- LOGO -->
       <article class="scale-up-horizontal-right w-full flex gap-6 flex-col h-screen w-full" v-if="!signupactive">
         <picture class="flex gap-2 justify-center items-center my-2">
-          <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
+          <img class="rounded-full w-16" src="./web/assets/img/profile.webp" alt="bank_logo">
           <h1 class="text-logopurple font-bold text-xl">OPYTHA BANK</h1>
         </picture>
         <!-- LOG IN SCREEN -->
@@ -71,18 +77,18 @@
             <small class="text-lg">Follow our social media:</small>
             <div class="flex gap-10 justify-center items-center">
               <picture>
-                <img class="w-10 facebook" src="./web/assets/img/Facebook_icon.png" alt="facebook_logo"
+                <img class="w-10 facebook" src="./web/assets/img/Facebook_icon.webp" alt="facebook_logo"
                   @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10 github" src="./web/assets/img/Github_icon.png" alt="github_logo" @click="socialmedia">
+                <img class="w-10 github" src="./web/assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10 linkedin" src="./web/assets/img/Linkedin_icon.png" alt="linkedin_logo"
+                <img class="w-10 linkedin" src="./web/assets/img/Linkedin_icon.webp" alt="linkedin_logo"
                   @click="socialmedia">
               </picture>
               <picture>
-                <img class="w-10 instagram" src="./web/assets/img/Instragram_icon.png" alt="instagram_logo"
+                <img class="w-10 instagram" src="./web/assets/img/Instragram_icon.webp" alt="instagram_logo"
                   @click="socialmedia">
               </picture>
             </div>
@@ -91,7 +97,7 @@
       </article>
       <!-- SIGN UP BUTTON -->
       <article v-if="!signupactive"
-        class="scale-up-horizontal-left snap-center w-full bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat w-full h-screen snap-start flex flex-col justify-center items-center">
+        class="scale-up-horizontal-left snap-center w-full bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat w-full h-screen snap-start flex flex-col justify-center items-center">
         <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
           <h2 class="font-bold text-3xl">New Here?</h2>
           <p class="text-center text-lg">Sign Up for Our Bank!</p>
@@ -101,7 +107,7 @@
         </div>
       </article>
       <article v-else
-        class="scale-up-horizontal-right snap-center w-full bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat w-full h-[100vh] snap-start flex flex-col justify-center items-center">
+        class="scale-up-horizontal-right snap-center w-full bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat w-full h-[100vh] snap-start flex flex-col justify-center items-center">
         <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
           <h2 class="font-bold text-3xl">Already have account?</h2>
           <p class="text-center text-lg">Login with your account</p>
@@ -113,7 +119,7 @@
       <article v-if="signupactive"
         class="scale-up-horizontal-left  snap-center w-full flex gap-6 flex-col h-[100vh] w-full">
         <picture class="flex gap-2 justify-center items-center my-2">
-          <img class="rounded-full w-16" src="./web/assets/img/profile.png" alt="bank_logo">
+          <img class="rounded-full w-16" src="./web/assets/img/profile.webp" alt="bank_logo">
           <h1 class="text-logopurple font-bold text-xl">OPYTHA BANK</h1>
         </picture>
         <!-- SIGN UP SCREEN -->
@@ -147,7 +153,7 @@
       </article>
     </main>
     <!-- MAIN LAPTOP/DESKTOP ONLY -->
-    <main v-if="isWideScreen" class="flex h-[83dvh]">
+    <main v-if="isWideScreen" class="flex h-[85vh]">
       <!-- LOGIN SCREEN -->
       <article v-if="!signupactive" class="text-center w-1/2 h-full flex flex-col justify-center">
         <h2 class="font-bold text-3xl mb-4">Login to your account</h2>
@@ -176,7 +182,7 @@
       </article>
       <!-- LOGIN BUTTON -->
       <article v-if="signupactive"
-      class="scale-up-horizontal-right snap-center bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat w-1/2 flex h-full flex-col justify-center items-center">
+      class="scale-up-horizontal-right snap-center bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat w-1/2 flex h-full flex-col justify-center items-center">
       <div class="text-white flex flex-col gap-8 justify-center items-center h-full">
         <h2 class="font-bold text-3xl">Already have an account?</h2>
         <p class="text-center text-lg">Login with your account</p>
@@ -186,7 +192,7 @@
     </article>
         <!-- SIGN UP BUTTON -->
         <article v-if="!signupactive"
-          class="scale-up-horizontal-left snap-center bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat w-1/2 flex h-full flex-col justify-center items-center">
+          class="scale-up-horizontal-left snap-center bg-[url('./web/assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat w-1/2 flex h-full flex-col justify-center items-center">
           <div class="text-white flex flex-col gap-14 justify-center items-center">
             <h2 class="font-bold text-3xl">New Here?</h2>
             <p class="text-center text-lg">Sign Up for Our Bank!</p>
@@ -228,17 +234,17 @@
     </main>
 
     <!-- MODAL WIP -->
-    <div v-if="modalVisibleAlert"
+    <div v-show="modalVisibleAlert"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="" @click="cerrarAlert()">
-            <img src="../web/assets/img/hambClose.png"
+            <img src="../web/assets/img/hambClose.webp"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
             <picture class="h-full w-full flex justify-center items-center object-contain">
-              <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.png"
+              <img class="w-[280px] h-[280px] object-contain" src="./web/assets/img/work-in-progress.webp"
                 alt="work_in_progress">
             </picture>
           </div>
@@ -246,12 +252,12 @@
       </section>
     </div>
     <!-- MODAL NOT REGISTERED -->
-    <div v-if="modalRegistered"
+    <div v-show="modalRegistered"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="" @click="cerrarModalRegistered()">
-            <img src="../web/assets/img/hambClose.png"
+            <img src="../web/assets/img/hambClose.webp"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0 gap-8">
@@ -264,12 +270,12 @@
       </section>
     </div>
     <!-- MODAL REGISTERED USER -->
-    <div v-if="registeredUser"
+    <div v-show="registeredUser"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="" @click="cerrarModalUserRegistered()">
-            <img src="../web/assets/img/hambClose.png"
+            <img src="../web/assets/img/hambClose.webp"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0 gap-8">

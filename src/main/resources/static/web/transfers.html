@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" as="image" href="./assets/img/backgrounds/BACKGROUND-3.webp">
+  <link rel="preload" as="image" href="./assets/img/10015419.webp">
+  <link rel="preload" as="image" href="./assets/img/user_active.webp">
+  <link rel="preload" as="image" href="./assets/img/cards.webp">
+  <link rel="preload" as="image" href="./assets/img/loan.webp">
+  <link rel="preload" as="image" href="./assets/img/transfer.webp">
+  <link rel="shortcut icon" href="./assets/img/profile.webp" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>OPYTHA BANK | Transactions</title>
+</head>
+
+<body>
+  <div id="app" class="h-[100vh] flex flex-col">
+    <header class="h-26 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
+      <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
+        <div class="h-full w-full flex items-center justify-around gap-2">
+          <picture class="h-full grow object-cover flex items-center justify-end">
+            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()"
+              src="./assets/img/10015419.webp" alt="profile_foto" />
+          </picture>
+          <h1 class="grow text-white font-bold">
+            Welcome, {{client.lastName}} {{client.firstName}}
+          </h1>
+        </div>
+        <article
+          class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
+          @click="logout()">
+          <h3 class="w-full text-center text-white text-sm font-bold">Log out</h3>
+        </article>
+      </div>
+      <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
+        <ul class="flex justify-around items-center w-11/12 py-1">
+          <li class="w-1/5 ">
+            <a class="w-full flex flex-col justify-center items-center" href="./accounts.html"><img class="w-10"
+                src="./assets/img/user.webp" alt="account" />ACCOUNTS</a>
+          </li>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./cards.html"><img
+                class="w-10" src="./assets/img/cards.webp" alt="cards" />CARDS</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold"
+              href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" />OPYTHA BANK</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
+                src="./assets/img/loan.webp" alt="loan" />LOANS</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105" href="#"><img
+                class="w-10" src="./assets/img/transfer_active.webp" alt="transfer" />TRANSACTIONS</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main
+      class="flex flex-col grow justify-around items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat">
+      <div class="flex justify-center items-center w-full">
+        <form
+          class=" flex flex-col gap-2 bg-gloomypurple rounded-lg text-white font-bold px-4 py-2 justify-center items-center lg:w-2/3"
+          @submit.prevent="abrirVerify()">
+          <div class="flex flex-col justify-center lg:justify-evenly items-center gap-2 w-full lg:flex-row">
+            <div class="flex flex-col justify-center  items-center text-lg w-full">
+              <label>Select source account:
+              </label>
+              <select class="text-black text-center rounded-lg px-2" @change="accountCheck()" required
+                v-model="fromAccount">
+                <template v-if="accounts != 0" v-for="account in accounts">
+                  <option>{{account.number}}</option>
+                </template>
+              </select>
+              <label v-if="fromAccount != 0"> actual balance: ${{accountBalance.balance}}</label>
+            </div>
+            <picture v-if="isWideScreen" class="flex flex-col justify-center items-center">
+              <img class="w-16" src="./assets/img/flecha-correcta.png" alt="right_arrow">
+            </picture>
+            <div class="flex flex-col justify-center items-center text-lg w-full">
+              <label for="">Enter destination account:</label>
+              <small for="">(only numbers without VIN):</small>
+              <input class="rounded-lg text-center text-black" type="text" placeholder="9743242310231245"
+                v-model="toAccount" maxlength="16" required>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center items-center gap-2 w-full lg:flex-row">
+            <div class="flex flex-col justify-center items-center text-lg">
+              <div class="flex flex-col justify-center items-center">
+                <label class="flex flex-col justify-center items-center">
+                  amount to transfer:</label>
+                <small> (only numbers without $ sign)</small>
+                <div class="flex w-full justify-center items-center">
+                  <input class="rounded-lg text-center text-black w-2/3" placeholder="9000" type="number"
+                    v-model="amount" required step="0.01">
+                  <button class="px-2 py-1 text-sm bg-logopurple rounded-full w-[50px] text-center text-black font-bold"
+                    @click.prevent="maxAmount()">MAX</button>
+                </div>
+              </div>
+              <div class="flex justify-center items-center">
+                <label class="flex flex-col justify-center items-center"> Description:
+                  <input class="rounded-lg text-center text-black" type="text" placeholder="Payment to Pablo"
+                    v-model="description" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button type="submit"
+            class="bg-green-500 py-2 px-4 rounded-full font-bold text-xl text-black">TRANSFER</button>
+        </form>
+      </div>
+    </main>
+    <!-- NAV BAR ONLY MOBILE/TABLET -->
+    <footer v-if="!isWideScreen"
+      class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
+      <nav class="flex flex-col justify-center items-center w-full">
+        <div class="flex  text-logopurple font-bold justify-center items-center">
+          <h3>OPYTHA BANK</h3>
+        </div>
+        <ul class="flex flex justify-around items-center w-full py-1 px-2">
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue text-xs" href="#"><img
+                class="w-10" src="./assets/img/user_active.webp" alt="account" />Account</a>
+          </li>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./cards.html"><img class="w-10"
+                src="./assets/img/cards.webp" alt="cards" />Cards</a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple"
+              href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
+          </li>
+          <li class="w-1/5" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+                src="./assets/img/loan.webp" alt="loan" />Loans</a>
+          </li>
+          <li class="w-1/5 flex" @click="abrirAlert()">
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+                src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+    <!-- FOOTER ONLY LAPTOP/DESKTOP -->
+    <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-around items-center">
+      <small>Cohort52</small>
+      <small>&copy; 2023 Federico Val. All rights reserved.</small>
+      <div class="text-center flex flex-col gap-2 mb-2">
+        <small class="text-lg">Follow our social media:</small>
+        <div class="flex gap-10 justify-center items-center">
+          <picture>
+            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo" @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 github" src="./assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo" @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 instagram" src="./assets/img/Instragram_icon.webp" alt="instagram_logo"
+              @click="socialmedia">
+          </picture>
+        </div>
+      </div>
+    </footer>
+    <!-- MODAL WIP -->
+    <div v-show="modalVisibleAlert"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button class="" @click="cerrarAlert">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.webp"
+                alt="work_in_progress">
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL VERIFY TRANSFER CREATED -->
+    <div v-if="verifyTransfer"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0 gap-2">
+            <div class="mt-2">
+              <small>This serves as a confirmation prompt. Please be advised that once a transfer is initiated to a
+                designated account, we are unable to intervene or reverse the transaction. Exercise caution to ensure
+                accuracy before proceeding with the transfer.</small>
+            </div>
+            <h3>You are about to transfer</h3>
+            <h3>from: {{fromAccount}}</h3>
+            <h3>to: VIN{{toAccount}}</h3>
+            <h3>amount: ${{amount}}</h3>
+            <h3>description: {{description}} </h3>
+            <h3>The data is correct?</h3>
+            <div class="flex gap-4 justify-around items-center">
+              <button class="bg-green-400 rounded-lg px-4 py-2 text-lg font-bold"
+                @click.prevent="confirmTransaction()">CONFIRM</button>
+              <button class="bg-red-500 rounded-lg px-4 py-2 text-lg font-bold"
+                @click.prevent="cerrarVerify()">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL TRANSACTION SUCCESS -->
+    <div v-if="success" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button class="z-50" @click="cerrarSuccess">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex-col flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/success.webp" alt="work_in_progress">
+              <h3 class="text-2xl text-green-600">TRANSACTION SUCCESFULLY</h3>
+              <h3>Please, close this window to proceed</h3>
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL TRANSACTION ERROR -->
+    <div v-if="failure" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full flex flex-col">
+          <button class="z-50" @click="cerrarFailure">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex flex-col justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/reject.webp" alt="work_in_progress">
+              <h3 class="text-2xl text-red-600">FAILED TO TRANSFER</h3>
+              <h3>{{errormsg}}</h3>
+              <h3>Please, close this window to proceed</h3>
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div> <!-- finaliza el vue  -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/tailwind.config.js"></script>
+  <script src="./assets/js/transfers.js"></script>
+</body>
+
+</html>

@@ -4,153 +4,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="./assets/img/profile.png" type="image/x-icon" />
+  <link rel="preload" as="image" href="./assets/img/backgrounds/BACKGROUND-3.webp">
+  <link rel="preload" as="image" href="./assets/img/10015419.webp">
+  <link rel="preload" as="image" href="./assets/img/user_active.webp">
+  <link rel="preload" as="image" href="./assets/img/cards.webp">
+  <link rel="preload" as="image" href="./assets/img/loan.webp">
+  <link rel="preload" as="image" href="./assets/img/transfer.webp">
+  <link rel="shortcut icon" href="./assets/img/profile.webp" type="image/x-icon" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Opybank | Account</title>
+  <title>OPYTHA BANK | Account</title>
 </head>
 
 <body>
   <div id="app" class="h-[100vh] flex flex-col">
     <header class="h-26 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
+      <!-- HEADER WITH NAME/PROFILE PICTURE -->
       <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
         <div class="h-full w-full flex items-center justify-around gap-2">
-          <picture class="h-full grow object-cover flex items-center justify-end" >
-            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()" src="./assets/img/10015419.png" alt="profile_foto" />
+          <picture class="h-full grow object-cover flex items-center justify-end">
+            <img class="w-16 object-cover rounded-full cursor-pointer" @click="abrirAlert()"
+              src="./assets/img/10015419.webp" alt="profile_foto" />
           </picture>
           <h1 class="grow text-white font-bold">
             Welcome, {{client.lastName}} {{client.firstName}}
           </h1>
         </div>
-        <article class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
+        <!-- LOG OUT BUTTON -->
+        <article
+          class="w-20 h-full rounded-full object-cover flex items-center justify-center md:self-right cursor-pointer bg-red-500 border border-red-600"
           @click="logout()">
           <h3 class="w-full text-center text-white text-sm font-bold">Log out</h3>
         </article>
       </div>
+      <!-- NAV BAR LAPTOP/DESKTOP -->
       <nav v-if="isWideScreen" class="flex justify-center items-center w-full h-full bg-white pt-2">
         <ul class="flex justify-around items-center w-11/12 py-1">
           <li class="w-1/5 ">
-            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105" href="./accounts.html"><img
-                class="w-10" src="./assets/img/user_active.png" alt="active_account" />ACCOUNTS</a>
+            <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105"
+              href="./accounts.html"><img class="w-10" src="./assets/img/user_active.webp"
+                alt="active_account" />ACCOUNTS</a>
           </li>
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./cards.html"><img class="w-10"
-                src="./assets/img/cards.png" alt="cards" />CARDS</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./cards.html"><img
+                class="w-10" src="./assets/img/cards.webp" alt="cards" />CARDS</a>
           </li>
-          <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold" href="#"><img
-                class="w-16 rounded-full" src="./assets/img/profile.png" alt="bank_logo" />OPYTHA BANK</a>
-          </li>
-          <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
-                src="./assets/img/loan.png" alt="loan" />LOANS</a>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105 text-logopurple font-bold"
+              href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
-                src="./assets/img/transfer.png" alt="transfer" />TRANSACTIONS</a>
+                src="./assets/img/loan.webp" alt="loan" />LOANS</a>
+          </li>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./transfers.html"><img class="w-10"
+                src="./assets/img/transfer.webp" alt="transfer" />TRANSACTIONS</a>
           </li>
         </ul>
       </nav>
     </header>
-    <main class="flex flex-col grow justify-around items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.png')] bg-cover bg-norepeat">
-      <div v-if="accounts.length < 3" class="mt-2">
-        <button type="reset" class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="newAccount()">NEW ACCOUNT</button>
-      </div>
-      <div class="flex flex-wrap justify-center items-center gap-4 my-4">
-        <template v-if="client.length != 0" v-for="account in accounts">
-          <a :href='"../web/account.html?id="+ account.id' class="flex flex-col justify-center items-center">
-            <div
-              class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105">
-              <h3>Account Number: {{account.number}}</h3>
-              <div class="flex flex-col w-full px-2">
-                <h3>Balance:</h3>
-                <h3 class="self-center text-xl">
-                  {{formatBudget(account.balance)}}
-                </h3>
+    <main
+      class="flex flex-col grow justify-around items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat">
+      <div class="h-full w-full flex flex-col justify-center items-center">
+        <div v-if="accounts.length < 3" class="mt-2">
+          <button type="reset" class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="newAccount()">NEW
+            ACCOUNT</button>
+        </div>
+        <div class="flex flex-wrap justify-around items-center gap-4 my-4">
+          <template v-if="client.length != 0" v-for="account in accounts">
+            <a :href='"../web/account.html?id="+ account.id' class="flex flex-col justify-center items-center">
+              <div
+                class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105">
+                <h3>Account Number: {{account.number}}</h3>
+                <div class="flex flex-col w-full px-2">
+                  <h3>Balance:</h3>
+                  <h3 class="self-center text-xl">
+                    {{formatBudget(account.balance)}}
+                  </h3>
+                </div>
+                <div class="flex flex-wrap gap-1 px-2">
+                  <h3>Creation Date:</h3>
+                  <h3>{{formatDate(account)}}</h3>
+                </div>
+                <p class="px-1 border-b cursor-pointer">VIEW ACCOUNT
+                  ACTIVITY</p>
               </div>
-              <div class="flex flex-wrap gap-1 px-2">
-                <h3>Creation Date:</h3>
-                <h3>{{formatDate(account)}}</h3>
-              </div>
-              <p class="px-1 border-b cursor-pointer">VIEW ACCOUNT
-                ACTIVITY</p>
-            </div>
-          </a>
-        </template>
-        <div class="w-full flex justify-center items-center">
-          <div v-if="loans.length != 0" class="w-full">
-            <table class="bg-black px-2 w-full text-center m-auto md:w-2/3 rounded-lg">
-              <caption class="w-full text-center mb-2 font-bold text-xl border-b">LOANS</caption>
-              <thead>
-                <tr class="text-white">
-                  <th>Loan Name</th>
-                  <th>Amount</th>
-                  <th>Payments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-if="loans.length != 0" v-for="(loan,index) in loans">
-                  <tr :class="index % 2 === 0 ? 'bg-gray-800 text-center items-middle border-t border-b text-white' 
-                                              : 'bg-gray-900 text-center items-middle border-t border-b text-white'">
-                    <td>{{loan.name}}</td>
-                    <td>{{formatBudget(loan.amount)}}</td>
-                    <td>{{loan.payments}}</td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <template v-else>
-            <div>
-              <h3 class="text-xl font-bold">NO LOANS REGISTERED YET</h3>
-            </div>
+            </a>
           </template>
+          <div class="w-full flex justify-center items-center">
+            <div v-if="loans.length != 0" class="w-full">
+              <table class="bg-black px-2 w-full text-center m-auto md:w-2/3 rounded-lg">
+                <caption class="w-full text-center mb-2 font-bold text-xl border-b">LOANS</caption>
+                <thead>
+                  <tr class="text-white">
+                    <th>Loan Name</th>
+                    <th>Amount</th>
+                    <th>Payments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-if="loans.length != 0" v-for="(loan,index) in loans">
+                    <tr :class="index % 2 === 0 ? 'bg-gray-800 text-center items-middle border-t border-b text-white' 
+                                              : 'bg-gray-900 text-center items-middle border-t border-b text-white'">
+                      <td>{{loan.name}}</td>
+                      <td>{{formatBudget(loan.amount)}}</td>
+                      <td>{{loan.payments}}</td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <template v-else>
+              <div>
+                <h3 class="text-xl font-bold">NO LOANS REGISTERED YET</h3>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </main>
+    <!-- NAV BAR ONLY MOBILE/TABLET -->
     <footer v-if="!isWideScreen"
       class="h-26 flex justify-center items-center sticky bottom-0 w-full bg-white rounded-t-lg z-index-10 box-shadow">
       <nav class="flex flex-col justify-center items-center w-full">
-        <div class="flex  text-logopurple font-bold justify-center items-center"><h3>OPYTHA BANK</h3></div>
+        <div class="flex  text-logopurple font-bold justify-center items-center">
+          <h3>OPYTHA BANK</h3>
+        </div>
         <ul class="flex flex justify-around items-center w-full py-1 px-2">
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue text-xs"
-              href="#"><img class="w-10" src="./assets/img/user_active.png" alt="account" />Account</a>
+            <a class="w-full flex flex-col justify-center items-center font-bold text-darkblue text-xs" href="#"><img
+                class="w-10" src="./assets/img/user_active.webp" alt="account" />Account</a>
           </li>
           <li class="w-1/5">
             <a class="w-full flex flex-col justify-center items-center text-xs" href="./cards.html"><img class="w-10"
-                src="./assets/img/cards.png" alt="cards" />Cards</a>
+                src="./assets/img/cards.webp" alt="cards" />Cards</a>
           </li>
-          <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple" href="#"><img class="w-16 rounded-full"
-                src="./assets/img/profile.png" alt="bank_logo" /></a>
+          <li class="w-1/5">
+            <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple"
+              href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
             <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
-                src="./assets/img/loan.png" alt="loan" />Loans</a>
+                src="./assets/img/loan.webp" alt="loan" />Loans</a>
           </li>
-          <li class="w-1/5 flex" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
-                src="./assets/img/transfer.png" alt="transfer" />Transactions</a>
+          <li class="w-1/5 flex">
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./transfers.html"><img class="w-10"
+                src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
           </li>
         </ul>
       </nav>
     </footer>
-    <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-evenly items-center">
+    <!-- FOOTER ONLY LAPTOP/DESKTOP -->
+    <footer v-if="isWideScreen" class="flex bg-black font-bold text-white justify-around items-center">
       <small>Cohort52</small>
       <small>&copy; 2023 Federico Val. All rights reserved.</small>
+      <div class="text-center flex flex-col gap-2 mb-2">
+        <small class="text-lg">Follow our social media:</small>
+        <div class="flex gap-10 justify-center items-center">
+          <picture>
+            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo"
+              @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 github" src="./assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo"
+              @click="socialmedia">
+          </picture>
+          <picture>
+            <img class="w-10 instagram" src="./assets/img/Instragram_icon.webp" alt="instagram_logo"
+              @click="socialmedia">
+          </picture>
+        </div>
+      </div>
     </footer>
-    <div v-if="modalVisibleAlert"
+    <!-- MODAL WIP -->
+    <div v-show="modalVisibleAlert"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="" @click="cerrarAlert">
-            <img
-              src="./assets/img/hambClose.png"
+            <img src="./assets/img/hambClose.webp"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
           <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
             <picture class="h-full w-full flex justify-center items-center object-contain">
-              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.png" alt="work_in_progress">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.webp"
+                alt="work_in_progress">
             </picture>
           </div>
         </div>
@@ -162,4 +203,5 @@
   <script src="./assets/js/tailwind.config.js"></script>
   <script src="./assets/js/accounts.js"></script>
 </body>
+
 </html>

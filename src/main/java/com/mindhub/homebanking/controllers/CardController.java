@@ -31,35 +31,40 @@ public class CardController {
             Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
+        // obtengo los cards de los clientes, los transformo a stream, los filtro por color y tipo y los contabilizo.
         long colorTypeCount = client.getCards().stream()
                 .filter(card -> card.getColor() == color && card.getType() == type)
                 .count();
 
+        // obtengo los cards de los clientes, los transformo a stream, los filtro por color y los contabilizo.
         long colorCount = client.getCards().stream()
                 .filter(card -> card.getColor() == color)
                 .count();
 
+        // obtengo los cards de los clientes, los transformo a stream, los filtro por tipo y los contabilizo.
         long typeCount = client.getCards().stream()
                 .filter(card -> card.getType() == type)
                 .count();
+
+        // Verifico si ya se tiene un tipo del card seleccionado y si ya existen 3, devuelvo un error.
         if (typeCount >= 3) {
             return new ResponseEntity<>("You already have 3 cards of type " + type, HttpStatus.FORBIDDEN);
         }
-
+        // Verifico si ya se tiene un color y un tipo del card seleccionado y si ya existe 1, devuelvo un error.
         if (colorTypeCount >= 1) {
             return new ResponseEntity<>("You already have a card of color " + color + " and type " + type, HttpStatus.FORBIDDEN);
         }
-
+        // Verifico si ya se tiene un color del card seleccionado y si ya existen 2, devuelvo un error.
         if (colorCount >= 2) {
             return new ResponseEntity<>("You already have a card of color " + color, HttpStatus.FORBIDDEN);
         }
 
-
+        // Verifico si ya se tiene un maximo de 6 cards y si se cumple, devuelvo un error.
         if (client.getCards().size() >= 6) {
             return new ResponseEntity<>("You have reached the maximum limit of 6 cards", HttpStatus.FORBIDDEN);
         }
-
-        int cvv = (int) (Math.random() * 999 + 100);
+        //generador automatico, random, de CVV
+        int cvv = (int) (Math.random() * 900 + 100);
 
         String cardNumber = generateRandomCardNumber();
 
@@ -70,7 +75,6 @@ public class CardController {
 
         Card card = new Card(cardholder, type, color, cardNumber, cvv, startDate, expirationDate);
 
-        // Assign the card to the client and save
         client.addCard(card);
         cardRepository.save(card);
 

@@ -9,8 +9,6 @@ const options = {
       client: [],
       cards:[],
       isWideScreen:false,
-      modalVisibleAlert: false,
-      modalCard:false,
       selectedColor: "GOLD",
       selectedType: "DEBIT",
       successCard:false,
@@ -37,18 +35,6 @@ const options = {
     checkScreenSize(){
     this.isWideScreen = window.innerWidth >=1024
     },
-    abrirAlert() {
-      this.modalVisibleAlert = true
-      if (this.modalVisibleAlert) {
-        document.body.classList.add('overflow-y-hidden')
-      }
-    }, // finaliza showModal
-    cerrarAlert() {
-      this.modalVisibleAlert = false
-      if (this.modalVisibleAlert == false) {
-        document.body.classList.remove('overflow-y-hidden')
-      }
-    },// finaliza cerrarModal
     formatDate(fecha){
       // Obtenengo el año y el mes de la fecha
       const año = fecha.getFullYear()
@@ -67,18 +53,6 @@ const options = {
       .then (data => {
         window.location.href="/index.html"})
       .catch (error => console.log("Error: ",error))
-      },
-      abrirCreateCard(){
-        this.modalCard = true
-        if (this.modalCard) {
-          document.body.classList.add('overflow-y-hidden')
-        }
-      },
-      cerrarCreateCard(){
-        this.modalCard = false
-        if (this.modalCard == false) {
-          document.body.classList.remove('overflow-y-hidden')
-        }
       },
       createCard(){
       axios.post(CREATECARD+"?color="+this.selectedColor+"&type="+this.selectedType)

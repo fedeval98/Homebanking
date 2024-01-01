@@ -103,6 +103,22 @@ const options = {
         window.location.href="/index.html"})
       .catch (error => console.log("Error: ",error))
       },
+      socialmedia(event){
+        const facebook = document.querySelector(".facebook")
+        const instagram = document.querySelector(".instagram") 
+        const github = document.querySelector(".github") 
+        const linkedin = document.querySelector(".linkedin")
+  
+      if(event.target === facebook){
+        window.open("https://www.facebook.com/fede.val.9")
+      }else if (event.target === instagram){
+        window.open("https://www.instagram.com/_fede.val/")
+      }else if (event.target === github){
+        window.open("https://github.com/fedeval98")
+      }else if (event.target === linkedin){
+        window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
+      }
+      },
   }, //fin methods
 
   mounted(){

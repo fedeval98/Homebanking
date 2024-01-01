@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.configurations;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 @Configuration // notacion para decir que el metodo tiene mas de 1 o mas @bean
@@ -23,11 +25,13 @@ public class SecurityConfig {
 // basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/assets/**","index.html").permitAll()
-                .requestMatchers("/web/*","/api/clients/current").hasAnyAuthority("CLIENT","ADMIN")
+                .requestMatchers("/web/*","/api/clients/current").hasAuthority("CLIENT")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","api/clients/current/accounts/first").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions/transfer").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
+
+       http.sessionManagement(sessionManagement -> sessionManagement.maximumSessions(1).expiredUrl("/index.html"));
 
 // proteccion CROSS SITE REQUEST FORGERY, la deshabilitamos para poder acceder al h2-console, es un token de seguridad
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
@@ -54,8 +58,10 @@ public class SecurityConfig {
                 .permitAll()
         );
 // devolucion de error si algo falla en alguna solicitud o ingreso no autorizado
-        http.exceptionHandling( exceptionHandlingConfigurer ->
-                exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
+    //    http.exceptionHandling( exceptionHandlingConfigurer ->
+      //          exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
+
+
 // endpoint para hacer logout y eliminar la cookie.
         http.logout(httpSecurityLogoutConfigurer ->
                 httpSecurityLogoutConfigurer
@@ -68,6 +74,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 // metodo que maneja la sesion del usuario, si existe una, obtiene una referencia de esa sesion
 // sino nos va a devolver un null x defecto. Si existe la sesion, entonces borra el log de los
 // authentication exception
