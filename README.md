@@ -10,5 +10,5 @@
 >constraseña: Fede123456!
 >
 >Admin
->usuario: admin
+>usuario: admin@admin.com
 >contraseña: admin
