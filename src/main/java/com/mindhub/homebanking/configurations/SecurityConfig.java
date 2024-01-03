@@ -1,7 +1,6 @@
 package com.mindhub.homebanking.configurations;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/web/*","/api/clients/current").hasAuthority("CLIENT")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions/transfer").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
 
        http.sessionManagement(sessionManagement -> sessionManagement.maximumSessions(1).expiredUrl("/index.html"));

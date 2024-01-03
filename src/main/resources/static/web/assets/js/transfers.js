@@ -1,6 +1,6 @@
 const CLIENTS = "/api/clients/current"
 const LOGOUT = "/api/logout"
-const TRANSFER = "/api/transactions/transfer"
+const TRANSFER = "/api/transactions"
 const {createApp} = Vue
 
 const options = {
@@ -21,6 +21,10 @@ const options = {
       amount:0,
       description:"",
       accountBalance:"",
+      accountBalance2:"",
+      isPersonal:false,
+      isOther:false,
+      availableAccounts:"",
     } // finaliza return
   }, // finaliza data
   created(){
@@ -40,6 +44,12 @@ const options = {
     accountCheck(){
       this.accountBalance = this.accounts.find(account => account.number == this.fromAccount)
       console.log(this.accountBalance)
+      this.transactionType()
+    },
+    accountCheck2(){
+      this.accountBalance2 = this.accounts.find(account => account.number == this.toAccount)
+      console.log(this.accountBalance)
+      this.transactionType()
     },
     checkScreenSize(){
     this.isWideScreen = window.innerWidth >=1024
@@ -115,24 +125,57 @@ const options = {
         window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
       }
       },
+      transactionType(){
+        const personal = document.getElementById('personal')
+        const other = document.getElementById('other')
+
+        if(personal.checked){
+          this.isPersonal = true
+          this.isOther = false
+          this.availableAccounts = this.accounts.filter(account => account.number !== this.fromAccount)
+        } else if(other.checked){
+            this.isOther = true
+            this.isPersonal = false
+          }
+      },
       confirmTransaction(){
-      axios.post(TRANSFER+"?amount="+this.amount+"&descriptions="+this.description+"&sourceAccountNumber="+this.fromAccount+"&targetAccountNumber=VIN"+this.toAccount)
-      .then(response =>{ 
-        console.log(response)
-        this.cerrarVerify()
-        this.abrirSuccess()
-        this.fromAccount=""
-        this.toAccount=""
-        this.amount=0
-        this.description=""
-      this.loadData()
-      })
-      .catch(error => {
-        console.log(error)
-        this.abrirFailure()
-        this.cerrarVerify()
-        this.errormsg = error.response.data
-      })
+        if(this.isPersonal){
+          axios.post(TRANSFER+"?amount="+this.amount+"&descriptions="+this.description+"&sourceAccountNumber="+this.fromAccount+"&targetAccountNumber="+this.toAccount)
+          .then(response =>{ 
+            console.log(response)
+            this.cerrarVerify()
+            this.abrirSuccess()
+            this.fromAccount=""
+            this.toAccount=""
+            this.amount=0
+            this.description=""
+          this.loadData()
+          })
+          .catch(error => {
+            console.log(error)
+            this.abrirFailure()
+            this.cerrarVerify()
+            this.errormsg = error.response.data
+          })
+        } else if(this.isOther){
+          axios.post(TRANSFER+"?amount="+this.amount+"&descriptions="+this.description+"&sourceAccountNumber="+this.fromAccount+"&targetAccountNumber=VIN"+this.toAccount)
+          .then(response =>{ 
+            console.log(response)
+            this.cerrarVerify()
+            this.abrirSuccess()
+            this.fromAccount=""
+            this.toAccount=""
+            this.amount=0
+            this.description=""
+          this.loadData()
+          })
+          .catch(error => {
+            console.log(error)
+            this.abrirFailure()
+            this.cerrarVerify()
+            this.errormsg = error.response.data
+          })
+        }
       },
       maxAmount(){
         this.amount = this.accountBalance.balance

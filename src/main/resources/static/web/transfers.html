@@ -63,9 +63,18 @@
       class="flex flex-col grow justify-around items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat">
       <div class="flex justify-center items-center w-full">
         <form
-          class=" flex flex-col gap-2 bg-gloomypurple rounded-lg text-white font-bold px-4 py-2 justify-center items-center lg:w-2/3"
+          class=" flex flex-col gap-2 bg-gloomypurple rounded-lg text-white font-bold px-4 py-2 justify-center items-center lg:w-2/3 mx-2"
           @submit.prevent="abrirVerify()">
-          <div class="flex flex-col justify-center lg:justify-evenly items-center gap-2 w-full lg:flex-row">
+          <div class="flex flex-col justify-center lg:justify-evenly items-center gap-2 w-full lg:flex-col">
+            <div class="flex flex-row justify-around items-center gap-2 w-full">
+              <label class="flex gap-1">
+                <input name="transactionType" required @click="transactionType()" id="personal" type="radio">Personal account
+              </label>
+              <label class="flex gap-1">
+                <input name="transactionType" required @click="transactionType()" id="other" type="radio">Others
+              </label>
+            </div>
+            <!-- SELECT MY ACCOUNT -->
             <div class="flex flex-col justify-center  items-center text-lg w-full">
               <label>Select source account:
               </label>
@@ -77,12 +86,22 @@
               </select>
               <label v-if="fromAccount != 0"> actual balance: ${{accountBalance.balance}}</label>
             </div>
-            <picture v-if="isWideScreen" class="flex flex-col justify-center items-center">
-              <img class="w-16" src="./assets/img/flecha-correcta.png" alt="right_arrow">
-            </picture>
-            <div class="flex flex-col justify-center items-center text-lg w-full">
-              <label for="">Enter destination account:</label>
-              <small for="">(only numbers without VIN):</small>
+            <!-- OWN ACCOUNT INPUT -->
+            <div v-if="isPersonal" class="flex flex-col justify-center  items-center text-lg w-full">
+              <label>Select destination account:
+              </label>
+              <select class="text-black text-center rounded-lg px-2" @change="accountCheck2()" required
+                v-model="toAccount">
+                <template v-if="accounts != 0" v-for="account in availableAccounts">
+                  <option>{{account.number}}</option>
+                </template>
+              </select>
+              <label v-if="toAccount != 0"> actual balance: ${{accountBalance2.balance}}</label>
+            </div>
+            <!-- OTHER ACCOUNT INPUT -->
+            <div v-if="isOther" class="flex flex-col justify-center items-center text-lg w-full">
+              <label>Enter destination account:</label>
+              <small>(only numbers without VIN):</small>
               <input class="rounded-lg text-center text-black" type="text" placeholder="9743242310231245"
                 v-model="toAccount" maxlength="16" required>
             </div>

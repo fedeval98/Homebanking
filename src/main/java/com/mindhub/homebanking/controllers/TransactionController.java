@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/transactions")
+@RequestMapping("/api")
 public class TransactionController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class TransactionController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @PostMapping("/transfer")
+    @PostMapping("/transactions")
     @Transactional
     public ResponseEntity<String> transferMoney(
             @RequestParam Double amount,
@@ -38,21 +38,21 @@ public class TransactionController {
             @RequestParam String targetAccountNumber,
             Authentication authentication){
 
-        Account sourceAccount = accountRepository.findByNumber(sourceAccountNumber);
-        Account targetAccount = accountRepository.findByNumber(targetAccountNumber);
+        if(descriptions.isBlank()){
+            return new ResponseEntity<>("Description cannot be blank",HttpStatus.FORBIDDEN);
+        }
+
+        if(sourceAccountNumber.isBlank() || targetAccountNumber.isBlank()){
+            return new ResponseEntity<>("Source Account or Target Account cannot be blank.",HttpStatus.FORBIDDEN);
+        }
 
         if(amount == null || amount <= 0){
             return new ResponseEntity<>("Amount cannot be blank or cero", HttpStatus.FORBIDDEN);
         }
 
-        if(descriptions.isBlank()){
-            return new ResponseEntity<>("Description cannot be blank",HttpStatus.FORBIDDEN);
-        }
+        Account sourceAccount = accountRepository.findByNumber(sourceAccountNumber);
+        Account targetAccount = accountRepository.findByNumber(targetAccountNumber);
 
-
-        if(sourceAccountNumber.isBlank() || targetAccountNumber.isBlank()){
-            return new ResponseEntity<>("Source Account or Target Account cannot be blank.",HttpStatus.FORBIDDEN);
-        }
 
         if(sourceAccount == null){
             return new ResponseEntity<>("Source account does not exists.", HttpStatus.FORBIDDEN);
