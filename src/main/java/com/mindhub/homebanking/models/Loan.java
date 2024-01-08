@@ -67,5 +67,4 @@ public class Loan {
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
     }
-
 }

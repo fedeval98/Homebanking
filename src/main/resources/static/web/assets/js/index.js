@@ -23,13 +23,13 @@ const options = {
 
   methods: {
     login(){
-      axios.post("/api/login?email=" +this.email +"&password="+this.password)
+      axios.post("/api/login?email="+this.email+"&password="+this.password)
         .then(response => {
             console.log(response)
             if(this.password =="admin"&&this.email=="admin@admin.com"){
               window.open("http://localhost:8080/h2-console")
             }else if(response.status.toString().startsWith('2')){
-            window.location.href="/web/accounts.html"
+              window.location.href="/web/accounts.html"
           }
           this.clearData()
           
@@ -43,7 +43,15 @@ const options = {
         })
     },
     register(){
-      axios.post("/api/clients?firstName="+this.name+"&lastName="+this.lastName+"&email="+this.email+"&password="+this.password)
+      const register =
+        {
+          "firstName":this.name,
+          "lastName":this.lastName,
+          "email":this.email,
+          "password": this.password
+        }
+      
+      axios.post("/api/clients",register)
         .then(response => {
           console.log(response)
           this.abrirModalUserRegistered()

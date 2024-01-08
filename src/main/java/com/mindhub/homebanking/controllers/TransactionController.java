@@ -62,7 +62,7 @@ public class TransactionController {
             return new ResponseEntity<>("Target account does not exists.", HttpStatus.FORBIDDEN);
         }
 
-        if(!sourceAccount.getOwner().getEmail().equals(authentication.getName())){
+        if(!sourceAccount.getClient().getEmail().equals(authentication.getName())){
             return new ResponseEntity<>("Source account does not belong to an authenticated client.", HttpStatus.FORBIDDEN);
         }
 
@@ -88,4 +88,5 @@ public class TransactionController {
 
         return new ResponseEntity<>("Transfer succesful",HttpStatus.OK);
     }
+
 }

@@ -59,4 +59,5 @@ public class CardDTO {
     public LocalDate getTruDate() {
         return truDate;
     }
+
 }

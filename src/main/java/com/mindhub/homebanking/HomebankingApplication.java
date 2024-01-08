@@ -132,7 +132,6 @@ public class HomebankingApplication {
 				admin.setRole(RoleType.ADMIN);
 				clientRepository.save((admin));
 
-
 			}; //cierre args
 		} // cierre initData
 } // cierre de HomebankingApplication

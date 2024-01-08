@@ -1,6 +1,8 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
+import com.mindhub.homebanking.dto.newClient;
 import com.mindhub.homebanking.models.Client;
 import org.springframework.security.core.Authentication;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -23,20 +25,21 @@ public class ClientController {
 
     @Autowired //Se encarga de realizar la inyeccion por construccion pero de forma automatica
                // hace algo SIMILAR a instanciar la clase del objeto que ejecuta
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
-    @RequestMapping ("/clients")
+    @RequestMapping("/clients")
     public List<ClientDTO> getAllClient(){
-        return clientRepository.findAll() //busco todos los clientes en mi repositorio
-                .stream()// convierto la lista en un Stream para poder usar operaciones intermedias (map, filter, sort, etc)
-                // o terminales (count, collect, forEach, etc)
-                .map(ClientDTO::new) // transformo cada client en un objeto DTO
-                .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
+        return clientService.getAllClientsDTO();
     }
 
-    @RequestMapping("/clients/{id}")
-    public ClientDTO getClient(@PathVariable Long id){
-        return clientRepository.findById(id).map(ClientDTO::new).orElse(null); // aca vamos a buscar por ID pero nos devuelve o un cliente o NULL
+    @GetMapping("/clients/{id}")
+    public ResponseEntity<ClientDTO> getClient(@PathVariable Long id) {
+        ClientDTO clientDTO = clientService.getClientById(id);
+        if (clientDTO != null) {
+            return new ResponseEntity<>(clientDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Autowired
@@ -47,49 +50,40 @@ public class ClientController {
 
     @PostMapping("/clients")
     public ResponseEntity<String> createClient(
-           @RequestParam String firstName,
-           @RequestParam String lastName,
-           @RequestParam String email,
-           @RequestParam String password)
-    {
-        if(firstName.isBlank()){
+            @RequestBody newClient newClient){
+        if(newClient.getFirstName().isBlank()){
             return new ResponseEntity<>("Name can't be blank", HttpStatus.FORBIDDEN);
         }
-        if(lastName.isBlank()){
+        if(newClient.getLastName().isBlank()){
             return new ResponseEntity<>("Last name can't be blank", HttpStatus.FORBIDDEN);
         }
-        if(email.isBlank()){
+        if(newClient.getEmail().isBlank()){
             return new ResponseEntity<>("Email can't be blank", HttpStatus.FORBIDDEN);
         }
-        if(password.isBlank()){
+        if(newClient.getPassword().isBlank()){
             return new ResponseEntity<>("Password can't be blank", HttpStatus.FORBIDDEN);
         }
 
-        if(clientRepository.existsByEmail(email)){
+        if(clientService.existsByEmail(newClient.getEmail())){
             return new ResponseEntity<>("Email already on use", HttpStatus.FORBIDDEN);
         }
 
-        Client client = new Client(firstName,lastName,email,passwordEncoder.encode(password));
-        clientRepository.save(client);
+        Client client = new Client(newClient.getFirstName(),newClient.getLastName(),newClient.getEmail(),passwordEncoder.encode(newClient.getPassword()));
+        clientService.saveClient(client);
 
         ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(client);
 
         if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {
-            // Manejar el caso en que la creación de la cuenta falla
+            // Maneja el caso en que la creación de la cuenta falla
             return new ResponseEntity<>("Failed to create client account", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // Cliente y cuenta creados con éxito
         return new ResponseEntity<>("Client and account created", HttpStatus.CREATED);
     }
 
-    @GetMapping("/clients/current")
-    public ResponseEntity<Object> getOneClient (Authentication authentication){
-
-
-        Client client = clientRepository.findByEmail(authentication.getName());
-
-        ClientDTO clientDTO = new ClientDTO(client);
+    @RequestMapping("/clients/current")
+    public ResponseEntity<Object> getOneClient(Authentication authentication) {
+        ClientDTO clientDTO = clientService.getAuthClientDTO(authentication.getName());
         return new ResponseEntity<>(clientDTO, HttpStatus.OK);
     }
     // PathVariable es una notacion que nos permite variar la ruta para asi matchearla con el ID del cliente que llegue.

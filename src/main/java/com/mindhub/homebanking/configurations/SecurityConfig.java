@@ -24,13 +24,11 @@ public class SecurityConfig {
 // basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/assets/**","index.html").permitAll()
-                .requestMatchers("/web/*","/api/clients/current").hasAuthority("CLIENT")
+                .requestMatchers("/web/*","/api/clients/current","/api/loans").hasAuthority("CLIENT")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
-
-       http.sessionManagement(sessionManagement -> sessionManagement.maximumSessions(1).expiredUrl("/index.html"));
 
 // proteccion CROSS SITE REQUEST FORGERY, la deshabilitamos para poder acceder al h2-console, es un token de seguridad
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
@@ -43,22 +41,13 @@ public class SecurityConfig {
                 .loginProcessingUrl("/api/login") // endpoint que escuchar el login y su queryparam
                 .usernameParameter("email") //queryparam de email
                 .passwordParameter("password") //queryparam de password
-                .successHandler((request, response, authentication) -> { // eventos por login correcto
-                    if(request.isUserInRole("ADMIN")){ //la redireccion no funciona.
-                        response.sendRedirect("/h2-console/");
-                        clearAuthenticationAttributes(request);
-                    } else if (request.isUserInRole("CLIENT")){
-                        response.sendRedirect("/web/accounts.html");
-                        clearAuthenticationAttributes(request);
-                    }
-                })
-                //devolucion de error si falla el login
+                .successHandler((request, response, authentication) -> {clearAuthenticationAttributes(request);})
                 .failureHandler((request, response, exception) -> response.sendError(401))
                 .permitAll()
         );
 // devolucion de error si algo falla en alguna solicitud o ingreso no autorizado
-    //    http.exceptionHandling( exceptionHandlingConfigurer ->
-      //          exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
+        http.exceptionHandling( exceptionHandlingConfigurer ->
+                exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
 
 
 // endpoint para hacer logout y eliminar la cookie.

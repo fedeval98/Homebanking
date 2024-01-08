@@ -1,24 +1,31 @@
 const CLIENTS = "/api/clients/current"
 const LOGOUT = "/api/logout"
-const CREATECARD = "/api/clients/current/cards"
+const LOANS = "/api/loans"
+const GETLOANS = "/api/loans"
 const {createApp} = Vue
 
 const options = {
   data(){
     return {
       client: [],
-      cards:[],
+      accounts:[],
+      loans:[],
+      payments:[],
+      loanAmount:"",
       isWideScreen:false,
-      selectedColor: "GOLD",
-      selectedType: "DEBIT",
       successCard:false,
       failureCard:false,
       errormsg:"",
       modalVisibleAlert:false,
+      selectedLoan:0,
+      selectedAccount:0,
+      selectedPayments:0,
+      amount:0,
     } // finaliza return
   }, // finaliza data
   created(){
     this.loadData()
+    this.loadLoans()
   }, //finaliza created
 
   methods:{
@@ -26,28 +33,21 @@ const options = {
       axios.get(CLIENTS)
       .then (data => {
         this.client = data.data
-        this.cards = data.data.cards.sort((a,b)=> a.id -b.id)
-
+        this.accounts = data.data.accounts
         console.log("cliente",this.client)
-        console.log("cards",this.cards)
+        console.log("accounts", this.accounts)
       }) // finaliza then data
       .catch (error => console.log ("Error: ",error))      
     },
     checkScreenSize(){
     this.isWideScreen = window.innerWidth >=1024
     },
-    formatDate(fecha){
-      // Obtenengo el año y el mes de la fecha
-      const año = fecha.getFullYear()
-      const mes = fecha.getMonth()
-    
-      // Obtengo los últimos dos dígitos del año
-      const ultimosDigitosAño = año.toString().slice(-2);
-      
-      // Formateo la fecha como "MM/YY"
-      const fechaFormateada = `${mes}/${ultimosDigitosAño}`
-      
-    return fechaFormateada
+    loadLoans(){
+    axios.get(GETLOANS)
+    .then(response =>{
+      this.loans = response.data
+      console.log(this.loans)})
+    .catch(error => console.log(error))
     },
     logout(){
       axios.post(LOGOUT)
@@ -55,11 +55,19 @@ const options = {
         window.location.href="/index.html"})
       .catch (error => console.log("Error: ",error))
       },
-      createCard(){
-      axios.post(CREATECARD+"?color="+this.selectedColor+"&type="+this.selectedType)
+      createLoan(){
+        const body =
+          {
+            "loanId":this.selectedLoan,
+            "accountNumber":this.selectedAccount,
+            "amount":this.amount,
+            "payments": this.selectedPayments
+          }
+      axios.post(LOANS,body)
       .then(response=>{
-        // this.loadData()
-        // this.abrirSuccess()
+        if(response.status == 200){
+          this.abrirSuccess()
+        }
         console.log(response)
       })
       .catch(error => {
@@ -92,9 +100,6 @@ const options = {
           document.body.classList.remove('overflow-y-hidden')
         }
       },
-      createCards(){
-        window.location.href='./create-cards.html'
-      },
       socialmedia(event){
         const facebook = document.querySelector(".facebook")
         const instagram = document.querySelector(".instagram") 
@@ -110,6 +115,23 @@ const options = {
       }else if (event.target === linkedin){
         window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
       }
+      },
+      searchPayments(){
+        const pays = this.loans.find(loan => loan.id == this.selectedLoan)
+        this.loanAmount = pays.amount
+        this.payments = pays.payments
+      },
+      formatBudget(balance){
+        if(balance !== undefined && balance !== null){
+          const sign = balance < 0 ? "-":""
+          const formattedBalance = Math.abs(balance).toLocaleString("en-US",{
+            style: "currency",
+            currency: "USD",
+            currencyDisplay:"narrowSymbol",
+            minimumFractionDigits: 2,
+          })
+          return `USD ${sign}${formattedBalance}`
+        }
       },
   }, //fin methods
 

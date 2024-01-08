@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <div id="app" class="h-[100vh] flex flex-col">
+  <div id="app" class="h-[100dvh] flex flex-col">
     <header class="h-26 bg-black lg:flex lg:justify-center lg:items-center lg:flex-col">
       <!-- BLACK HEADER NAME AND PROFILE -->
       <div class="h-full w-full p-2 flex justify-evenly md:justify-center items-center gap-2">
@@ -55,7 +55,7 @@
               href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="#"><img class="w-10"
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./loan-application.html"><img class="w-10"
                 src="./assets/img/loan.webp" alt="loan" />LOANS</a>
           </li>
           <li class="w-1/5">
@@ -250,7 +250,7 @@
                   </div>
                 </div>
               </div>
-              <form class="flex flex-col gap-4 z-50">
+              <form @submit.prevent="createCard()" class="flex flex-col gap-4 z-50">
                 <div class="z-50">
                   <label class="z-50 font-bold"> Choose color: </label>
                   <select class="z-50 text-center" v-model="selectedColor">
@@ -266,7 +266,7 @@
                     <option class="z-50">CREDIT</option>
                   </select>
                 </div>
-                <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="createCard()"> CREATE CARD
+                <button type="submit" class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl"> CREATE CARD
                 </button>
               </form>
             </div>
@@ -295,7 +295,7 @@
               href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="#"><img class="w-10"
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img class="w-10"
                 src="./assets/img/loan.webp" alt="loan" />Loans</a>
           </li>
           <li class="w-1/5 flex">
@@ -331,7 +331,7 @@
       </div>
     </footer>
     <!-- MODAL WIP -->
-    <div v-show="modalVisibleAlert"
+    <div v-if="modalVisibleAlert"
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
@@ -350,7 +350,7 @@
     </div>
     <!-- MODAL CARD CREATED -->
     <div v-if="successCard"
-      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
           <button class="z-50" @click="cerrarSuccess">
@@ -369,7 +369,7 @@
     </div>
     <!-- MODAL ERROR -->
     <div v-if="failureCard"
-      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full flex flex-col">
           <button class="z-50" @click="cerrarFailure">

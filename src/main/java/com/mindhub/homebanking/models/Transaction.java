@@ -1,11 +1,8 @@
 package com.mindhub.homebanking.models;
 
-import com.mindhub.homebanking.dto.TransactionDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 public class Transaction {

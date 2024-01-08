@@ -14,16 +14,16 @@ public class Client {
 
     private String firstName, lastName, email,password;
 
-     @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private RoleType role = RoleType.CLIENT;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER) // mapped by indica el dueño
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER) // mapped by indica el dueño
     private Set<Account> accounts = new HashSet<>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set <ClientLoan> clientLoans = new HashSet<>();
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
 
     public Client() {
@@ -38,7 +38,7 @@ public class Client {
     }
 
     public void addAccount (Account account){
-        account.setOwner(this);
+        account.setClient(this);
         this.accounts.add(account);
     }
 
@@ -117,4 +117,5 @@ public class Client {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 } // cierre Client

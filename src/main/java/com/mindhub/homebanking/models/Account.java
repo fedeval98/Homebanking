@@ -18,7 +18,7 @@ public class Account {
     private LocalDate creationDate;
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client owner;
+    private Client client;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<Transaction> transactions = new HashSet<>();
@@ -65,12 +65,12 @@ public class Account {
         this.creationDate = creationDate;
     }
 
-    public Client getOwner() {
-        return owner;
+    public Client getClient() {
+        return client;
     }
 
-    public void setOwner(Client owner) {
-        this.owner = owner;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Set<Transaction> getTransactions() {

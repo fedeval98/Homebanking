@@ -1,5 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.AccountService;
+import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.dto.TransactionDTO;
 import com.mindhub.homebanking.models.Account;
@@ -26,48 +28,50 @@ public class AccountController {
 
     @Autowired //Se encarga de realizar la inyeccion por construccion pero de forma automatica
     // hace algo SIMILAR a instanciar la clase del objeto que ejecuta
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
 
     @GetMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){
-        return accountRepository.findAll() //busco todos los clientes en mi repositorio
-                .stream()// convierto la lista en un Stream para poder usar operaciones intermedias (map, filter, sort, etc)
-                // o terminales (count, collect, forEach, etc)
-                .map(AccountDTO::new) // transformo cada client en un objeto DTO
-                .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
+        return accountService.getAllAccounts();
     }
 
     @GetMapping("/accounts/{id}")
-    public AccountDTO getAccount(@PathVariable Long id){
-        return accountRepository.findById(id).map(AccountDTO::new).orElse(null); // aca vamos a buscar por ID pero nos devuelve o un cliente o NULL
+    public ResponseEntity<Object> getAccount(@PathVariable Long id, Authentication authentication){
+
+        Client client = clientService.getAuthClient(authentication.getName());
+
+        Account account = accountService.findByClientAndId(client, id);
+
+        if (account != null) {
+            AccountDTO accountDTO = accountService.getAccountById(id);
+            return new ResponseEntity<>(accountDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Account not found", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/accounts/{id}/transactions")
     public List<TransactionDTO> getAccountTransactions(@PathVariable Long id) {
-        return accountRepository.findById(id)
-                .map(account -> account.getTransactions().stream()
-                        .map(TransactionDTO::new)
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        return accountService.getAccountTransactions(id);
     }
 
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> createAccount(Authentication authentication){
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.getAuthClient(authentication.getName());
         if(client.getAccounts().size()>=3){
             return new ResponseEntity<>("You reach the maximum limit of 3 accounts per client",HttpStatus.FORBIDDEN);
         }
         String number;
         do {
             number = "VIN" + getAccountNumber(00000000,99999999);
-        }while (accountRepository.existsByNumber(number));
+        }while (accountService.existsByNumber(number));
 
         Account account = new Account(number,0, LocalDate.now());
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>("Client account created", HttpStatus.CREATED);
     }
@@ -80,11 +84,11 @@ public class AccountController {
         String number;
         do {
             number = "VIN" + getAccountNumber(00000000,99999999);
-        }while (accountRepository.existsByNumber(number));
+        }while (accountService.existsByNumber(number));
 
         Account account = new Account(number,0, LocalDate.now());
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>("Client account created", HttpStatus.CREATED);
     }

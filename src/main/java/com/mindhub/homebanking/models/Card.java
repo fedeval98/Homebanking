@@ -12,7 +12,7 @@ public class Card {
     private Long id;
 
     @ManyToOne
-    private Client owner;
+    private Client client;
 
     private String cardholder;
 
@@ -64,11 +64,11 @@ public class Card {
     }
 
     public Client getOwner() {
-        return owner;
+        return client;
     }
 
-    public void setOwner(Client owner) {
-        this.owner = owner;
+    public void setOwner(Client client) {
+        this.client = client;
     }
 
     public CardType getType() {
