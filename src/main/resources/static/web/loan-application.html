@@ -76,7 +76,7 @@
                 <!-- CHOOSE LOAN -->
                 <div>
                   <label class="font-bold"> Choose Loan:
-                    <select required class="text-center" v-model="selectedLoan" @change="searchPayments()">
+                    <select required class="text-center rounded-lg" v-model="selectedLoan" @change="searchPayments()">
                       <option disabled value="0">Select Loan</option>
                       <template v-if="loans.length != 0" v-for="loan of loans">
                         <option :value="loan.id">{{loan.name}}</option>
@@ -87,7 +87,7 @@
                 <!-- CHOOSE ACCOUNT -->
                 <div>
                   <label class="font-bold">Choose Account:
-                    <select required class="text-center" v-model="selectedAccount">
+                    <select required class="text-center rounded-lg" v-model="selectedAccount">
                       <option disabled value="0">Select Account</option>
                       <template v-if="accounts.length != 0" v-for="account of accounts">
                         <option>{{account.number}}</option>
@@ -98,7 +98,7 @@
                 <!-- ENTER AMOUNT -->
                 <div class="flex flex-col">
                   <label class="font-bold"> Enter Amount:
-                    <input required class="text-center" type="text" v-model="amount">
+                    <input required class="text-center rounded-lg" type="text" v-model="amount">
                   </label>
                   <label v-show="selectedLoan != 0">
                     <small>Max amount:{{formatBudget(loanAmount)}}</small>
@@ -107,7 +107,7 @@
                 <!-- CHOOSE PAYMENTS -->
                 <div v-show="selectedLoan != 0">
                   <label class="font-bold">Choose payments:
-                    <select required class="text-center" v-model="selectedPayments">
+                    <select required class="text-center rounded-lg px-2" v-model="selectedPayments">
                       <option disabled value="0">Select payments</option>
                       <template v-if="payments.length != 0" v-for="payment of payments">
                         <option>{{payment}}</option>

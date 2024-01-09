@@ -65,7 +65,7 @@ const options = {
           }
       axios.post(LOANS,body)
       .then(response=>{
-        if(response.status == 200){
+        if(response.status.toString().startsWith('2')){
           this.abrirSuccess()
         }
         console.log(response)

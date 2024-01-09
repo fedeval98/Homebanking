@@ -140,7 +140,11 @@ const options = {
       },
       confirmTransaction(){
         if(this.isPersonal){
-          axios.post(TRANSFER+"?amount="+this.amount+"&descriptions="+this.description+"&sourceAccountNumber="+this.fromAccount+"&targetAccountNumber="+this.toAccount)
+          axios.post(TRANSFER+
+            "?amount="+this.amount+
+          "&descriptions="+this.description+
+          "&sourceAccountNumber="+this.fromAccount+
+          "&targetAccountNumber="+this.toAccount)
           .then(response =>{ 
             console.log(response)
             this.cerrarVerify()

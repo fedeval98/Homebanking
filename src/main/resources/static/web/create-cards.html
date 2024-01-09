@@ -252,8 +252,8 @@
               </div>
               <form @submit.prevent="createCard()" class="flex flex-col gap-4 z-50">
                 <div class="z-50">
-                  <label class="z-50 font-bold"> Choose color: </label>
-                  <select class="z-50 text-center" v-model="selectedColor">
+                  <label class="z-50 font-bold rounded-lg"> Choose color: </label>
+                  <select class="z-50 text-center rounded-lg" v-model="selectedColor">
                     <option class="z-50">GOLD</option>
                     <option class="z-50">TITANIUM</option>
                     <option class="z-50">SILVER</option>
@@ -261,7 +261,7 @@
                 </div>
                 <div class="z-50">
                   <label class="z-50 font-bold">Choose type: </label>
-                  <select class="z-50 text-center" v-model="selectedType">
+                  <select class="z-50 text-center rounded-lg" v-model="selectedType">
                     <option class="z-50">DEBIT</option>
                     <option class="z-50">CREDIT</option>
                   </select>

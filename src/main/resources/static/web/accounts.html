@@ -53,12 +53,12 @@
               href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./loan-application.html"><img class="w-10"
-                src="./assets/img/loan.webp" alt="loan" />LOANS</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105"
+              href="./loan-application.html"><img class="w-10" src="./assets/img/loan.webp" alt="loan" />LOANS</a>
           </li>
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./transfers.html"><img class="w-10"
-                src="./assets/img/transfer.webp" alt="transfer" />TRANSACTIONS</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./transfers.html"><img
+                class="w-10" src="./assets/img/transfer.webp" alt="transfer" />TRANSACTIONS</a>
           </li>
         </ul>
       </nav>
@@ -115,8 +115,14 @@
               </table>
             </div>
             <template v-else>
-              <div>
-                <h3 class="text-xl font-bold">NO LOANS REGISTERED YET</h3>
+              <div class="flex flex-col justify-center items-center">
+                <div>
+                  <h3 class="text-xl font-bold">NO LOANS REGISTERED YET</h3>
+                </div>
+                <div v-show="balance < 1 " class="p-4 bg-white/60 rounded-2xl mx-2 my-6">
+                  <h3>You have no balance? No problem.</h3>
+                  <h3>You can take one of our Loans and pay it later with comfortable payments.</h3>
+                </div>
               </div>
             </template>
           </div>
@@ -141,15 +147,16 @@
           </li>
           <li class="w-1/5">
             <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple"
-              href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
+              href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp"
+                alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img class="w-10"
-                src="./assets/img/loan.webp" alt="loan" />Loans</a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img
+                class="w-10" src="./assets/img/loan.webp" alt="loan" />Loans</a>
           </li>
           <li class="w-1/5 flex">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="./transfers.html"><img class="w-10"
-                src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./transfers.html"><img
+                class="w-10" src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
           </li>
         </ul>
       </nav>
@@ -162,15 +169,13 @@
         <small class="text-lg">Follow our social media:</small>
         <div class="flex gap-10 justify-center items-center">
           <picture>
-            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo"
-              @click="socialmedia">
+            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo" @click="socialmedia">
           </picture>
           <picture>
             <img class="w-10 github" src="./assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
           </picture>
           <picture>
-            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo"
-              @click="socialmedia">
+            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo" @click="socialmedia">
           </picture>
           <picture>
             <img class="w-10 instagram" src="./assets/img/Instragram_icon.webp" alt="instagram_logo"

@@ -11,6 +11,7 @@ const options = {
       isWideScreen:false,
       modalVisibleAlert: false,
       loans:[],
+      balance:"",
     } // finaliza return
   }, // finaliza data
   created(){
@@ -40,6 +41,7 @@ const options = {
           currencyDisplay:"narrowSymbol",
           minimumFractionDigits: 2,
         })
+        this.balance = formattedBalance
         return `USD ${sign}${formattedBalance}`
       }
     },

@@ -19,7 +19,7 @@ public class HomebankingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
-
+ /*
 	@Autowired
 	public PasswordEncoder passwordEncoder;
 
@@ -133,5 +133,5 @@ public class HomebankingApplication {
 				clientRepository.save((admin));
 
 			}; //cierre args
-		} // cierre initData
+		} // cierre initData */
 } // cierre de HomebankingApplication
