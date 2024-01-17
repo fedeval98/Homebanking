@@ -1,6 +1,7 @@
 package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -42,7 +43,7 @@ public class AccountRepositoryTest {
         Client client = new Client("Fede", "Perez","perezf@gmail.com",passwordEncoder.encode("12345"));
         clientRepository.save(client);
 
-        Account account = new Account("VIN7492392", 0, LocalDate.now());
+        Account account = new Account("VIN7492392", 0, LocalDate.now(), AccountType.SAVINGS);
         client.addAccount(account);
         accountRepository.save(account);
 

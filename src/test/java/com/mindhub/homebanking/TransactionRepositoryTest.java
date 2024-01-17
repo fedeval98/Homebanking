@@ -5,6 +5,7 @@ import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.Services.TransactionService;
 import com.mindhub.homebanking.dto.NewTransactionDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.repositories.TransactionRepository;
@@ -58,8 +59,8 @@ public class TransactionRepositoryTest {
         clientService.saveClient(sourceClient);
         clientService.saveClient(targetClient);
 
-        sourceAccount = new Account("VIN23451255", 5000, LocalDate.now());
-        targetAccount = new Account("VIN23451256", 7500, LocalDate.now().plusDays(1));
+        sourceAccount = new Account("VIN23451255", 5000, LocalDate.now(), AccountType.CHECKING);
+        targetAccount = new Account("VIN23451256", 7500, LocalDate.now().plusDays(1),AccountType.SAVINGS);
 
         sourceClient.addAccount(sourceAccount);
         targetClient.addAccount(targetAccount);
