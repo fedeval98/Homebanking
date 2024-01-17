@@ -16,8 +16,8 @@ const options = {
       success:false,
       failure:false,
       errormsg:"",
-      fromAccount:"",
-      toAccount:"",
+      fromAccount:0,
+      toAccount:0,
       amount:0,
       description:"",
       accountBalance:"",
@@ -140,11 +140,13 @@ const options = {
       },
       confirmTransaction(){
         if(this.isPersonal){
-          axios.post(TRANSFER+
-            "?amount="+this.amount+
-          "&descriptions="+this.description+
-          "&sourceAccountNumber="+this.fromAccount+
-          "&targetAccountNumber="+this.toAccount)
+          const body ={
+            "amount":this.amount,
+            "descriptions":this.description,
+            "sourceAccountNumber":this.fromAccount,
+            "targetAccountNumber":this.toAccount
+          }
+          axios.post(TRANSFER,body)
           .then(response =>{ 
             console.log(response)
             this.cerrarVerify()
@@ -162,7 +164,13 @@ const options = {
             this.errormsg = error.response.data
           })
         } else if(this.isOther){
-          axios.post(TRANSFER+"?amount="+this.amount+"&descriptions="+this.description+"&sourceAccountNumber="+this.fromAccount+"&targetAccountNumber=VIN"+this.toAccount)
+          const body ={
+            "amount":this.amount,
+            "descriptions":this.description,
+            "sourceAccountNumber":this.fromAccount,
+            "targetAccountNumber":"VIN"+this.toAccount
+          }
+          axios.post(TRANSFER,body)
           .then(response =>{ 
             console.log(response)
             this.cerrarVerify()

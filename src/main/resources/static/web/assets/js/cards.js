@@ -1,6 +1,7 @@
 const CLIENTS = "/api/clients/current"
 const LOGOUT = "/api/logout"
 const CREATECARD = "/api/clients/current/cards"
+const DELETECARD = "/api/clients/current/cards/remove"
 const {createApp} = Vue
 
 const options = {
@@ -11,11 +12,12 @@ const options = {
       isWideScreen:false,
       modalVisibleAlert: false,
       modalCard:false,
-      selectedColor: "GOLD",
+      selectedNumber: -1,
       selectedType: "DEBIT",
       successCard:false,
       failureCard:false,
       errormsg:"",
+      deleteCardModal: false,
     } // finaliza return
   }, // finaliza data
   created(){
@@ -50,15 +52,17 @@ const options = {
       }
     },// finaliza cerrarModal
     formatDate(fecha){
+
+      const newDate = new Date(fecha)
       // Obtenengo el año y el mes de la fecha
-      const año = fecha.getFullYear()
-      const mes = fecha.getMonth()
-    
+      const año = newDate.getFullYear()
+      const mes = newDate.getMonth() + 1 //agregue un +1 porque getMonth() devuelve 0 en enero.
+          
       // Obtengo los últimos dos dígitos del año
       const ultimosDigitosAño = año.toString().slice(-2);
-      
+      const mesForamteado = mes < 10 ? `0${mes}`: mes
       // Formateo la fecha como "MM/YY"
-      const fechaFormateada = `${mes}/${ultimosDigitosAño}`
+      const fechaFormateada = `${mesForamteado}/${ultimosDigitosAño}`
       
     return fechaFormateada
     },
@@ -80,8 +84,8 @@ const options = {
           document.body.classList.remove('overflow-y-hidden')
         }
       },
-      createCard(){
-      axios.post(CREATECARD+"?color="+this.selectedColor+"&type="+this.selectedType)
+      deleteCard(){
+      axios.patch(DELETECARD+"?status=ACTIVE"+"&number="+this.selectedNumber)
       .then(response=>{
         this.loadData()
         this.abrirSuccess()
@@ -91,6 +95,18 @@ const options = {
         this.errormsg = error.response.data
         this.abrirFailure()
       })
+      },
+      abrirDelCard(){
+        this.deleteCardModal = true
+        if (this.deleteCardModal) {
+          document.body.classList.add('overflow-y-hidden')
+        }
+      },
+      cerrarDelCard(){
+        this.deleteCardModal = false
+        if (this.deleteCardModal == false) {
+          document.body.classList.remove('overflow-y-hidden')
+        }
       },
       abrirSuccess(){
         this.successCard = true

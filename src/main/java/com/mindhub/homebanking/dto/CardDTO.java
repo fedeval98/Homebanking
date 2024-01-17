@@ -4,6 +4,7 @@ package com.mindhub.homebanking.dto;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.models.Status;
 
 import java.time.LocalDate;
 
@@ -17,6 +18,8 @@ public class CardDTO {
     private final CardColor color;
     private LocalDate fromDate, truDate;
 
+    private boolean expire;
+
     public CardDTO(Card card) {
         this.id = card.getId();
         this.cardholder = card.getCardholder();
@@ -26,6 +29,7 @@ public class CardDTO {
         this.cvv = card.getCvv();
         this.fromDate = card.getFromDate();
         this.truDate = card.getTruDate();
+        this.expire = LocalDate.now().isAfter(card.getTruDate());
     }
 
     public Long getId() {
@@ -60,4 +64,7 @@ public class CardDTO {
         return truDate;
     }
 
+    public boolean isExpire() {
+        return expire;
+    }
 }

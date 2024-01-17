@@ -11,11 +11,11 @@ public class TransactionDTO {
 
     private LocalDateTime dateTime;
 
-    private double amount;
-
+    private double amount,previousAmount,currentAmount;
     private String description;
 
     private final TransactionType type;
+
 
     public TransactionDTO(Transaction transaction){
         id = transaction.getId();
@@ -23,6 +23,8 @@ public class TransactionDTO {
         amount = transaction.getAmount();
         type = transaction.getType();
         description = transaction.getDescription();
+        previousAmount = transaction.getPreviousBalance();
+        currentAmount = previousAmount+ transaction.getAmount();
     }
 
     public Long getId() {
@@ -43,5 +45,33 @@ public class TransactionDTO {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getPreviousAmount() {
+        return previousAmount;
+    }
+
+    public void setPreviousAmount(double previousAmount) {
+        this.previousAmount = previousAmount;
+    }
+
+    public double getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public void setCurrentAmount(double currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 } // finaliza TransactionDTO

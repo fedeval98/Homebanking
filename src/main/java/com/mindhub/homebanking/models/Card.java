@@ -30,6 +30,11 @@ public class Card {
 
     private LocalDate truDate;
 
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
+
+    private boolean expire = false;
+
     public Card() {
     }
 
@@ -117,5 +122,21 @@ public class Card {
 
     public void setTruDate(LocalDate truDate) {
         this.truDate = truDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public boolean isExpire() {
+        return expire;
+    }
+
+    public void setExpire(boolean expire) {
+        this.expire = expire;
     }
 }

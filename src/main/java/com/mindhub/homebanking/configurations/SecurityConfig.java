@@ -24,10 +24,12 @@ public class SecurityConfig {
 // basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/assets/**","index.html").permitAll()
-                .requestMatchers("/web/*","/api/clients/current","/api/loans").hasAuthority("CLIENT")
-                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers("/web/*","/api/clients/current","/api/loans","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
+                .requestMatchers("/web/admin/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions","/api/loans").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/remove","/api/clients/current/account/remove").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
 
 // proteccion CROSS SITE REQUEST FORGERY, la deshabilitamos para poder acceder al h2-console, es un token de seguridad

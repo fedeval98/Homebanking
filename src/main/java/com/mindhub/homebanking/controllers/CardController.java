@@ -41,6 +41,12 @@ public class CardController {
         return response;
     }
 
+    @PatchMapping("/clients/current/cards/remove")
+    public ResponseEntity<?> hideCard(@RequestParam Status status,@RequestParam String number,Authentication authentication){
+        ResponseEntity<?> response = cardService.hideCard(status, number,authentication);
+        return response;
+    }
+
 }
 
 

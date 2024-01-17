@@ -14,12 +14,15 @@ public class ClientLoanDTO {
 
     private int payments;
 
+    private double interest_rate;
+
     public ClientLoanDTO(ClientLoan clientLoan) {
         this.id = clientLoan.getId();
         this.loanId = clientLoan.getLoan().getId();
         this.name = clientLoan.getLoan().getName();
         this.amount = clientLoan.getAmount();
         this.payments = clientLoan.getPayments();
+        this.interest_rate = clientLoan.getLoan().getinterest_rate();
     }
     public Long getId() {
         return id;
@@ -51,5 +54,9 @@ public class ClientLoanDTO {
 
     public Long getLoanId() {
         return loanId;
+    }
+
+    public double getInterest_rate() {
+        return interest_rate;
     }
 }

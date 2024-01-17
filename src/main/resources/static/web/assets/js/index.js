@@ -13,6 +13,7 @@ const options = {
       modalRegistered:false,
       registeredUser:false,
       isWideScreen:false,
+      accountType:"-1",
     } // finaliza return
   }, // finaliza data
   created() {
@@ -27,7 +28,7 @@ const options = {
         .then(response => {
             console.log(response)
             if(this.password =="admin"&&this.email=="admin@admin.com"){
-              window.open("http://localhost:8080/h2-console")
+              window.open("./web/admin/create-loan.html")
             }else if(response.status.toString().startsWith('2')){
               window.location.href="/web/accounts.html"
           }
@@ -48,7 +49,8 @@ const options = {
           "firstName":this.name,
           "lastName":this.lastName,
           "email":this.email,
-          "password": this.password
+          "password": this.password,
+          "type": this.accountType
         }
       
       axios.post("/api/clients",register)

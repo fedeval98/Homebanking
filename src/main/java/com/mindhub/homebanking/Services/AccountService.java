@@ -5,6 +5,8 @@ import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.TransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -26,4 +28,7 @@ public interface AccountService {
     Account findByClientAndId(Client client, Long id);
 
     boolean existsByClientAndNumber(Client client, String accountNumber);
+
+    ResponseEntity<String> findByClientEmailAndId(String email, Long id);
+
 }

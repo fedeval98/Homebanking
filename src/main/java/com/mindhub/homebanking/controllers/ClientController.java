@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.newClient;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import org.springframework.security.core.Authentication;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -49,8 +50,7 @@ public class ClientController {
     private AccountController accountController;
 
     @PostMapping("/clients")
-    public ResponseEntity<String> createClient(
-            @RequestBody newClient newClient){
+    public ResponseEntity<String> createClient(@RequestBody newClient newClient){
         if(newClient.getFirstName().isBlank()){
             return new ResponseEntity<>("Name can't be blank", HttpStatus.FORBIDDEN);
         }
@@ -71,7 +71,7 @@ public class ClientController {
         Client client = new Client(newClient.getFirstName(),newClient.getLastName(),newClient.getEmail(),passwordEncoder.encode(newClient.getPassword()));
         clientService.saveClient(client);
 
-        ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(client);
+        ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(newClient.getType(), client);
 
         if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {
             // Maneja el caso en que la creación de la cuenta falla

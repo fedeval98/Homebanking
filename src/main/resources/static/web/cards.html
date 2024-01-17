@@ -47,12 +47,12 @@
               href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" />OPYTHA BANK</a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./loan-application.html"><img class="w-10"
-                src="./assets/img/loan.webp" alt="loan" />LOANS</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105"
+              href="./loan-application.html"><img class="w-10" src="./assets/img/loan.webp" alt="loan" />LOANS</a>
           </li>
           <li class="w-1/5">
-            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./transfers.html"><img class="w-10"
-                src="./assets/img/transfer.webp" alt="transfer" />TRANSACTIONS</a>
+            <a class="w-full flex flex-col justify-center items-center hover:scale-105" href="./transfers.html"><img
+                class="w-10" src="./assets/img/transfer.webp" alt="transfer" />TRANSACTIONS</a>
           </li>
         </ul>
       </nav>
@@ -60,8 +60,11 @@
     <main
       class="flex flex-col max-w-full w-full grow justify-center items-center bg-[url('./assets/img/backgrounds/BACKGROUND-3.webp')] bg-cover bg-norepeat">
       <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
-      <div v-if="cards.length < 6" class="mt-2">
+      <div v-if="cards.length < 6" class="mt-2 flex flex-col md:flex-row gap-4 items-center justify-center">
         <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="createCards()"> ADD NEW
+          CARD</button>
+        <p class="text-black font-bold">or</p>
+        <button class="bg-red-500 py-2 px-4 rounded-full font-bold text-xl" @click="abrirDelCard()">DELETE A
           CARD</button>
       </div>
       <div class="flex flex-wrap justify-center items-center w-11/12 gap-2">
@@ -72,7 +75,8 @@
           <div class="flex flex-wrap justify-center items-center gap-4">
             <template v-if="cards.length != 0" v-for="card in cards">
               <!-- GOLD DEBIT -->
-              <div v-if="card.color === 'GOLD' && card.type ==='DEBIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'GOLD' && card.type ==='DEBIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -141,9 +145,16 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
               <!-- TITANIUM DEBIT -->
-              <div v-if="card.color === 'TITANIUM' && card.type ==='DEBIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'TITANIUM' && card.type ==='DEBIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -212,9 +223,16 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
               <!-- SILVER DEBIT -->
-              <div v-if="card.color === 'SILVER' && card.type ==='DEBIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'SILVER' && card.type ==='DEBIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -283,6 +301,12 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
             </template>
           </div>
@@ -294,7 +318,8 @@
           <div class="flex flex-wrap justify-center items-center gap-4">
             <template v-if="cards.length != 0" v-for="card in cards">
               <!-- GOLD CREDIT -->
-              <div v-if="card.color === 'GOLD' && card.type ==='CREDIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'GOLD' && card.type ==='CREDIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -363,9 +388,16 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
               <!-- TITANIUM CREDIT -->
-              <div v-if="card.color === 'TITANIUM' && card.type ==='CREDIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'TITANIUM' && card.type ==='CREDIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -401,11 +433,11 @@
                         <div class="end flex gap-4">
                           <div>
                             <span class="end-text">since:</span>
-                            <span class="end-date">{{formatDate(new Date(card.fromDate))}}</span>
+                            <span class="end-date">{{formatDate(card.fromDate)}}</span>
                           </div>
                           <div>
                             <span class="end-text">thru:</span>
-                            <span class="end-date">{{formatDate(new Date(card.truDate))}}</span>
+                            <span class="end-date">{{formatDate(card.truDate)}}</span>
                           </div>
                         </div>
                         <div class="card-holder">{{card.cardholder}}</div>
@@ -434,9 +466,16 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
               <!-- SILVER CREDIT -->
-              <div v-if="card.color === 'SILVER' && card.type ==='CREDIT'" class="flex justify-center items-center">
+              <div v-if="card.color === 'SILVER' && card.type ==='CREDIT'"
+                class="flex flex-col justify-center items-center">
                 <div class="center">
                   <div class="card">
                     <div class="flip">
@@ -505,6 +544,12 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
+                  :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
+                  <p class="font-bold text-lg">EXPIRE:</p>
+                  <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
+                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                </div>
               </div>
             </template>
           </div>
@@ -535,12 +580,12 @@
               href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
           </li>
           <li class="w-1/5" @click="abrirAlert()">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img class="w-10"
-                src="./assets/img/loan.webp" alt="loan" />Loans</a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img
+                class="w-10" src="./assets/img/loan.webp" alt="loan" />Loans</a>
           </li>
           <li class="w-1/5 flex">
-            <a class="w-full flex flex-col justify-center items-center text-xs" href="./transfers.html"><img class="w-10"
-                src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
+            <a class="w-full flex flex-col justify-center items-center text-xs" href="./transfers.html"><img
+                class="w-10" src="./assets/img/transfer.webp" alt="transfer" />Transactions</a>
           </li>
         </ul>
       </nav>
@@ -553,15 +598,13 @@
         <small class="text-lg">Follow our social media:</small>
         <div class="flex gap-10 justify-center items-center">
           <picture>
-            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo"
-              @click="socialmedia">
+            <img class="w-10 facebook" src="./assets/img/Facebook_icon.webp" alt="facebook_logo" @click="socialmedia">
           </picture>
           <picture>
             <img class="w-10 github" src="./assets/img/Github_icon.webp" alt="github_logo" @click="socialmedia">
           </picture>
           <picture>
-            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo"
-              @click="socialmedia">
+            <img class="w-10 linkedin" src="./assets/img/Linkedin_icon.webp" alt="linkedin_logo" @click="socialmedia">
           </picture>
           <picture>
             <img class="w-10 instagram" src="./assets/img/Instragram_icon.webp" alt="instagram_logo"
@@ -575,7 +618,7 @@
       class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
       <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
         <div class="h-full">
-          <button class="" @click="cerrarAlert">
+          <button @click="cerrarAlert">
             <img src="./assets/img/hambClose.webp"
               class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
           </button>
@@ -583,6 +626,86 @@
             <picture class="h-full w-full flex justify-center items-center object-contain">
               <img class="w-[280px] h-[280px] object-contain" src="./assets/img/work-in-progress.webp"
                 alt="work_in_progress">
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- DELETE CARD -->
+    <div v-if="deleteCardModal"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button @click="cerrarDelCard">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <form @submit.prevent="deleteCard()" class="flex flex-col gap-4 justify-center items-center mt-2 z-50">
+            <div class="flex flex-col justify-center items-center">
+              <label class="font-bold">Choose type: </label>
+              <select class="text-center rounded-lg" v-model="selectedType">
+                <option>DEBIT</option>
+                <option>CREDIT</option>
+              </select>
+            </div>
+            <div class="z-50 flex flex-col justify-center items-center">
+              <label class="z-50 font-bold rounded-lg"> Choose Card Number: </label>
+              <select class="z-50 text-center rounded-lg" v-model="selectedNumber">
+                <option selected disabled value="-1">Select your card number</option>
+                <template v-if="selectedType=='DEBIT'" v-for="card in cards.filter(card=>card.type == 'DEBIT')">
+                  <option class="z-50">{{card.number}}</option>
+                </template>
+                <template v-if="selectedType=='CREDIT'" v-for="card in cards.filter(card=>card.type == 'CREDIT')">
+                  <option class="z-50">{{card.number}}</option>
+                </template>
+              </select>
+            </div>
+            <button type="submit" class="bg-red-400 py-2 px-4 rounded-full font-bold text-xl"> DELETE CARD
+            </button>
+            <small>
+              Please be advised that our platform follows a policy of not permanently deleting sensitive information
+              such as account and card details. Instead, we securely hide and block access to this information to
+              prevent further use while maintaining data integrity and security. Your understanding and cooperation in
+              this matter are appreciated.
+            </small>
+          </form>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL CARD DELETED -->
+    <div v-if="successCard"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full">
+          <button class="z-50" @click="cerrarSuccess">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex-col flex justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/success.webp" alt="work_in_progress">
+              <h3 class="text-2xl text-green-600">CARD DELETED SUCCESFULLY</h3>
+              <h3>Please, close this window to proceed</h3>
+            </picture>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- MODAL ERROR -->
+    <div v-if="failureCard"
+      class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+      <section class="bg-white text-black w-[320px] h-[440px] rounded-2xl p-2 flex flex-col relative">
+        <div class="h-full flex flex-col">
+          <button class="z-50" @click="cerrarFailure">
+            <img src="./assets/img/hambClose.webp"
+              class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
+          </button>
+          <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
+            <picture class="h-full w-full flex flex-col justify-center items-center object-contain">
+              <img class="w-[280px] h-[280px] object-contain" src="./assets/img/reject.webp" alt="work_in_progress">
+              <h3 class="text-2xl text-red-600">FAILED TO DELETE CARD</h3>
+              <h3>{{errormsg}}</h3>
+              <h3>Please, close this window to proceed</h3>
             </picture>
           </div>
         </div>

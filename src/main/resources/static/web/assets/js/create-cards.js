@@ -58,9 +58,12 @@ const options = {
       createCard(){
       axios.post(CREATECARD+"?color="+this.selectedColor+"&type="+this.selectedType)
       .then(response=>{
-        // this.loadData()
-        // this.abrirSuccess()
-        console.log(response)
+        if(response.status.toString().startsWith("2")){
+          this.loadData()
+        this.abrirSuccess()
+        console.log(response.data.status)
+        }
+        
       })
       .catch(error => {
         console.log(error.response.data)
@@ -91,9 +94,6 @@ const options = {
         if (this.failureCard == false) {
           document.body.classList.remove('overflow-y-hidden')
         }
-      },
-      createCards(){
-        window.location.href='./create-cards.html'
       },
       socialmedia(event){
         const facebook = document.querySelector(".facebook")

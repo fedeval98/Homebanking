@@ -12,6 +12,9 @@ const options = {
       transaction:[],
       isWideScreen:false,
       modalVisibleAlert: false,
+      dateStart:"",
+      dateEnd:"",
+      downloadModal:false
     } // finaliza return
   }, // finaliza data
   created(){
@@ -118,6 +121,31 @@ const options = {
       }else if (event.target === linkedin){
         window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
       }
+      },
+      download(){
+        const dateStart = new Date(this.dateStart)
+        const formattedStart = dateStart.toISOString().slice(0, -5)
+        const dateEnd = new Date(this.dateEnd)
+        const formattedEnd = dateEnd.toISOString().slice(0, -5)
+        axios.get("/api/accounts/"+this.idAccount+"/transactions/pdf?dateTime="+formattedStart+"&endDate="+formattedEnd)
+        .then(response => {
+          if(response.status.toString().startsWith('2')){
+            window.open("../api/accounts/"+this.idAccount+"/transactions/pdf?dateTime="+formattedStart+"&endDate="+formattedEnd)
+            console.log(response)
+          }})
+          .catch(error => console.log(error))
+      },
+      abrirDownload(){
+        this.downloadModal = true
+        if (this.downloadModal) {
+          document.body.classList.add('overflow-y-hidden')
+        }
+      },
+      cerrarDownload(){
+        this.downloadModal = false
+        if (this.downloadModal == false) {
+          document.body.classList.remove('overflow-y-hidden')
+        }
       },
   }, //fin methods
 

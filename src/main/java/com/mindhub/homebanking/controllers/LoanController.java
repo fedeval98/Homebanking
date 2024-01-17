@@ -3,8 +3,10 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.Services.AccountService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.Services.LoanService;
+import com.mindhub.homebanking.Services.TransactionService;
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
+import com.mindhub.homebanking.dto.newLoan;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
@@ -33,7 +35,7 @@ public class LoanController {
     private AccountService accountService;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     @GetMapping("/loans")
     public ResponseEntity<List<LoanDTO>> getLoans(){
@@ -74,7 +76,7 @@ public class LoanController {
                     "Loan approved for " + loanDTO.getName()
             );
 
-            transactionRepository.save(creditTransaction);
+            transactionService.saveTransaction(creditTransaction);
 
             account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
             accountService.saveAccount(account);
@@ -82,5 +84,11 @@ public class LoanController {
         } else {
             return ResponseEntity.badRequest().body(response.getBody());
         }
+    }
+
+    @PostMapping("/loans/create")
+    public ResponseEntity<String> createLoan(@RequestBody newLoan newLoan){
+       ResponseEntity<String> response = loanService.createLoan(newLoan);
+       return response;
     }
 }

@@ -80,6 +80,7 @@
               </label>
               <select class="text-black text-center rounded-lg px-2" @change="accountCheck()" required
                 v-model="fromAccount">
+                <option value=0>Select Own Account</option>
                 <template v-if="accounts != 0" v-for="account in accounts">
                   <option>{{account.number}}</option>
                 </template>
@@ -92,6 +93,7 @@
               </label>
               <select class="text-black text-center rounded-lg px-2" @change="accountCheck2()" required
                 v-model="toAccount">
+                <option value=0>Select Destination Account</option>
                 <template v-if="accounts != 0" v-for="account in availableAccounts">
                   <option>{{account.number}}</option>
                 </template>
@@ -115,7 +117,7 @@
                 <div class="flex w-full justify-center items-center">
                   <input class="rounded-lg text-center text-black w-2/3" placeholder="9000" type="number"
                     v-model="amount" required step="0.01">
-                  <button class="px-2 py-1 text-sm bg-logopurple rounded-full w-[50px] text-center text-black font-bold"
+                  <button class="px-2 py-1 text-sm bg-logopurple rounded-full z-40 w-[50px] text-center text-black font-bold"
                     @click.prevent="maxAmount()">MAX</button>
                 </div>
               </div>

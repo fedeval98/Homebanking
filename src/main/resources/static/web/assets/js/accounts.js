@@ -1,6 +1,7 @@
 const CLIENT = "/api/clients/current"
 const LOGOUT = "/api/logout"
-const CREATEACCOUNT = "/api/clients/current/accounts"
+const CREATEACCOUNT = "/api/clients/current/accounts?type="
+const REMOVEACCOUNT = "/api/clients/current/account/remove?id="
 const {createApp} = Vue
 
 const options = {
@@ -12,6 +13,12 @@ const options = {
       modalVisibleAlert: false,
       loans:[],
       balance:"",
+      accountForm:false,
+      delform:false,
+      accountType:"",
+      accountNumber:-1,
+      accountDelete:false,
+      accountCreate:false,
     } // finaliza return
   }, // finaliza data
   created(){
@@ -78,28 +85,90 @@ const options = {
       .catch (error => console.log("Error: ",error))
       },
     newAccount(){
-    axios.post(CREATEACCOUNT)
+    axios.post(CREATEACCOUNT+this.accountType)
     .then(response => {
-      this.loadData()
+      if(response.status.toString().startsWith('2')){
+        this.abrirAccountCreated()
+        this.loadData()
+      }
       console.log(response)})
       .catch(response => console.log(error))
     // window.location.reload()
     },
+    deleteAccount(){
+      axios.patch(REMOVEACCOUNT+this.accountNumber)
+      .then(response => {
+        if(response.status.toString().startsWith('2')){
+          this.abrirAccountDelete()
+          this.loadData()
+        }
+        console.log(response)})
+        .catch(error => console.log(error))
+      // window.location.reload()
+      },
     socialmedia(event){
       const facebook = document.querySelector(".facebook")
       const instagram = document.querySelector(".instagram") 
       const github = document.querySelector(".github") 
       const linkedin = document.querySelector(".linkedin")
 
-    if(event.target === facebook){
-      window.open("https://www.facebook.com/fede.val.9")
-    }else if (event.target === instagram){
-      window.open("https://www.instagram.com/_fede.val/")
-    }else if (event.target === github){
-      window.open("https://github.com/fedeval98")
-    }else if (event.target === linkedin){
-      window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
-    }
+      if(event.target === facebook){
+        window.open("https://www.facebook.com/fede.val.9")
+      }else if (event.target === instagram){
+        window.open("https://www.instagram.com/_fede.val/")
+      }else if (event.target === github){
+        window.open("https://github.com/fedeval98")
+      }else if (event.target === linkedin){
+        window.open("https://www.linkedin.com/in/federico-val-ab5484238/")
+      }
+    },
+    abrirAccountCreated(){
+      this.accountCreate = true
+      if (this.accountCreate) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    },
+    cerrarAccountCreated(){
+      this.accountCreate = false
+      if (this.accountCreate == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },
+    abrirAccountDelete(){
+      this.accountCreate = true
+      if (this.accountCreate) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    },
+    cerrarAccountDelete(){
+      this.accountCreate = false
+      if (this.accountCreate == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },
+    abrirAccountForm(){
+      this.accountForm = true
+      if (this.accountForm) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    },
+    cerrarAccountForm(){
+      this.accountForm = false
+      if (this.accountForm == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },
+    abrirdelform(){
+      this.delform = true
+      if (this.delform) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    },
+    cerrardelform(){
+      this.delform = false
+      if (this.delform == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
     },
   }, //fin methods
 

@@ -24,6 +24,8 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    private double previousBalance, currentBalance;
+
     public Transaction() {
     }
 
@@ -77,5 +79,21 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getPreviousBalance() {
+        return previousBalance;
+    }
+
+    public void setPreviousBalance(Double previousBalance) {
+        this.previousBalance = previousBalance;
+    }
+
+    public Double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(Double currentBalance) {
+        this.currentBalance = currentBalance;
     }
 } // finaliza Transaction
