@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Admin | Create Loan</title>
+</head>
+<body>
+  <div id="app">
+  <form class="flex flex-col" @submit.prevent="createLoan()">
+    <h2>Create new Loan</h2>
+    <label> Name of loan
+      <input class="border border-gray-600" type="text"v-model="name" placeholder="Computex">
+    </label>
+    <label> Maximum amount
+      <input class="border border-gray-600" type="text"v-model="maxAmount"placeholder="100000">
+    </label>
+    <label> Payments:
+      <input class="border border-gray-600" type="text"v-model="payments"placeholder="6,12,46,60">
+      <small>use format 6,12,24,32,etc</small>
+    </label>
+    <label> Interest
+      <input class="border border-gray-600" type="text"v-model="interest" placeholder="20">
+    </label>
+    <button class="border">Create loan</button>
+  </form>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../assets/js/tailwind.config.js"></script>
+  <script src="./create-loan.js"></script>
+</body>
+</html>
