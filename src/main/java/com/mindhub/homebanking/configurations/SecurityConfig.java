@@ -23,7 +23,7 @@ public class SecurityConfig {
 // las bloquea a todas las peticiones que no es habilitadas arriba de eso.
 // basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/web/assets/**","index.html","/web/assets/img/**").permitAll()
+                .requestMatchers("/web/assets/**","index.html","/web/assets/img/backgrounds/BACKGROUND-3.webp").permitAll()
                 .requestMatchers("/web/*","/api/clients/current","/api/loans","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
                 .requestMatchers("/web/admin/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
