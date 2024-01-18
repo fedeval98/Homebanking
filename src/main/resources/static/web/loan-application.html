@@ -103,6 +103,9 @@
                   <label v-show="selectedLoan != 0">
                     <small>Max amount:{{formatBudget(loanAmount)}}</small>
                   </label>
+                  <label class="mt-4" v-if="amount > 0">
+                    <strong>Amount to pay: {{formatBudget(loanInterest(amount))}}</strong>
+                  </label>
                 </div>
                 <!-- CHOOSE PAYMENTS -->
                 <div v-show="selectedLoan != 0">

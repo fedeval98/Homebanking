@@ -133,7 +133,17 @@ const options = {
           return `USD ${sign}${formattedBalance}`
         }
       },
+      loanInterest(amount){
+        const findLoan = this.loans.find(loan => loan.id == this.selectedLoan)
+        console.log(findLoan)
+        const interest = findLoan.interest_rate
+        console.log(interest)
+        console.log(amount)
+  
+        return amount*(1+(interest/100))
+      }
   }, //fin methods
+    
 
   mounted(){
   this.checkScreenSize()
