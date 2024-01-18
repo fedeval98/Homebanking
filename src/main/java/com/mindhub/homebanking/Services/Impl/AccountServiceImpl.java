@@ -59,11 +59,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account findByClient(Client client) {
-        return accountRepository.findByClient(client);
-    }
-
-    @Override
     public Account findByNumber(String number) {
         return accountRepository.findByNumber(number);
     }
@@ -72,11 +67,6 @@ public class AccountServiceImpl implements AccountService {
     public Account findByClientAndId(Client client, Long id){
         return accountRepository.findByClientAndId(client,id);
 
-    }
-
-    @Override
-    public boolean existsByClientAndNumber(Client client, String accountNumber) {
-        return accountRepository.existsByClientAndNumber(client,accountNumber);
     }
 
     @Override

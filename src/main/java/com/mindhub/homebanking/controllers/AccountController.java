@@ -126,6 +126,13 @@ public class AccountController {
                                                                        @RequestParam LocalDateTime dateTime,
                                                                        @RequestParam LocalDateTime endDate,
                                                                        Authentication authentication) throws IOException {
+
+        Client client = clientService.getAuthClient(authentication.getName());
+
+        if(client == null){
+            return ResponseEntity.badRequest().body((new InputStreamResource(new ByteArrayInputStream("You are not the Owner of this account".getBytes()))));
+        }
+
         AccountDTO account = accountService.getAccountById(id);
         List<Transaction> transactions = transactionService.findByAccountIdAndDateTimeBetween(id,dateTime,endDate);
 

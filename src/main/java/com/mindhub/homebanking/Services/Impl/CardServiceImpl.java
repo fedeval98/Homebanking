@@ -92,11 +92,6 @@ public class CardServiceImpl implements CardService {
         return new ResponseEntity<>("Card deactivated",HttpStatus.OK);
     }
 
-    @Override
-    public Card findByNumber(String number) {
-        return cardRepository.findByNumber(number);
-    }
-
    @Override
     public Card findByNumberAndClientEmail(String number, String email) {
         return cardRepository.findByNumberAndClientEmail(number, email);

@@ -15,7 +15,5 @@ public interface TransactionService {
 
     List<Transaction> findByAccountIdAndDateTimeBetween(Long id,LocalDateTime dateTime, LocalDateTime endDate);
 
-    List<Transaction> getTransactionsByAccount(Account account, LocalDateTime startDate, LocalDateTime endDate, Authentication authentication);
-
     void saveTransaction(Transaction transaction);
 }

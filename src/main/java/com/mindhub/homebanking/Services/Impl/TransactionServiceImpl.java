@@ -100,20 +100,6 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactionsByAccount(Account account, LocalDateTime startDate, LocalDateTime endDate, Authentication authentication) {
-        ResponseEntity<String> verifiedAccount = accountService.findByClientEmailAndId(authentication.getName(), account.getId());
-
-        if (verifiedAccount.getStatusCode().equals(HttpStatus.OK)) {
-            if (startDate != null && endDate != null) {
-                return findByAccountIdAndDateTimeBetween(account.getId(), startDate, endDate);
-            }
-        } else {
-            throw new RuntimeException("Authentication failed: "+ verifiedAccount.getBody());
-        }
-        return (List<Transaction>) verifiedAccount;
-    }
-
-    @Override
     public void saveTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
     }

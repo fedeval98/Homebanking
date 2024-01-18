@@ -21,13 +21,9 @@ public interface AccountService {
 
     void saveAccount(Account account);
 
-    Account findByClient(Client client);
-
     Account findByNumber (String number);
 
     Account findByClientAndId(Client client, Long id);
-
-    boolean existsByClientAndNumber(Client client, String accountNumber);
 
     ResponseEntity<String> findByClientEmailAndId(String email, Long id);
 

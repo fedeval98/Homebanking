@@ -69,7 +69,7 @@ public class ClientController {
         }
 
         Client client = new Client(newClient.getFirstName(),newClient.getLastName(),newClient.getEmail(),passwordEncoder.encode(newClient.getPassword()));
-        
+
         ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(newClient.getType(), client);
 
         if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {

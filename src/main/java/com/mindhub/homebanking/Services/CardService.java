@@ -16,7 +16,5 @@ public interface CardService {
 
     ResponseEntity<?> hideCard(Status status, String number, Authentication authentication);
 
-    Card findByNumber(String number);
-
     Card findByNumberAndClientEmail(String number, String email);
 }
