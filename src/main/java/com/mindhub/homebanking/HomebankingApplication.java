@@ -23,7 +23,7 @@ public class HomebankingApplication {
 	@Autowired
 	public PasswordEncoder passwordEncoder;
 
-	@Bean // notacion para ejecutarlo apenas inicia la app
+/*	@Bean // notacion para ejecutarlo apenas inicia la app
 		public CommandLineRunner initData(ClientRepository clientRepository,
 										  AccountRepository accountRepository,
 										  TransactionRepository transactionRepository,
@@ -196,5 +196,5 @@ public class HomebankingApplication {
 				clientRepository.save((admin));
 
 			}; //cierre args
-		} // cierre initData
+		} // cierre initData*/
 } // cierre de HomebankingApplication
