@@ -10,7 +10,6 @@ public class newLoan {
 
     private double maxAmount,interest_rate;
 
-    @ElementCollection
     private List<Integer> payments;
 
     public String getName() {

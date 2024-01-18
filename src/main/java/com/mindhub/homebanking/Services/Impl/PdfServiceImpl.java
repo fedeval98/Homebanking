@@ -19,22 +19,22 @@ import java.util.List;
 @Service
 public class PdfServiceImpl implements PDFService {
     public ByteArrayInputStream generatePdf(List<Transaction> transactions, AccountDTO account) throws IOException {
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        document.addPage(page);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); // formateo la fecha a algo legible
 
-        PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 14);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(100, 750);
-        contentStream.setLeading(14.5f);
+        PDDocument document = new PDDocument(); // creo el documento
+        PDPage page = new PDPage(); // creo la pagina
+        document.addPage(page); //añado la pagina al documento
+
+        PDPageContentStream contentStream = new PDPageContentStream(document, page); // creo el escritor del pdf
+        contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 14); //seteo fuente
+        contentStream.beginText(); // inicio el pdf
+        contentStream.newLineAtOffset(100, 750); //digo en que posicion de la hoja va estar el texto
+        contentStream.setLeading(14.5f); // le doy un interlineado al texto
 
         contentStream.showText("Account Information: " + account.getNumber());
         contentStream.newLine();
         contentStream.showText("------------------------------");
         contentStream.newLine();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
         for (Transaction transaction : transactions) {
             contentStream.showText("Date: " + transaction.getDateTime().format(formatter));
@@ -53,13 +53,15 @@ public class PdfServiceImpl implements PDFService {
             contentStream.newLine();
         }
 
-        contentStream.endText();
-        contentStream.close();
+        contentStream.endText(); // cierro el texto
+        contentStream.close(); // cierro el editor
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        document.save(byteArrayOutputStream);
-        document.close();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //creo un flujo de salida de un array de bytes
+        document.save(byteArrayOutputStream); // guardo el ByteArray en el documento
+        document.close(); // cierro el documento
 
         return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
     }
 }
+// Un ByteArray es un tipo de dato en el cual se guardan bytes en formato array byte[]. ByteArrayInputStream o ByteArrayOutputStream
+// se utilizan para leer o escribir datos en formato byte[] en lugar de archivos fisicos.
