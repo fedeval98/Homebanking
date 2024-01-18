@@ -133,6 +133,14 @@ public class AccountController {
             return ResponseEntity.badRequest().body((new InputStreamResource(new ByteArrayInputStream("You are not the Owner of this account".getBytes()))));
         }
 
+        if(dateTime == null || endDate == null) {
+            return ResponseEntity.badRequest().body((new InputStreamResource(new ByteArrayInputStream("You need to select proper dates".getBytes()))));
+        }
+
+        if(dateTime.isAfter(endDate)){
+            return ResponseEntity.badRequest().body((new InputStreamResource(new ByteArrayInputStream("'From date' needs to be before 'To date'".getBytes()))));
+        }
+
         AccountDTO account = accountService.getAccountById(id);
         List<Transaction> transactions = transactionService.findByAccountIdAndDateTimeBetween(id,dateTime,endDate);
 
@@ -141,7 +149,7 @@ public class AccountController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition","inline; filename=transactions.pdf");
 
-        return  ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
+        return  ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf,"Account Transactions"));
     }
 }
 

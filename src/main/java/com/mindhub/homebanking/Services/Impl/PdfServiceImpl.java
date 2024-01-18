@@ -51,8 +51,6 @@ public class PdfServiceImpl implements PDFService {
             contentStream.newLine();
             contentStream.showText("------------------------------");
             contentStream.newLine();
-
-
         }
 
         contentStream.endText();

@@ -42,7 +42,7 @@
         <ul class="flex justify-around items-center w-11/12 py-1">
           <li class="w-1/5 ">
             <a class="w-full flex flex-col justify-center items-center text-darkblue font-bold scale-105"
-              href="./accounts.html"><img class="w-10" src="./assets/img/user_active.webp"
+              href="#"><img class="w-10" src="./assets/img/user_active.webp"
                 alt="active_account" />ACCOUNTS</a>
           </li>
           <li class="w-1/5">
@@ -73,7 +73,7 @@
               @click="abrirAccountForm()">NEW
               ACCOUNT</button>
           </div>
-          <div v-if="accounts.length > 0" class="mt-2">
+          <div v-if="accounts.length > 1" class="mt-2">
             <button type="reset" class="bg-red-500 py-2 px-4 rounded-full font-bold text-xl"
               @click="abrirdelform()">DELETE ACCOUNT</button>
           </div>
@@ -198,7 +198,7 @@
         </li>
         <li class="w-1/5">
           <a class="w-full flex flex-col justify-center items-center text-xs font-bold text-gloomypurple"
-            href="./accounts.html"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
+            href="#"><img class="w-16 rounded-full" src="./assets/img/profile.webp" alt="bank_logo" /></a>
         </li>
         <li class="w-1/5" @click="abrirAlert()">
           <a class="w-full flex flex-col justify-center items-center text-xs" href="./loan-application.html"><img
@@ -230,6 +230,9 @@
         <picture>
           <img class="w-10 instagram" src="./assets/img/Instragram_icon.webp" alt="instagram_logo" @click="socialmedia">
         </picture>
+        <div>
+          <h2 class="text-bold text-logopurple"><a href="https://shadow-parka-4f4.notion.site/35c9305029054d14add7a4c17b4959e5?v=a06d115ec3c9456ab0f0d897800e0679" target="_blank">Future implements</a></h2>
+        </div>
       </div>
     </div>
   </footer>
@@ -261,11 +264,12 @@
             class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
         </button>
         <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
-          <form @submit.prevent="newAccount()">
-            <h2>Create new Account:</h2>
-            <select v-model="accountType">
-              <option value="SAVINGS">Saving Account</option>
-              <option value="CHECKING">Cheking Account</option>
+          <form class="flex flex-col gap-6" @submit.prevent="newAccount()">
+            <h2 class="font-bold text-xl">Create new Account</h2>
+            <label>Select Account type:</label>
+            <select class="px-2 py-4 border border-gray-400 rounded-full text-center" v-model="accountType" required>
+              <option class="text-center" value="SAVINGS">Saving Account</option>
+              <option class="text-center" value="CHECKING">Cheking Account</option>
             </select>
             <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl">CREATE NEW ACCOUNT</button>
           </form>
@@ -282,15 +286,25 @@
             class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20 rounded-full bg-black p-2" alt="">
         </button>
         <div class="flex flex-col h-full text-center justify-center items-center absolute top-0 inset-0">
-          <form @submit.prevent="deleteAccount()">
-            <h2>Delete Account:</h2>
-            <select v-model="accountNumber">
+          <form class="flex flex-col gap-2 w-2/3" @submit.prevent="deleteAccount()">
+            <h2 class="font-bold text-xl">Delete Account:</h2>
+            <small>
+              Please be advised that our platform follows a policy of not permanently deleting sensitive information
+              such as account and card details.
+            </small>
+            <small>
+              Instead, we securely hide and block access to this information to
+              prevent further use while maintaining data integrity and security. Your understanding and cooperation in
+              this matter are appreciated.
+            </small>
+            <select class="px-2 py-4 border border-gray-400 rounded-full text-center" v-model="accountNumber" required>
               <option disabled selected value="-1">Select Account to delete</option>
               <template v-for="account in accounts">
                 <option :value="account.id">{{account.number}} | ${{account.balance}}</option>
               </template>
             </select>
             <button class="bg-red-500 py-2 px-4 rounded-full font-bold text-xl">DELETE ACCOUNT</button>
+            
           </form>
         </div>
       </div>
