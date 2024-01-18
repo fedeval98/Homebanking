@@ -69,14 +69,15 @@ public class ClientController {
         }
 
         Client client = new Client(newClient.getFirstName(),newClient.getLastName(),newClient.getEmail(),passwordEncoder.encode(newClient.getPassword()));
-        clientService.saveClient(client);
-
+        
         ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(newClient.getType(), client);
 
         if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {
             // Maneja el caso en que la creación de la cuenta falla
             return new ResponseEntity<>("Failed to create client account", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        clientService.saveClient(client);
 
         return new ResponseEntity<>("Client and account created", HttpStatus.CREATED);
     }
