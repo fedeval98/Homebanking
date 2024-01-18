@@ -60,11 +60,11 @@
     <main
       class="flex flex-col max-w-full w-full grow justify-center items-center bg-[url('./assets/img/backgrounds/background-3.webp')] bg-cover bg-norepeat">
       <h3 class="font-bold text-2xl my-2">Your Cards:</h3>
-      <div v-if="cards.length < 6" class="mt-2 flex flex-col md:flex-row gap-4 items-center justify-center">
-        <button class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="createCards()"> ADD NEW
+      <div class="mt-2 flex flex-col md:flex-row gap-4 items-center justify-center">
+        <button v-if="cards.length < 6" class="bg-green-400 py-2 px-4 rounded-full font-bold text-xl" @click="createCards()"> ADD NEW
           CARD</button>
-        <p class="text-black font-bold">or</p>
-        <button class="bg-red-500 py-2 px-4 rounded-full font-bold text-xl" @click="abrirDelCard()">DELETE A
+        <p v-if="cards.length < 6" class="text-black font-bold">or</p>
+        <button v-if="cards.length != 0" class="bg-red-500 py-2 px-4 rounded-full font-bold text-xl" @click="abrirDelCard()">DELETE A
           CARD</button>
       </div>
       <div class="flex flex-wrap justify-center items-center w-11/12 gap-2">
@@ -147,9 +147,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
               <!-- TITANIUM DEBIT -->
@@ -225,9 +224,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
               <!-- SILVER DEBIT -->
@@ -303,9 +301,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
             </template>
@@ -390,9 +387,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
               <!-- TITANIUM CREDIT -->
@@ -468,9 +464,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
               <!-- SILVER CREDIT -->
@@ -546,9 +541,8 @@
                 </div>
                 <div class="flex flex-col justify-center items-center px-4 rounded-2xl my-2"
                   :class="card.expire == false ? 'bg-green-400':'bg-red-500'">
-                  <p class="font-bold text-lg">EXPIRE:</p>
                   <p v-if="card.expire" class="font-bold text-lg">YOUR CARD IS ALREADY EXPIRED, PLEASE UPDATE</p>
-                  <p v-else class="font-bold text-lg">YOUR CARD IS NOT EXPIRE</p>
+                  <p v-else class="font-bold text-lg">CARD NOT EXPIRE</p>
                 </div>
               </div>
             </template>

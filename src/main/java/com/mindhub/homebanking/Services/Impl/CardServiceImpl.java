@@ -42,16 +42,16 @@ public class CardServiceImpl implements CardService {
               long colorTypeCount = client.getCards().stream()
                       .filter(card -> card.getTruDate().isAfter(card.getFromDate()))
                       .filter(card -> card.getStatus().equals(Status.ACTIVE))
-                      .filter(card -> card.getColor() == color && card.getType() == type)
+                      .filter(card -> card.getColor().equals(color) && card.getType().equals(type))
                       .count();
 
         //  Verifico si ya se tiene un tipo del card seleccionado y si ya existen 3, devuelvo un error.
-          if (colorTypeCount >= 3) {
+          if (colorTypeCount == 1) {
               return new ResponseEntity<>("You already have this color and this type of card " + type, HttpStatus.FORBIDDEN);
           }
 
         //    Verifico si ya se tiene un maximo de 6 cards y si se cumple, devuelvo un error.
-          if (client.getCards().size() >= 6) {
+          if (client.getCards().stream().filter(card -> card.getTruDate().isAfter(card.getFromDate())).collect(Collectors.toList()).size() >= 6) {
               return new ResponseEntity<>("You have reached the maximum limit of 6 cards", HttpStatus.FORBIDDEN);
   }
         // generador automatico, random, de CVV
