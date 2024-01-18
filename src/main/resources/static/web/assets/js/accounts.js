@@ -88,6 +88,7 @@ const options = {
     axios.post(CREATEACCOUNT+this.accountType)
     .then(response => {
       if(response.status.toString().startsWith('2')){
+        this.cerrarAccountForm()
         this.abrirAccountCreated()
         this.loadData()
       }
@@ -99,6 +100,7 @@ const options = {
       axios.patch(REMOVEACCOUNT+this.accountNumber)
       .then(response => {
         if(response.status.toString().startsWith('2')){
+          this.cerrardelform()
           this.abrirAccountDelete()
           this.loadData()
         }

@@ -82,7 +82,7 @@
           <template v-if="client.length != 0" v-for="account in accounts">
             <a :href='"../web/account.html?id="+ account.id' class="flex flex-col justify-center items-center">
               <div
-                class="flex flex-col justify-center items-center bg-gloomypurple rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105">
+                class="flex flex-col justify-center items-center md:bg-gloomypurple/50 rounded-lg text-white font-bold px-2 gap-2 lg:gap-4 py-2 lg:hover:shadow-xl lg:hover:scale-105">
                 <h3>Account Number: {{account.number}}</h3>
                 <h4>Account type: {{account.type}}</h4>
                 <div class="flex flex-col w-full px-2">

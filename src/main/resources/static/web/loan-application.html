@@ -79,7 +79,7 @@
                     <select required class="text-center rounded-lg" v-model="selectedLoan" @change="searchPayments()">
                       <option disabled value="0">Select Loan</option>
                       <template v-if="loans.length != 0" v-for="loan of loans">
-                        <option :value="loan.id">{{loan.name}} | Interest rate:{{loan.interest_rate}}%</option>
+                        <option :value="loan.id">{{loan.name}} | Interest rate: {{loan.interest_rate}}%</option>
                       </template>
                     </select>
                   </label>
