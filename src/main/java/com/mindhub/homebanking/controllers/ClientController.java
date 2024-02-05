@@ -3,20 +3,15 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.newClient;
-import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import org.springframework.security.core.Authentication;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController // Controlador del tipo REST (recibe metodos HTTP (GET, POST, PUT, PATCH, DELETE) y devuelve JSON)
 @RequestMapping("/api") // realiza un mapeo de nuestra solicitud (asocia nuestra peticion a un endPoint)

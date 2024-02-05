@@ -1,6 +1,7 @@
 package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.models.enums.*;
 import com.mindhub.homebanking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +24,7 @@ public class HomebankingApplication {
 	@Autowired
 	public PasswordEncoder passwordEncoder;
 
-/*	@Bean // notacion para ejecutarlo apenas inicia la app
+	@Bean // notacion para ejecutarlo apenas inicia la app
 		public CommandLineRunner initData(ClientRepository clientRepository,
 										  AccountRepository accountRepository,
 										  TransactionRepository transactionRepository,
@@ -35,7 +36,7 @@ public class HomebankingApplication {
 				clientRepository.save(melba);
 				System.out.println(melba);
 
-				Account VIN001 = new Account("VIN001", 5000, LocalDate.now(),AccountType.CHECKING);
+				Account VIN001 = new Account("VIN001", 5000, LocalDate.now(), AccountType.CHECKING);
 				Account VIN002 = new Account("VIN002", 7500, LocalDate.now().plusDays(1),AccountType.SAVINGS);
 
 				Transaction TIN001 = new Transaction(VIN001, LocalDateTime.now(),-2000, TransactionType.DEBIT,"Transfer to Jorge");
@@ -179,7 +180,7 @@ public class HomebankingApplication {
 				clientLoanRepository.save(fedePersonal);
 				clientLoanRepository.save(fedeAutomotive);
 
-				Card MelbaGold = new Card("Melba Morel",CardType.DEBIT,CardColor.GOLD,"4323-2342-1232-6958",345,LocalDate.now(),LocalDate.now().minusYears(6));
+				Card MelbaGold = new Card("Melba Morel", CardType.DEBIT, CardColor.GOLD,"4323-2342-1232-6958",345,LocalDate.now(),LocalDate.now().minusYears(6));
 				Card MelbaTitanium = new Card("Melba Morel",CardType.CREDIT,CardColor.TITANIUM,"4323-2342-1232-2587",157,LocalDate.now(),LocalDate.now().plusYears(5));
 				Card FedeSilver = new Card("Fede Val",CardType.CREDIT,CardColor.SILVER,"2587-4572-3541-5575",321,LocalDate.now(),LocalDate.now().plusYears(5));
 
@@ -196,5 +197,5 @@ public class HomebankingApplication {
 				clientRepository.save((admin));
 
 			}; //cierre args
-		} // cierre initData*/
+		} // cierre initData
 } // cierre de HomebankingApplication

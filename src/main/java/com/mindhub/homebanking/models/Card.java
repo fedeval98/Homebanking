@@ -1,5 +1,8 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
+import com.mindhub.homebanking.models.enums.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -58,6 +61,10 @@ public class Card {
 
     public Card(CardColor color){
         this.color = color;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public Card(CardType type){

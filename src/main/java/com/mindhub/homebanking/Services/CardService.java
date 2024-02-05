@@ -1,8 +1,11 @@
 package com.mindhub.homebanking.Services;
 
 import com.mindhub.homebanking.dto.CardDTO;
+import com.mindhub.homebanking.dto.CardPaymentDTO;
 import com.mindhub.homebanking.models.*;
-import org.springframework.data.repository.query.Param;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
+import com.mindhub.homebanking.models.enums.Status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
@@ -17,4 +20,6 @@ public interface CardService {
     ResponseEntity<?> hideCard(Status status, String number, Authentication authentication);
 
     Card findByNumberAndClientEmail(String number, String email);
+
+    ResponseEntity<String> cardPayment(CardPaymentDTO cardPaymentDTO);
 }

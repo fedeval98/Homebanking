@@ -5,7 +5,7 @@ import com.mindhub.homebanking.Services.TransactionService;
 import com.mindhub.homebanking.dto.NewTransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.mindhub.homebanking.models.enums.TransactionType;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +27,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Transactional
-    public ResponseEntity<String> transferMoney(
-           NewTransactionDTO newTransactionDTO,
-            Authentication authentication){
+    public ResponseEntity<String> transferMoney(NewTransactionDTO newTransactionDTO,
+                                                Authentication authentication){
 
             if(newTransactionDTO.getDescriptions().isBlank()){
         return new ResponseEntity<>("Description cannot be blank", HttpStatus.FORBIDDEN);

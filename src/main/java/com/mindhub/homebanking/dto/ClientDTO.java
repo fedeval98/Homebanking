@@ -2,7 +2,7 @@ package com.mindhub.homebanking.dto;
 
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Status;
+import com.mindhub.homebanking.models.enums.Status;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +21,6 @@ public class ClientDTO {
 
     private List<CardDTO> cards;
 
-    private List<String> loanNames;
-
     public ClientDTO(Client client) {
         id = client.getId();
         firstName = client.getFirstName();
@@ -36,7 +34,6 @@ public class ClientDTO {
                 .collect(Collectors.toList()); //recopilo todos los objetos DTO y los transforma a una lista.
         loans = client.getClientLoans().stream().map(ClientLoanDTO::new).collect(Collectors.toList());
         cards = client.getCards().stream().filter(card -> card.getStatus().equals(Status.ACTIVE)).map(CardDTO::new).collect(Collectors.toList());
-        loanNames = client.getClientLoans().stream().map(clientLoan -> clientLoan.getLoan().getName()).collect(Collectors.toList());
     }
 
     public Long getId() {

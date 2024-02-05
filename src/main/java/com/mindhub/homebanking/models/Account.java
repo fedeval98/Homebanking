@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.enums.AccountType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/web/*","/api/clients/current","/api/loans","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
                 .requestMatchers("/web/admin/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients","/api/cards/payments").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/remove","/api/clients/current/account/remove").hasAuthority("CLIENT")
                 .anyRequest().denyAll());

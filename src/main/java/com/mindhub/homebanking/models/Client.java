@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.enums.RoleType;
 import jakarta.persistence.*;
 
 import java.util.HashSet;

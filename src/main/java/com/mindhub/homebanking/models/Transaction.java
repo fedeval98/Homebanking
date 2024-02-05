@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.enums.TransactionType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -81,19 +82,19 @@ public class Transaction {
         this.description = description;
     }
 
-    public Double getPreviousBalance() {
+    public double getPreviousBalance() {
         return previousBalance;
     }
 
-    public void setPreviousBalance(Double previousBalance) {
+    public void setPreviousBalance(double previousBalance) {
         this.previousBalance = previousBalance;
     }
 
-    public Double getCurrentBalance() {
+    public double getCurrentBalance() {
         return currentBalance;
     }
 
-    public void setCurrentBalance(Double currentBalance) {
+    public void setCurrentBalance(double currentBalance) {
         this.currentBalance = currentBalance;
     }
 } // finaliza Transaction

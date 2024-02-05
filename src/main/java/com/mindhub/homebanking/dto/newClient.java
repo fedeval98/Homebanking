@@ -1,6 +1,6 @@
 package com.mindhub.homebanking.dto;
 
-import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.enums.AccountType;
 
 public class newClient {
 

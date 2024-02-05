@@ -1,7 +1,7 @@
 package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.enums.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -19,7 +19,6 @@ import static org.hamcrest.Matchers.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
