@@ -1,0 +1,23 @@
+.article_container {
+  width: 90vw;
+  margin-left: 60px;
+}
+
+.section_container {
+  width: 40%;
+  display: inline-block;
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+
+#logo {
+  width: 10%;
+  vertical-align: top;
+  display: inline-block;
+  object-fit: contain;
+}
+#logo>img{
+width: 40%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px){}
