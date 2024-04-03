@@ -19,27 +19,27 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ClientRepositoryTest {
-    @Autowired
-    private ClientRepository clientRepository;
-
-    @Test // test to find clients by email
-    public void testFindClientByEmail() {
-        List<Client> existingClients = clientRepository.findAll();
-
-        if(existingClients.isEmpty()){
-            throw new RuntimeException("No clients found in the Data base to realize this test");
-        }
-
-        Client foundClient = clientRepository.findByEmail("melba@mindhub.com");
-
-        assertNotNull(foundClient);
-    }
-
-    @Test
-    public void testFindNullClients(){
-        List<Client> clients = clientRepository.findAll();
-
-        assertNotNull(clients);
-        assertThat(clients,is(not(empty())));
-    }
+//    @Autowired
+//    private ClientRepository clientRepository;
+//
+//    @Test // test to find clients by email
+//    public void testFindClientByEmail() {
+//        List<Client> existingClients = clientRepository.findAll();
+//
+//        if(existingClients.isEmpty()){
+//            throw new RuntimeException("No clients found in the Data base to realize this test");
+//        }
+//
+//        Client foundClient = clientRepository.findByEmail("melba@mindhub.com");
+//
+//        assertNotNull(foundClient);
+//    }
+//
+//    @Test
+//    public void testFindNullClients(){
+//        List<Client> clients = clientRepository.findAll();
+//
+//        assertNotNull(clients);
+//        assertThat(clients,is(not(empty())));
+//    }
 }

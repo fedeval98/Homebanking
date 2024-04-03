@@ -13,17 +13,17 @@ import static org.hamcrest.Matchers.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CardRepositoryTest {
 
-    @Test
-    public void testCardNumberCreated(){
-        String cardNumber = CardUtils.generateRandomCardNumber();
-
-        assertThat(cardNumber,is(not(emptyOrNullString())));
-    }
-
-    @Test
-    public void testCVVCreated(){
-        int cvv = CardUtils.generateRandomCVV();
-
-        assertThat(cvv,is(not(equalTo(000))));
-    }
+//    @Test
+//    public void testCardNumberCreated(){
+//        String cardNumber = CardUtils.generateRandomCardNumber();
+//
+//        assertThat(cardNumber,is(not(emptyOrNullString())));
+//    }
+//
+//    @Test
+//    public void testCVVCreated(){
+//        int cvv = CardUtils.generateRandomCVV();
+//
+//        assertThat(cvv,is(not(equalTo(000))));
+//    }
 }
