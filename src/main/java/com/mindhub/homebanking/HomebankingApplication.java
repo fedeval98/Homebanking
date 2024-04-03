@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @SpringBootApplication
-// @PropertySource("classpath:.env")
+@PropertySource("classpath:.env")
 public class HomebankingApplication {
 
 	public static void main(String[] args) {
