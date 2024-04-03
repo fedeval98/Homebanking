@@ -3,7 +3,7 @@ FROM gradle:8.5-jdk17-alpine
 
 COPY . .
 
-EXPOSE 8081
+EXPOSE 8080
 
 RUN gradle build
 
