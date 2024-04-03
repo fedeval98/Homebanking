@@ -23,7 +23,7 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
-	@Autowired
+/*	@Autowired
 	public PasswordEncoder passwordEncoder;
 
 	@Bean // notacion para ejecutarlo apenas inicia la app
@@ -198,6 +198,6 @@ public class HomebankingApplication {
 				admin.setRole(RoleType.ADMIN);
 				clientRepository.save((admin));
 
-			}; //cierre args
+			}; //cierre args */
 		} // cierre initData
 } // cierre de HomebankingApplication
