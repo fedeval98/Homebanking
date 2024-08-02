@@ -22,8 +22,8 @@ public class HomebankingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
-
-/*	@Autowired
+/*
+	@Autowired
 	public PasswordEncoder passwordEncoder;
 
 	@Bean // notacion para ejecutarlo apenas inicia la app

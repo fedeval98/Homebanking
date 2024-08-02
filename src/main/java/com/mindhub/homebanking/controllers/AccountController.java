@@ -25,16 +25,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-@RestController // notacion para escuchar y responde peticiones bajo los lineamietos REST.
-// Que es escuchar peticiones HTTP usando metodos HTTP (GET, PUT, PATCH, POST, ETC)
-// y responder en formato JSON/XML
-@RequestMapping("/api") // ruta a escuchar / responder
+@RestController
+@RequestMapping("/api")
 public class AccountController {
 
     // Inyeccion de dependencia
 
-    @Autowired //Se encarga de realizar la inyeccion por construccion pero de forma automatica
-    // hace algo SIMILAR a instanciar la clase del objeto que ejecuta
+    @Autowired
+
     private AccountService accountService;
     @Autowired
     private ClientService clientService;

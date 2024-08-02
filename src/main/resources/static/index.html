@@ -234,6 +234,11 @@
               <input @input="updatePassword" type="password" :value="password" name="password" required
                 placeholder="PASSWORD" class="mx-2 p-4 border rounded-full w-full id_password">
             </div>
+            <select class="p-4 border rounded-full w-full text-center" v-model="accountType" required>
+              <option value="-1" disabled selected>Select Account type</option>
+              <option class="text-center" value="CHECKING">Checking Account</option>
+              <option class="text-center" value="SAVINGS">Saving Account</option>
+            </select>
             <button type="submit" class="border border-b-4 border-r-4 border-lightBlack bg-exodusFruit p-4 rounded-full m-2 font-bold text-lg text-white">SIGN
               UP</button>
           </form>
