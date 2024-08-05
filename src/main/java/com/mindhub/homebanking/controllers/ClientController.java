@@ -4,6 +4,8 @@ import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.newClient;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.enums.AccountType;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +47,10 @@ public class ClientController {
     private AccountController accountController;
 
     @PostMapping("/clients")
+    @Transactional
     public ResponseEntity<String> createClient(@RequestBody newClient newClient){
+        String accountType = String.valueOf(newClient.getType());
+
         if(newClient.getFirstName().isBlank()){
             return new ResponseEntity<>("Name can't be blank", HttpStatus.FORBIDDEN);
         }
@@ -59,11 +64,21 @@ public class ClientController {
             return new ResponseEntity<>("Password can't be blank", HttpStatus.FORBIDDEN);
         }
 
+        if(accountType == null || accountType.trim().isEmpty()){
+            return new ResponseEntity<>("Account type can't be blank",HttpStatus.FORBIDDEN);
+        }
+
+        if(!newClient.getType().equals(AccountType.CHECKING) && !newClient.getType().equals(AccountType.SAVINGS)){
+            return new ResponseEntity<>("Account type must be CHECKING or SAVINGS",HttpStatus.FORBIDDEN);
+        }
+
         if(clientService.existsByEmail(newClient.getEmail())){
             return new ResponseEntity<>("Email already on use", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(newClient.getFirstName(),newClient.getLastName(),newClient.getEmail(),passwordEncoder.encode(newClient.getPassword()));
+
+        clientService.saveClient(client);
 
         ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(newClient.getType(), client);
 
@@ -72,7 +87,7 @@ public class ClientController {
             return new ResponseEntity<>("Failed to create client account", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        clientService.saveClient(client);
+
 
         return new ResponseEntity<>("Client and account created", HttpStatus.CREATED);
     }
