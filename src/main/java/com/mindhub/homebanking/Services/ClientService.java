@@ -2,6 +2,7 @@ package com.mindhub.homebanking.Services;
 
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

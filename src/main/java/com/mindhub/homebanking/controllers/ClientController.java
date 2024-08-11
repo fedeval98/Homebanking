@@ -1,8 +1,10 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.Services.PasswordTokenService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.newClient;
+import com.mindhub.homebanking.dto.newPassword;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.enums.AccountType;
 import jakarta.transaction.Transactional;
@@ -25,6 +27,15 @@ public class ClientController {
                // hace algo SIMILAR a instanciar la clase del objeto que ejecuta
     private ClientService clientService;
 
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AccountController accountController;
+
+    @Autowired
+    private PasswordTokenService passwordTokenService;
+
     @RequestMapping("/clients")
     public List<ClientDTO> getAllClient(){
         return clientService.getAllClientsDTO();
@@ -39,12 +50,6 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @Autowired
-    public PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AccountController accountController;
 
     @PostMapping("/clients")
     @Transactional
@@ -97,7 +102,17 @@ public class ClientController {
         ClientDTO clientDTO = clientService.getAuthClientDTO(authentication.getName());
         return new ResponseEntity<>(clientDTO, HttpStatus.OK);
     }
-    // PathVariable es una notacion que nos permite variar la ruta para asi matchearla con el ID del cliente que llegue.
+
+    @PostMapping("/clients/emailSend")
+    public ResponseEntity<String> emailSend (@RequestParam String email){
+        ResponseEntity<String> response = passwordTokenService.emailSend(email);
+        return response;
+    }
+
+    @PostMapping("/clients/passwordRecovery")
+    public ResponseEntity<String> passwordRecovery (@RequestBody newPassword newPassword){
+        return passwordTokenService.passwordRecovery(newPassword);
+    }
 } // ClientController ends
 
 
@@ -107,3 +122,4 @@ public class ClientController {
 //        //Se llama a la interfaz ClientRepository y se le da el parametro de clientRepository,
 //        // luego se vuelve a llamar al clientRepository y se le asigna el parametro clientRepository
 //    }
+// PathVariable es una notacion que nos permite variar la ruta para asi matchearla con el ID del cliente que llegue.

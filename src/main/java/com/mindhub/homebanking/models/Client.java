@@ -27,6 +27,9 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
 
+    @OneToOne (mappedBy = "client", fetch = FetchType.EAGER)
+    private PasswordToken token;
+
     public Client() {
 
     }
@@ -51,6 +54,11 @@ public class Client {
     public void addCard (Card card){
         card.setOwner(this);
         this.cards.add(card);
+    }
+
+    public void addToken (PasswordToken token){
+        token.setClient(this);
+        this.token = token;
     }
 
     public String getFirstName() {
@@ -107,6 +115,10 @@ public class Client {
 
     public void setRole(RoleType role) {
         this.role = role;
+    }
+
+    public PasswordToken getToken() {
+        return token;
     }
 
     @Override

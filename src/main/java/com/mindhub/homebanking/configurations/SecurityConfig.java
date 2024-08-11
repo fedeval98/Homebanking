@@ -26,8 +26,9 @@ public class SecurityConfig {
                 .requestMatchers("/web/assets/**","index.html","/web/assets/img/backgrounds/BACKGROUND-3.webp").permitAll()
                 .requestMatchers("/web/*","/api/clients/current","/api/loans","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
                 .requestMatchers("/web/admin/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/clients", "/api/clients/{id}").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/clients","/api/cards/payments").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients","/api/cards/payments","/api/clients/emailSend","/api/clients/passwordRecovery*").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/remove","/api/clients/current/account/remove").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
