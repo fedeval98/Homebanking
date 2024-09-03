@@ -5,8 +5,7 @@ import java.security.SecureRandom;
 public class TokenGenerator {
     private static final String CHARACTERS =    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
                                                 "abcdefghijklmnopqrstuvwxyz"+
-                                                "0123456789"+
-                                                "@$%&";
+                                                "0123456789";
 
     private static final int SEGMENT_LENGTH = 4;
     private static final int TOTAL_LENGTH = 3;

@@ -23,12 +23,12 @@ public class SecurityConfig {
 // las bloquea a todas las peticiones que no es habilitadas arriba de eso.
 // basicamente manejan las peticiones HTTP del proyecto permitiendo o no segun rol de usuario.
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/web/assets/**","index.html","/web/assets/img/backgrounds/BACKGROUND-3.webp").permitAll()
+                .requestMatchers("/web/assets/**","index.html","/web/assets/img/backgrounds/BACKGROUND-3.webp","/api/clients/passwordRecovery","passwordRecovery.html").permitAll()
                 .requestMatchers("/web/*","/api/clients/current","/api/loans","/api/accounts/{id}/transactions/pdf").hasAuthority("CLIENT")
                 .requestMatchers("/web/admin/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/clients", "/api/clients/{id}").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/clients","/api/cards/payments","/api/clients/emailSend","/api/clients/passwordRecovery*").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients","/api/cards/payments","/api/clients/emailSend").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards","/api/clients/current/accounts/first","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/remove","/api/clients/current/account/remove").hasAuthority("CLIENT")
                 .anyRequest().denyAll());

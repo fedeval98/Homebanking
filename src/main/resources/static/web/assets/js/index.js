@@ -14,6 +14,8 @@ const options = {
       registeredUser:false,
       isWideScreen:false,
       accountType:"-1",
+      forgetPassword:false,
+      mailSent:false,
     } // finaliza return
   }, // finaliza data
   created() {
@@ -60,6 +62,15 @@ const options = {
           setTimeout(() => {
             this.cerrarModalUserRegistered()
             this.login()},5000)
+        })
+        .catch(error => console.log("Error", error))
+    },
+    passwordRecovery(){
+      axios.post("/api/clients/emailSend?email="+this.email)
+        .then(response => {
+          console.log(response)
+          this.cerrarModalPasswordRecovery()
+          this.abrirModalMailSent()
         })
         .catch(error => console.log("Error", error))
     },
@@ -166,7 +177,31 @@ const options = {
         this.isWideScreen = false
         document.body.classList.remove('overflow-y-hidden')
       }
-      },
+    },
+    abrirModalPasswordRecovery() {
+      this.forgetPassword = true
+      if (this.forgetPassword) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    }, // finaliza Abrir Modal PasswordRecovery
+    cerrarModalPasswordRecovery() {
+      this.forgetPassword = false
+      if (this.forgetPassword == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    }, // finaliza Cerrar Modal PasswordRecovery
+    abrirModalMailSent() {
+      this.mailSent = true
+      if (this.mailSent) {
+        document.body.classList.add('overflow-y-hidden')
+      }
+    }, // finaliza MAILSENT
+    cerrarModalMailSent() {
+      this.mailSent = false
+      if (this.mailSent == false) {
+        document.body.classList.remove('overflow-y-hidden')
+      }
+    },// finaliza cerrarMAILSENT
   }, //fin methods
   mounted(){
     this.checkScreenSize()

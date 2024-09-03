@@ -8,11 +8,13 @@ import com.mindhub.homebanking.dto.newPassword;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.PasswordToken;
 import com.mindhub.homebanking.repositories.PasswordTokenRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,8 @@ public class PasswordTokenSeriveImpl implements PasswordTokenService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private String baseURL = "http://localhost:8080";
+    @Value("${BASE_URL}")
+    private String baseURL;
 
     private static final Logger logger = Logger.getLogger(PasswordTokenSeriveImpl.class.getName());
 
@@ -64,7 +67,7 @@ public class PasswordTokenSeriveImpl implements PasswordTokenService {
 
             String to = email;
             String subject = "Password recovery link";
-            String text = "Your link to recover your password is: "+baseURL+"/api/clients/passwordRecovery?token="+newToken;
+            String text = "Your link to recover your password is: "+baseURL+"/passwordRecovery.html?token="+newToken;
 
             mailService.sendRecoveryMail(to, subject, text);
 
@@ -98,7 +101,9 @@ public class PasswordTokenSeriveImpl implements PasswordTokenService {
         }
 
         if(client.getToken().getExpirationDate().isBefore(LocalDateTime.now())){
-            return new ResponseEntity<>("Token Expired, please generate a new one",HttpStatus.BAD_REQUEST);
+            passwordDelete(client.getToken());
+            emailSend(newPassword.getEmail());
+            return new ResponseEntity<>("Token Expired, a new link was sent to your email",HttpStatus.BAD_REQUEST);
         }
 
         if(!client.getToken().getToken().equals(newPassword.getToken())){
@@ -118,6 +123,13 @@ public class PasswordTokenSeriveImpl implements PasswordTokenService {
 
         return new ResponseEntity<>("Client password updated successfully", HttpStatus.OK);
 
+    }
+
+    @Scheduled (fixedRate = 300000)
+    @Transactional
+    public void removeExpiredTokens(){
+        int deletedCount = passwordTokenRepository.deleteByExpirationDateBefore(LocalDateTime.now());
+        logger.info("Expired tokens removed: " + deletedCount);
     }
 
 }
